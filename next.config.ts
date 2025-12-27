@@ -2,7 +2,6 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   /* config options here */
-  reactCompiler: true,
   webpack: (config, { isServer }) => {
     // Fix for @opentelemetry/exporter-jaeger missing module
     if (!isServer) {
