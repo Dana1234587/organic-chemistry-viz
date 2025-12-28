@@ -40,6 +40,7 @@ const moleculeData: Record<string, {
     formula: string;
     skeletal: string;
     functionalGroups: string[];
+    structure2D?: string; // 2D structural formula showing bonds
 }> = {
     'serotonin': {
         color: '#8b5cf6',
@@ -86,6 +87,13 @@ END`
         formula: 'C₃H₆O',
         skeletal: 'Three carbons with central ketone (C=O)',
         functionalGroups: ['Ketone (C=O)', 'Level 2 oxidation'],
+        structure2D: `
+        O
+        ‖
+   H₃C─C─CH₃
+   
+   (Ketone: C=O)
+`,
         pdb: `COMPND    ACETONE
 ATOM      1  C1  ACE     1      -1.270   0.000   0.000  1.00  0.00           C
 ATOM      2  C2  ACE     1       0.000   0.000   0.000  1.00  0.00           C
@@ -105,6 +113,13 @@ END`
         formula: 'C₂H₄O',
         skeletal: 'Two carbons, one C=O double bond (Aldehyde)',
         functionalGroups: ['Aldehyde (CHO)', 'Carbonyl (C=O)'],
+        structure2D: `
+        O
+        ‖
+   H₃C─C─H
+   
+   (Aldehyde: C=O)
+`,
         pdb: `COMPND    ACETALDEHYDE
 ATOM      1  C1  ALD     1       0.000   0.000   0.000  1.00  0.00           C
 ATOM      2  C2  ALD     1       1.530   0.000   0.000  1.00  0.00           C
@@ -121,6 +136,13 @@ END`
         formula: 'C₂H₄O₂',
         skeletal: 'Two carbons, C=O double bond and -OH (Level 3)',
         functionalGroups: ['Carboxylic Acid (COOH)', 'Carbonyl (C=O)', 'Hydroxyl (-OH)'],
+        structure2D: `
+        O
+        ‖
+   H₃C─C─O─H
+        
+   (C=O double bond)
+`,
         pdb: `COMPND    ACETIC ACID
 ATOM      1  C1  AAC     1      -1.465  -0.088   0.000  1.00  0.00           C
 ATOM      2  C2  AAC     1       0.000   0.141   0.000  1.00  0.00           C
@@ -1048,6 +1070,48 @@ export default function MoleculeViewer({
                     }}
                 />
             </div>
+
+            {/* 2D Structure Formula - Shows bond types clearly */}
+            {molecule?.structure2D && (
+                <div style={{
+                    margin: '12px 16px',
+                    padding: '16px',
+                    background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(20, 20, 30, 0.9) 100%)',
+                    borderRadius: '12px',
+                    border: '1px solid rgba(139, 92, 246, 0.3)',
+                }}>
+                    <div style={{
+                        fontSize: '0.75rem',
+                        color: 'var(--primary-400)',
+                        marginBottom: '8px',
+                        fontWeight: 600,
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '6px',
+                    }}>
+                        📐 2D Structure (showing bond types)
+                    </div>
+                    <pre style={{
+                        fontFamily: 'monospace',
+                        fontSize: '1rem',
+                        color: 'var(--neutral-100)',
+                        margin: 0,
+                        lineHeight: 1.4,
+                        textAlign: 'center',
+                        whiteSpace: 'pre',
+                    }}>
+                        {molecule.structure2D}
+                    </pre>
+                    <div style={{
+                        fontSize: '0.7rem',
+                        color: 'var(--neutral-500)',
+                        marginTop: '8px',
+                        textAlign: 'center',
+                    }}>
+                        ─ = Single Bond &nbsp;│&nbsp; ‖ = Double Bond &nbsp;│&nbsp; ≡ = Triple Bond
+                    </div>
+                </div>
+            )}
 
             {/* Controls */}
             <div className="molecule-controls">
