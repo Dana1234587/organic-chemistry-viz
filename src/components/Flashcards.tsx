@@ -487,10 +487,12 @@ export default function Flashcards({ cards, title = "Flashcards", onComplete }: 
                 /* 3D Card Flip Container - Premium Portrait */
                 .card-wrapper {
                     perspective: 1500px;
-                    margin-bottom: 1.5rem;
+                    margin: 0 auto 1.5rem auto;
                     display: flex;
                     justify-content: center;
+                    align-items: center;
                     touch-action: pan-y;
+                    width: 100%;
                 }
 
                 .card-scene {
@@ -525,35 +527,42 @@ export default function Flashcards({ cards, title = "Flashcards", onComplete }: 
                     overflow: hidden;
                 }
 
-                /* Corner Decorations */
+                /* Premium Corner Decorations with Glow */
                 .card-corner {
                     position: absolute;
-                    width: 30px;
-                    height: 30px;
-                    border-color: rgba(212, 175, 55, 0.6);
+                    width: 35px;
+                    height: 35px;
+                    border-color: rgba(255, 215, 0, 0.7);
                     border-style: solid;
                     z-index: 5;
+                    filter: drop-shadow(0 0 4px rgba(255, 215, 0, 0.5));
+                    transition: all 0.3s ease;
+                }
+
+                .card-scene:hover .card-corner {
+                    border-color: rgba(255, 215, 0, 1);
+                    filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.8));
                 }
 
                 .top-left {
-                    top: 12px;
-                    left: 12px;
+                    top: 14px;
+                    left: 14px;
                     border-width: 3px 0 0 3px;
-                    border-radius: 8px 0 0 0;
+                    border-radius: 10px 0 0 0;
                 }
 
                 .top-right {
-                    top: 12px;
-                    right: 12px;
+                    top: 14px;
+                    right: 14px;
                     border-width: 3px 3px 0 0;
-                    border-radius: 0 8px 0 0;
+                    border-radius: 0 10px 0 0;
                 }
 
                 .bottom-left {
-                    bottom: 12px;
-                    left: 12px;
+                    bottom: 14px;
+                    left: 14px;
                     border-width: 0 0 3px 3px;
-                    border-radius: 0 0 0 8px;
+                    border-radius: 0 0 0 10px;
                 }
 
                 .bottom-right {
@@ -563,42 +572,169 @@ export default function Flashcards({ cards, title = "Flashcards", onComplete }: 
                     border-radius: 0 0 8px 0;
                 }
 
-                /* Front Face - Question */
+                /* Holographic Animated Border */
+                @keyframes borderGlow {
+                    0%, 100% { 
+                        border-color: rgba(139, 92, 246, 0.6);
+                        box-shadow: 
+                            0 0 20px rgba(139, 92, 246, 0.3),
+                            0 0 40px rgba(139, 92, 246, 0.1),
+                            inset 0 0 60px rgba(139, 92, 246, 0.05);
+                    }
+                    25% { 
+                        border-color: rgba(59, 130, 246, 0.6);
+                        box-shadow: 
+                            0 0 20px rgba(59, 130, 246, 0.3),
+                            0 0 40px rgba(59, 130, 246, 0.1),
+                            inset 0 0 60px rgba(59, 130, 246, 0.05);
+                    }
+                    50% { 
+                        border-color: rgba(168, 85, 247, 0.6);
+                        box-shadow: 
+                            0 0 20px rgba(168, 85, 247, 0.3),
+                            0 0 40px rgba(168, 85, 247, 0.1),
+                            inset 0 0 60px rgba(168, 85, 247, 0.05);
+                    }
+                    75% { 
+                        border-color: rgba(236, 72, 153, 0.6);
+                        box-shadow: 
+                            0 0 20px rgba(236, 72, 153, 0.3),
+                            0 0 40px rgba(236, 72, 153, 0.1),
+                            inset 0 0 60px rgba(236, 72, 153, 0.05);
+                    }
+                }
+
+                @keyframes floatParticles {
+                    0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.3; }
+                    50% { transform: translateY(-20px) rotate(180deg); opacity: 0.8; }
+                }
+
+                /* Front Face - Question (Holographic Purple) */
                 .card-front {
                     background: 
-                        radial-gradient(ellipse at top, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
-                        linear-gradient(180deg, #1a1a2e 0%, #16162a 50%, #0f0f1a 100%);
-                    border: 2px solid rgba(139, 92, 246, 0.4);
+                        radial-gradient(circle at 20% 20%, rgba(139, 92, 246, 0.15) 0%, transparent 40%),
+                        radial-gradient(circle at 80% 80%, rgba(59, 130, 246, 0.1) 0%, transparent 40%),
+                        radial-gradient(circle at 50% 50%, rgba(168, 85, 247, 0.05) 0%, transparent 60%),
+                        linear-gradient(135deg, #0c0c1a 0%, #12122a 25%, #0a0a18 50%, #151530 75%, #0c0c1a 100%);
+                    border: 2px solid rgba(139, 92, 246, 0.5);
+                    animation: borderGlow 4s ease-in-out infinite;
+                    overflow: hidden;
+                }
+
+                .card-front::before {
+                    content: '✦ ✧ ✦';
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    font-size: 3rem;
+                    letter-spacing: 20px;
+                    opacity: 0.03;
+                    pointer-events: none;
+                    animation: floatParticles 6s ease-in-out infinite;
                 }
 
                 .card-front::after {
                     content: '';
                     position: absolute;
-                    top: 0;
-                    left: 0;
-                    right: 0;
-                    height: 80px;
-                    background: linear-gradient(180deg, rgba(139, 92, 246, 0.1) 0%, transparent 100%);
+                    top: -50%;
+                    left: -50%;
+                    width: 200%;
+                    height: 200%;
+                    background: conic-gradient(
+                        from 0deg,
+                        transparent 0deg,
+                        rgba(139, 92, 246, 0.03) 60deg,
+                        transparent 120deg,
+                        rgba(59, 130, 246, 0.03) 180deg,
+                        transparent 240deg,
+                        rgba(168, 85, 247, 0.03) 300deg,
+                        transparent 360deg
+                    );
+                    animation: spin 20s linear infinite;
                     pointer-events: none;
                 }
 
-                /* Back Face - Answer */
+                @keyframes spin {
+                    from { transform: rotate(0deg); }
+                    to { transform: rotate(360deg); }
+                }
+
+                @keyframes answerGlow {
+                    0%, 100% { 
+                        border-color: rgba(16, 185, 129, 0.6);
+                        box-shadow: 
+                            0 0 20px rgba(16, 185, 129, 0.3),
+                            0 0 40px rgba(16, 185, 129, 0.1),
+                            inset 0 0 60px rgba(16, 185, 129, 0.05);
+                    }
+                    25% { 
+                        border-color: rgba(6, 182, 212, 0.6);
+                        box-shadow: 
+                            0 0 20px rgba(6, 182, 212, 0.3),
+                            0 0 40px rgba(6, 182, 212, 0.1),
+                            inset 0 0 60px rgba(6, 182, 212, 0.05);
+                    }
+                    50% { 
+                        border-color: rgba(34, 197, 94, 0.6);
+                        box-shadow: 
+                            0 0 20px rgba(34, 197, 94, 0.3),
+                            0 0 40px rgba(34, 197, 94, 0.1),
+                            inset 0 0 60px rgba(34, 197, 94, 0.05);
+                    }
+                    75% { 
+                        border-color: rgba(20, 184, 166, 0.6);
+                        box-shadow: 
+                            0 0 20px rgba(20, 184, 166, 0.3),
+                            0 0 40px rgba(20, 184, 166, 0.1),
+                            inset 0 0 60px rgba(20, 184, 166, 0.05);
+                    }
+                }
+
+                /* Back Face - Answer (Holographic Emerald) */
                 .card-back {
                     background: 
-                        radial-gradient(ellipse at top, rgba(16, 185, 129, 0.15) 0%, transparent 50%),
-                        linear-gradient(180deg, #0f1f1a 0%, #0a1915 50%, #051210 100%);
-                    border: 2px solid rgba(16, 185, 129, 0.4);
+                        radial-gradient(circle at 20% 20%, rgba(16, 185, 129, 0.15) 0%, transparent 40%),
+                        radial-gradient(circle at 80% 80%, rgba(6, 182, 212, 0.1) 0%, transparent 40%),
+                        radial-gradient(circle at 50% 50%, rgba(34, 197, 94, 0.05) 0%, transparent 60%),
+                        linear-gradient(135deg, #051210 0%, #0a1f1a 25%, #051510 50%, #0f2520 75%, #051210 100%);
+                    border: 2px solid rgba(16, 185, 129, 0.5);
                     transform: rotateY(180deg);
+                    animation: answerGlow 4s ease-in-out infinite;
+                    overflow: hidden;
+                }
+
+                .card-back::before {
+                    content: '◆ ◇ ◆';
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    font-size: 3rem;
+                    letter-spacing: 20px;
+                    opacity: 0.03;
+                    pointer-events: none;
+                    animation: floatParticles 6s ease-in-out infinite reverse;
                 }
 
                 .card-back::after {
                     content: '';
                     position: absolute;
-                    top: 0;
-                    left: 0;
-                    right: 0;
-                    height: 80px;
-                    background: linear-gradient(180deg, rgba(16, 185, 129, 0.1) 0%, transparent 100%);
+                    top: -50%;
+                    left: -50%;
+                    width: 200%;
+                    height: 200%;
+                    background: conic-gradient(
+                        from 0deg,
+                        transparent 0deg,
+                        rgba(16, 185, 129, 0.03) 60deg,
+                        transparent 120deg,
+                        rgba(6, 182, 212, 0.03) 180deg,
+                        transparent 240deg,
+                        rgba(34, 197, 94, 0.03) 300deg,
+                        transparent 360deg
+                    );
+                    animation: spin 20s linear infinite reverse;
                     pointer-events: none;
                 }
 
