@@ -17,6 +17,14 @@ import Glossary from '@/components/Glossary';
 import LearningPaths from '@/components/LearningPaths';
 import GameCenter from '@/components/GameCenter';
 import LayoutWrapper from '@/components/LayoutWrapper';
+import {
+    SkeletalFormula,
+    FunctionalGroupDiagram,
+    AminoAcidDiagram,
+    OxidationLevelDiagram,
+    WedgeDashDiagram,
+    AbbreviationsDiagram
+} from '@/components/diagrams';
 
 // Dynamic import for MoleculeViewer (client-side only)
 const MoleculeViewer = dynamic(() => import('@/components/MoleculeViewer'), {
@@ -317,6 +325,54 @@ export default function ChapterPage() {
                         ) : diagram ? (
                             <ConceptDiagram type={diagram.type as 'hybridization' | 'bonding' | 'electronegativity'} title={diagram.title} />
                         ) : null}
+
+                        {/* Inline SVG Diagrams from section data */}
+                        {section.diagrams && section.diagrams.length > 0 && (
+                            <div style={{
+                                display: 'flex',
+                                flexWrap: 'wrap',
+                                gap: '1.5rem',
+                                justifyContent: 'center',
+                                marginBottom: '2rem',
+                                padding: '1rem',
+                                background: 'rgba(139, 92, 246, 0.05)',
+                                borderRadius: '16px',
+                            }}>
+                                {section.diagrams.map((diag, diagIndex) => (
+                                    <div key={diagIndex} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                                        {diag.type === 'skeletal' && (
+                                            <SkeletalFormula {...(diag.props as { molecule: 'methane' | 'ethane' | 'propane' | 'butane' | 'pentane' | 'hexane' | 'cyclohexane' | 'benzene'; showLabels?: boolean; highlightCarbons?: boolean })} />
+                                        )}
+                                        {diag.type === 'functional-group' && (
+                                            <FunctionalGroupDiagram {...(diag.props as { group: 'alcohol' | 'aldehyde' | 'ketone' | 'carboxylic-acid' | 'ester' | 'ether' | 'amine' | 'amide' | 'alkene' | 'alkyne' | 'nitrile' | 'thiol' })} />
+                                        )}
+                                        {diag.type === 'amino-acid' && (
+                                            <AminoAcidDiagram {...(diag.props as { name: string; structure: 'glycine' | 'alanine' | 'phenylalanine' })} />
+                                        )}
+                                        {diag.type === 'oxidation' && (
+                                            <OxidationLevelDiagram {...(diag.props as { showLevel?: 0 | 1 | 2 | 3 | 4 | 'all'; interactive?: boolean })} />
+                                        )}
+                                        {diag.type === 'wedge-dash' && (
+                                            <WedgeDashDiagram {...(diag.props as { molecule?: 'methane' | 'bromochlorofluoromethane'; showLegend?: boolean })} />
+                                        )}
+                                        {diag.type === 'abbreviations' && (
+                                            <AbbreviationsDiagram {...(diag.props as { showAll?: boolean; highlightAbbr?: string })} />
+                                        )}
+                                        {diag.caption && (
+                                            <div style={{
+                                                marginTop: '0.5rem',
+                                                fontSize: '0.85rem',
+                                                color: 'var(--neutral-400)',
+                                                textAlign: 'center',
+                                                fontStyle: 'italic',
+                                            }}>
+                                                {diag.caption}
+                                            </div>
+                                        )}
+                                    </div>
+                                ))}
+                            </div>
+                        )}
 
                         {/* Fun Fact */}
                         {section.funFact && (

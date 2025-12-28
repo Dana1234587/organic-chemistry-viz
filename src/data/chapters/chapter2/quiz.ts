@@ -173,5 +173,91 @@ export const quiz: ChapterQuiz[] = [
         correctIndex: 1,
         explanation: "The steroid skeleton consists of three fused 6-membered rings and one fused 5-membered ring. Cholesterol, testosterone, and estradiol all share this framework.",
         difficulty: "medium"
+    },
+
+    // === AMINO ACIDS ===
+    {
+        id: 21,
+        question: "What functional groups are present in ALL amino acids?",
+        options: ["Alcohol and aldehyde", "Amine and carboxylic acid", "Ketone and ether", "Thiol and amide"],
+        correctIndex: 1,
+        explanation: "All amino acids have an amine group (-NH₂) and a carboxylic acid group (-COOH) attached to the same carbon (α-carbon).",
+        difficulty: "easy"
+    },
+    {
+        id: 22,
+        question: "Which amino acid has NO chiral center (is achiral)?",
+        options: ["Alanine", "Phenylalanine", "Glycine", "Serine"],
+        correctIndex: 2,
+        explanation: "Glycine's R group is just H, making the α-carbon attached to two identical groups (H and H), so it's not a chiral center.",
+        difficulty: "medium"
+    },
+    {
+        id: 23,
+        question: "Phenylalanine differs from alanine in that phenylalanine has:",
+        options: ["An extra oxygen", "A benzyl group instead of methyl", "Two nitrogen atoms", "An alkyne group"],
+        correctIndex: 1,
+        explanation: "Alanine has a methyl (-CH₃) R group. Phenylalanine has a benzyl (-CH₂-C₆H₅) R group, which includes a benzene ring.",
+        difficulty: "medium"
+    },
+
+    // === COMMON MISTAKES ===
+    {
+        id: 24,
+        question: "Which of these skeletal drawings represents an ERROR?",
+        options: ["A zig-zag line for butane", "Writing -O instead of -OH for an alcohol", "Omitting hydrogens on carbons", "Using a corner to represent CH₂"],
+        correctIndex: 1,
+        explanation: "Writing -O without the H is incorrect! Hydrogens on heteroatoms MUST always be shown. -O would represent an impossible radical species.",
+        difficulty: "easy"
+    },
+    {
+        id: 25,
+        question: "If someone draws a carbon chain as a straight line, what structure are they ACTUALLY drawing?",
+        options: ["A normal alkane", "An alkyne (has triple bond)", "An aromatic ring", "An alcohol"],
+        correctIndex: 1,
+        explanation: "Straight lines imply 180° bond angles, which only occur with sp hybridization (triple bonds). Drawing alkanes as straight lines is a common beginner mistake!",
+        difficulty: "medium"
+    },
+
+    // === ADVANCED TOPICS ===
+    {
+        id: 26,
+        question: "What is the oxidation level of the carbon in chloroform (CHCl₃)?",
+        options: ["Level 1", "Level 2", "Level 3", "Level 4"],
+        correctIndex: 2,
+        explanation: "CHCl₃ has 3 C-Cl bonds. Each bond to an electronegative atom counts as 1, so the oxidation level is 3.",
+        difficulty: "hard"
+    },
+    {
+        id: 27,
+        question: "Which molecule would smell 'fruity' based on its functional group?",
+        options: ["A thiol", "An ester", "An amine", "An aldehyde"],
+        correctIndex: 1,
+        explanation: "Esters typically have fruity or sweet smells. Many fruit flavors (banana, pineapple, strawberry) come from ester molecules.",
+        difficulty: "easy"
+    },
+    {
+        id: 28,
+        question: "The abbreviation 'Ac' in organic chemistry represents:",
+        options: ["Acetyl (CH₃CO-)", "Acetic acid", "Aromatic carbon", "Acetylene"],
+        correctIndex: 0,
+        explanation: "Ac stands for acetyl, a 2-carbon acyl group (CH₃CO-). It's commonly seen in acetyl chloride (AcCl) and acetic anhydride (Ac₂O).",
+        difficulty: "medium"
+    },
+    {
+        id: 29,
+        question: "Which ring system is found in caffeine, adenine, and guanine?",
+        options: ["Benzene", "Cyclohexane", "Purine", "Furan"],
+        correctIndex: 2,
+        explanation: "Purine is a bicyclic structure with a 6-membered ring fused to a 5-membered ring, both containing nitrogen. It's the base for DNA nucleobases.",
+        difficulty: "hard"
+    },
+    {
+        id: 30,
+        question: "In the molecule ibuprofen, the carboxylic acid group is responsible for:",
+        options: ["Its anti-inflammatory action", "Its ability to donate a proton (acidity)", "Its aromatic smell", "Its blue color"],
+        correctIndex: 1,
+        explanation: "The -COOH group can donate a proton (H⁺), making ibuprofen a weak acid. This property also helps it cross cell membranes in its protonated form.",
+        difficulty: "hard"
     }
 ];

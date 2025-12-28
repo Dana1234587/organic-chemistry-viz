@@ -39,7 +39,15 @@ export const flashcards: FlashcardData[] = [
     { id: "fc2-25", front: "What is acetic acid?", back: "2-carbon carboxylic acid: CH₃-COOH (IUPAC: ethanoic acid). Found in vinegar.", category: "Trivial Names" },
     { id: "fc2-26", front: "What is phenol?", back: "Benzene with -OH attached: C₆H₅-OH. Important antiseptic.", category: "Trivial Names" },
     { id: "fc2-27", front: "What is aniline?", back: "Benzene with -NH₂ attached: C₆H₅-NH₂. Used in dye synthesis.", category: "Trivial Names" },
-    { id: "fc2-28", front: "What is pyridine?", back: "A 6-membered aromatic ring where one CH is replaced by N (N is IN the ring).", category: "Trivial Names" }
+    { id: "fc2-28", front: "What is pyridine?", back: "A 6-membered aromatic ring where one CH is replaced by N (N is IN the ring).", category: "Trivial Names" },
+
+    // Amino Acids
+    { id: "fc2-29", front: "What functional groups define an amino acid?", back: "An amine (-NH₂) and a carboxylic acid (-COOH) attached to the same carbon (α-carbon).", category: "Amino Acids" },
+    { id: "fc2-30", front: "What is unique about glycine among amino acids?", back: "Glycine is the only achiral amino acid. Its R group is just H, making the α-carbon non-chiral.", category: "Amino Acids" },
+    { id: "fc2-31", front: "What makes phenylalanine special?", back: "It has a benzyl group (PhCH₂-) as its R group, making it aromatic.", category: "Amino Acids" },
+    { id: "fc2-32", front: "Why does chirality matter in drug molecules?", back: "Enzymes recognize 3D shape. Wrong chirality = drug may not work or cause harm (e.g., thalidomide).", category: "Amino Acids" },
+    { id: "fc2-33", front: "What is Alanine's R group?", back: "A methyl group (-CH₃). It's the simplest chiral amino acid.", category: "Amino Acids" },
+    { id: "fc2-34", front: "What does 'L' in L-amino acid mean?", back: "The natural form of amino acids with specific 3D configuration. Our bodies use L-amino acids.", category: "Amino Acids" }
 ];
 
 export const glossary: GlossaryTerm[] = [

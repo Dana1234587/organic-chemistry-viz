@@ -10,6 +10,12 @@ export interface ChapterSection {
     funFact?: string;
     commonMistake?: string;
     realWorldConnection?: string;
+    // Diagram configuration for inline SVG diagrams
+    diagrams?: {
+        type: 'skeletal' | 'functional-group' | 'amino-acid' | 'oxidation' | 'wedge-dash' | 'abbreviations';
+        props: Record<string, unknown>;
+        caption?: string;
+    }[];
 }
 
 export interface ChapterQuiz {

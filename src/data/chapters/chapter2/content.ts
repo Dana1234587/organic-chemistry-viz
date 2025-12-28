@@ -45,7 +45,12 @@ Which is faster to draw? Which is easier to read? The skeletal version, always!`
             "Even simple molecules benefit from skeletal notation",
             "Professional chemists use skeletal structures exclusively"
         ],
-        funFact: "Palytoxin is so toxic that the Hawaiian name 'limu-make-o-Hana' means 'the seaweed of death from Hana'. Just 4 micrograms (0.000004 grams) can kill a human!"
+        funFact: "Palytoxin is so toxic that the Hawaiian name 'limu-make-o-Hana' means 'the seaweed of death from Hana'. Just 4 micrograms (0.000004 grams) can kill a human!",
+        diagrams: [
+            { type: 'skeletal', props: { molecule: 'butane', showLabels: true }, caption: 'Butane - 4 carbon zig-zag' },
+            { type: 'skeletal', props: { molecule: 'pentane', showLabels: true }, caption: 'Pentane - 5 carbon zig-zag' },
+            { type: 'skeletal', props: { molecule: 'hexane', showLabels: true }, caption: 'Hexane - 6 carbon zig-zag' }
+        ]
     },
     {
         id: "drawing-organic-structures",
@@ -104,7 +109,12 @@ This is the #1 beginner mistake. If you forget the H on oxygen, you've drawn a c
             "A line end = CH₃, a corner = CH₂ (usually)"
         ],
         funFact: "The zig-zag convention is so universal that pharmaceutical patents worth billions of dollars are drawn using nothing but lines, letters for heteroatoms, and wedges!",
-        commonMistake: "Writing '-O' instead of '-OH' in an alcohol. This single missing H changes your molecule from a stable alcohol into an impossible alkoxy radical!"
+        commonMistake: "Writing '-O' instead of '-OH' in an alcohol. This single missing H changes your molecule from a stable alcohol into an impossible alkoxy radical!",
+        diagrams: [
+            { type: 'skeletal', props: { molecule: 'propane', showLabels: true, highlightCarbons: true }, caption: 'Propane with carbons highlighted' },
+            { type: 'skeletal', props: { molecule: 'cyclohexane', showLabels: true }, caption: 'Cyclohexane ring' },
+            { type: 'skeletal', props: { molecule: 'benzene', showLabels: true }, caption: 'Benzene (aromatic)' }
+        ]
     },
     {
         id: "common-abbreviations",
@@ -163,7 +173,10 @@ EtOH = Ethanol`,
             "i = iso (branched), t = tertiary (highly branched)",
             "Know solvent abbreviations: THF, DMF, DMSO, DCM"
         ],
-        commonMistake: "Confusing Phenyl (Ph) and Benzyl (Bn). Remember: Benzyl has a 'bonus' CH₂ between the ring and the attachment point."
+        commonMistake: "Confusing Phenyl (Ph) and Benzyl (Bn). Remember: Benzyl has a 'bonus' CH₂ between the ring and the attachment point.",
+        diagrams: [
+            { type: 'abbreviations', props: { showAll: true }, caption: 'Common alkyl and aromatic abbreviations' }
+        ]
     },
     {
         id: "hydrocarbon-frameworks",
@@ -304,7 +317,15 @@ Understanding these patterns will help you predict reactions in later chapters!`
             "Carboxylic acids are acidic; Amines are basic",
             "Esters (fruity), Thiols (smelly), Amides (in proteins)"
         ],
-        realWorldConnection: "The smell of bananas comes from an ESTER (isoamyl acetate). The smell of rotting fish comes from an AMINE (trimethylamine). The smell of skunks comes from a THIOL. Functional groups determine what your nose detects!"
+        realWorldConnection: "The smell of bananas comes from an ESTER (isoamyl acetate). The smell of rotting fish comes from an AMINE (trimethylamine). The smell of skunks comes from a THIOL. Functional groups determine what your nose detects!",
+        diagrams: [
+            { type: 'functional-group', props: { group: 'alcohol' }, caption: 'Alcohol (R-OH)' },
+            { type: 'functional-group', props: { group: 'aldehyde' }, caption: 'Aldehyde (R-CHO)' },
+            { type: 'functional-group', props: { group: 'ketone' }, caption: 'Ketone (R-CO-R)' },
+            { type: 'functional-group', props: { group: 'carboxylic-acid' }, caption: 'Carboxylic Acid' },
+            { type: 'functional-group', props: { group: 'amine' }, caption: 'Amine (R-NH₂)' },
+            { type: 'functional-group', props: { group: 'ether' }, caption: 'Ether (R-O-R)' }
+        ]
     },
     {
         id: "oxidation-levels",
@@ -379,7 +400,10 @@ This framework lets you instantly classify reactions:
             { name: "Acetaldehyde", description: "Level 2: Two bonds to oxygen (C=O)" },
             { name: "Acetic Acid", description: "Level 3: Three bonds to oxygen (C=O + C-O)" }
         ],
-        commonMistake: "Thinking oxidation always involves oxygen. Transforming an alkane to an alkyl chloride (C-H → C-Cl) is ALSO an oxidation because you're adding a bond to an electronegative atom!"
+        commonMistake: "Thinking oxidation always involves oxygen. Transforming an alkane to an alkyl chloride (C-H → C-Cl) is ALSO an oxidation because you're adding a bond to an electronegative atom!",
+        diagrams: [
+            { type: 'oxidation', props: { showLevel: 'all', interactive: true }, caption: 'Interactive Oxidation Level Chart' }
+        ]
     },
     {
         id: "trivial-names",
@@ -639,6 +663,13 @@ For now, just recognize what they mean when you see them. We'll dive deep into s
             "Shape determines biological activity",
             "Crucial for understanding drug action and biochemistry"
         ],
-        funFact: "The thalidomide tragedy in the 1960s led to much stricter drug testing requirements. Now all chiral drugs must have both mirror-image forms tested separately!"
+        funFact: "The thalidomide tragedy in the 1960s led to much stricter drug testing requirements. Now all chiral drugs must have both mirror-image forms tested separately!",
+        diagrams: [
+            { type: 'wedge-dash', props: { molecule: 'methane', showLegend: true }, caption: 'Methane - tetrahedral carbon' },
+            { type: 'wedge-dash', props: { molecule: 'bromochlorofluoromethane', showLegend: false }, caption: 'CHClBrF - chiral molecule' },
+            { type: 'amino-acid', props: { name: 'L-Alanine', structure: 'alanine' }, caption: 'L-Alanine' },
+            { type: 'amino-acid', props: { name: 'Glycine', structure: 'glycine' }, caption: 'Glycine (achiral)' },
+            { type: 'amino-acid', props: { name: 'Phenylalanine', structure: 'phenylalanine' }, caption: 'Phenylalanine' }
+        ]
     }
 ];
