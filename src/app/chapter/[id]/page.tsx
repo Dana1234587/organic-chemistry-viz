@@ -26,7 +26,11 @@ import {
     WedgeDashDiagram,
     AbbreviationsDiagram,
     HybridizationDiagram,
-    BondPolarityDiagram
+    BondPolarityDiagram,
+    MassSpectrumViewer,
+    NMRSpectrumViewer,
+    IRSpectrumViewer,
+    DBECalculator
 } from '@/components/diagrams';
 import QuickCheck from '@/components/QuickCheck';
 import OnePageSummary from '@/components/OnePageSummary';
@@ -382,6 +386,71 @@ export default function ChapterPage() {
                                     </div>
                                 ))}
                             </div>
+                        )}
+
+                        {/* Chapter 3: Spectroscopy Diagrams */}
+                        {section.id === 'ms-introduction' && (
+                            <MassSpectrumViewer
+                                peaks={[
+                                    { mz: 130, intensity: 20, label: 'M⁺', isM: true },
+                                    { mz: 115, intensity: 10, label: 'M-15' },
+                                    { mz: 87, intensity: 35 },
+                                    { mz: 70, intensity: 60 },
+                                    { mz: 43, intensity: 100, label: 'Base', isBase: true },
+                                ]}
+                                molecularWeight={130}
+                                moleculeName="Isopentyl Acetate"
+                                formula="C₇H₁₄O₂"
+                            />
+                        )}
+
+                        {section.id === 'ms-isotopes' && (
+                            <MassSpectrumViewer
+                                peaks={[
+                                    { mz: 112, intensity: 100, label: 'M⁺ (³⁵Cl)', isM: true },
+                                    { mz: 114, intensity: 33, label: 'M+2 (³⁷Cl)' },
+                                    { mz: 77, intensity: 80, label: 'C₆H₅⁺' },
+                                    { mz: 51, intensity: 40 },
+                                ]}
+                                molecularWeight={112}
+                                moleculeName="Chlorobenzene"
+                                formula="C₆H₅Cl"
+                                halogen="Cl"
+                            />
+                        )}
+
+                        {(section.id === 'nmr-13c-introduction' || section.id === 'nmr-symmetry') && (
+                            <NMRSpectrumViewer
+                                peaks={[
+                                    { ppm: 206, intensity: 70, label: 'C=O', carbon: 'Carbonyl' },
+                                    { ppm: 43, intensity: 90, label: 'α-C', carbon: 'Next to C=O' },
+                                    { ppm: 31, intensity: 80 },
+                                    { ppm: 23, intensity: 85 },
+                                    { ppm: 22, intensity: 75 },
+                                    { ppm: 14, intensity: 95, label: 'CH₃', carbon: 'Methyl' },
+                                ]}
+                                moleculeName="Heptan-2-one"
+                                formula="C₇H₁₄O"
+                                type="13C"
+                            />
+                        )}
+
+                        {section.id === 'ir-introduction' && (
+                            <IRSpectrumViewer
+                                peaks={[
+                                    { wavenumber: 3350, intensity: 'broad', bondType: 'O-H stretch' },
+                                    { wavenumber: 2970, intensity: 'strong', bondType: 'C-H stretch' },
+                                    { wavenumber: 1710, intensity: 'strong', bondType: 'C=O stretch' },
+                                    { wavenumber: 1510, intensity: 'medium', bondType: 'N-H bend' },
+                                    { wavenumber: 1230, intensity: 'medium', bondType: 'C-O stretch' },
+                                ]}
+                                moleculeName="Paracetamol"
+                                formula="C₈H₉NO₂"
+                            />
+                        )}
+
+                        {section.id === 'dbe-calculation' && (
+                            <DBECalculator />
                         )}
 
                         {/* Fun Fact */}
