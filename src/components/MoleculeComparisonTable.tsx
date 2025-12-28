@@ -176,7 +176,8 @@ export default function MoleculeComparisonTable({
                                 background: 'linear-gradient(145deg, rgba(22, 22, 30, 0.95) 0%, rgba(28, 28, 40, 0.9) 100%)',
                                 border: `1px solid ${levelColor?.border || 'rgba(139, 92, 246, 0.3)'}`,
                                 borderRadius: 24,
-                                padding: '1.5rem',
+                                padding: currentMode === '3d' ? '0' : '1.5rem',
+                                minHeight: 400,
                                 display: 'flex',
                                 flexDirection: 'column',
                                 alignItems: 'center',
@@ -185,180 +186,175 @@ export default function MoleculeComparisonTable({
                                 overflow: 'hidden',
                             }}
                         >
-                            {/* Level Badge */}
-                            {showLevels && mol.level !== undefined && (
-                                <div style={{
-                                    position: 'absolute',
-                                    top: 12,
-                                    left: 12,
-                                    background: levelColor?.bg,
-                                    border: `1px solid ${levelColor?.border}`,
-                                    borderRadius: 8,
-                                    padding: '4px 10px',
-                                    fontSize: '0.75rem',
-                                    fontWeight: 600,
-                                    color: levelColor?.text,
-                                }}>
-                                    Level {mol.level}
-                                </div>
-                            )}
-
-                            {/* Large Emoji */}
-                            <div style={{
-                                fontSize: '3.5rem',
-                                marginBottom: '0.75rem',
-                                filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.3))',
-                            }}>
-                                {emoji}
-                            </div>
-
-                            {/* Molecule Name */}
-                            <h3 style={{
-                                margin: 0,
-                                fontSize: '1.3rem',
-                                fontWeight: 700,
-                                color: 'var(--neutral-100)',
-                            }}>
-                                {mol.name}
-                            </h3>
-
-                            {/* Chemical Formula */}
-                            {formula && (
-                                <div style={{
-                                    fontSize: '1rem',
-                                    color: levelColor?.text || '#fbbf24',
-                                    fontFamily: 'monospace',
-                                    marginTop: '0.25rem',
-                                    fontWeight: 500,
-                                }}>
-                                    {formula}
-                                </div>
-                            )}
-
-                            {/* Functional Group Tags */}
-                            {functionalGroups.length > 0 && (
-                                <div style={{
-                                    display: 'flex',
-                                    flexWrap: 'wrap',
-                                    gap: '0.4rem',
-                                    justifyContent: 'center',
-                                    marginTop: '0.75rem',
-                                }}>
-                                    {functionalGroups.map((group, idx) => (
-                                        <span
-                                            key={idx}
-                                            style={{
-                                                padding: '4px 10px',
-                                                background: 'rgba(255,255,255,0.08)',
-                                                border: '1px solid rgba(255,255,255,0.15)',
-                                                borderRadius: 20,
-                                                fontSize: '0.7rem',
-                                                color: 'var(--neutral-300)',
-                                            }}
-                                        >
-                                            {group}
-                                        </span>
-                                    ))}
-                                </div>
-                            )}
-
-                            {/* Description */}
-                            <p style={{
-                                margin: '0.75rem 0',
-                                fontSize: '0.85rem',
-                                color: 'var(--neutral-400)',
-                                lineHeight: 1.5,
-                            }}>
-                                {mol.description}
-                            </p>
-
-                            {/* View Mode Toggle Buttons */}
-                            <div style={{
-                                display: 'flex',
-                                gap: '0.5rem',
-                                marginBottom: '1rem',
-                            }}>
-                                <button
-                                    onClick={() => setViewMode(prev => ({ ...prev, [mol.name]: '2d' }))}
-                                    style={{
+                            {currentMode === '3d' ? (
+                                /* FULL 3D VIEW MODE */
+                                <>
+                                    {/* Back Button */}
+                                    <button
+                                        onClick={() => setViewMode(prev => ({ ...prev, [mol.name]: '2d' }))}
+                                        style={{
+                                            position: 'absolute',
+                                            top: 12,
+                                            left: 12,
+                                            zIndex: 10,
+                                            padding: '0.5rem 1rem',
+                                            background: 'rgba(0,0,0,0.7)',
+                                            border: '1px solid rgba(255,255,255,0.2)',
+                                            borderRadius: 8,
+                                            color: 'white',
+                                            fontSize: '0.8rem',
+                                            cursor: 'pointer',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            gap: '0.3rem',
+                                        }}
+                                    >
+                                        ← Back
+                                    </button>
+                                    {/* Molecule Name on 3D */}
+                                    <div style={{
+                                        position: 'absolute',
+                                        top: 12,
+                                        right: 12,
+                                        zIndex: 10,
                                         padding: '0.5rem 1rem',
-                                        background: currentMode === '2d' ? 'rgba(139, 92, 246, 0.3)' : 'rgba(255,255,255,0.05)',
-                                        border: currentMode === '2d' ? '1px solid rgba(139, 92, 246, 0.5)' : '1px solid rgba(255,255,255,0.1)',
-                                        borderRadius: 8,
-                                        color: currentMode === '2d' ? 'var(--primary-300)' : 'var(--neutral-400)',
-                                        fontSize: '0.8rem',
-                                        cursor: 'pointer',
-                                        transition: 'all 0.2s',
-                                    }}
-                                >
-                                    📐 2D View
-                                </button>
-                                <button
-                                    onClick={() => setViewMode(prev => ({ ...prev, [mol.name]: '3d' }))}
-                                    style={{
-                                        padding: '0.5rem 1rem',
-                                        background: currentMode === '3d' ? buttonBg : 'rgba(255,255,255,0.05)',
-                                        border: currentMode === '3d' ? 'none' : '1px solid rgba(255,255,255,0.1)',
+                                        background: 'rgba(0,0,0,0.7)',
                                         borderRadius: 8,
                                         color: 'white',
-                                        fontSize: '0.8rem',
-                                        cursor: 'pointer',
-                                        transition: 'all 0.2s',
-                                    }}
-                                >
-                                    🔬 3D View
-                                </button>
-                            </div>
-
-                            {/* Viewer Area - INSIDE THE CARD */}
-                            <div style={{
-                                width: '100%',
-                                minHeight: currentMode === '3d' ? 280 : 150,
-                                background: 'rgba(0,0,0,0.2)',
-                                borderRadius: 16,
-                                overflow: 'hidden',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                            }}>
-                                <AnimatePresence mode="wait">
-                                    {currentMode === '2d' ? (
-                                        <motion.div
-                                            key="2d"
-                                            initial={{ opacity: 0 }}
-                                            animate={{ opacity: 1 }}
-                                            exit={{ opacity: 0 }}
-                                            style={{
-                                                width: '100%',
-                                                height: '100%',
-                                                display: 'flex',
-                                                alignItems: 'center',
-                                                justifyContent: 'center',
-                                                padding: '1rem',
-                                            }}
-                                        >
-                                            <Structure2D moleculeName={mol.name} />
-                                        </motion.div>
-                                    ) : (
-                                        <motion.div
-                                            key="3d"
-                                            initial={{ opacity: 0 }}
-                                            animate={{ opacity: 1 }}
-                                            exit={{ opacity: 0 }}
-                                            style={{
-                                                width: '100%',
-                                                height: 280,
-                                            }}
-                                        >
-                                            <MoleculeViewer
-                                                moleculeName={mol.name}
-                                                description=""
-                                                height={280}
-                                            />
-                                        </motion.div>
+                                        fontSize: '0.9rem',
+                                        fontWeight: 600,
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: '0.5rem',
+                                    }}>
+                                        {emoji} {mol.name}
+                                    </div>
+                                    {/* Full 3D Viewer */}
+                                    <div style={{ width: '100%', height: '100%', minHeight: 400 }}>
+                                        <MoleculeViewer
+                                            moleculeName={mol.name}
+                                            description=""
+                                            height={400}
+                                        />
+                                    </div>
+                                </>
+                            ) : (
+                                /* INFO + 2D VIEW MODE */
+                                <>
+                                    {/* Level Badge */}
+                                    {showLevels && mol.level !== undefined && (
+                                        <div style={{
+                                            position: 'absolute',
+                                            top: 12,
+                                            left: 12,
+                                            background: levelColor?.bg,
+                                            border: `1px solid ${levelColor?.border}`,
+                                            borderRadius: 8,
+                                            padding: '4px 10px',
+                                            fontSize: '0.75rem',
+                                            fontWeight: 600,
+                                            color: levelColor?.text,
+                                        }}>
+                                            Level {mol.level}
+                                        </div>
                                     )}
-                                </AnimatePresence>
-                            </div>
+
+                                    {/* Large Emoji */}
+                                    <div style={{
+                                        fontSize: '3.5rem',
+                                        marginBottom: '0.75rem',
+                                        filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.3))',
+                                    }}>
+                                        {emoji}
+                                    </div>
+
+                                    {/* Molecule Name */}
+                                    <h3 style={{
+                                        margin: 0,
+                                        fontSize: '1.3rem',
+                                        fontWeight: 700,
+                                        color: 'var(--neutral-100)',
+                                    }}>
+                                        {mol.name}
+                                    </h3>
+
+                                    {/* Chemical Formula */}
+                                    {formula && (
+                                        <div style={{
+                                            fontSize: '1rem',
+                                            color: levelColor?.text || '#fbbf24',
+                                            fontFamily: 'monospace',
+                                            marginTop: '0.25rem',
+                                            fontWeight: 500,
+                                        }}>
+                                            {formula}
+                                        </div>
+                                    )}
+
+                                    {/* Functional Group Tags */}
+                                    {functionalGroups.length > 0 && (
+                                        <div style={{
+                                            display: 'flex',
+                                            flexWrap: 'wrap',
+                                            gap: '0.4rem',
+                                            justifyContent: 'center',
+                                            marginTop: '0.75rem',
+                                        }}>
+                                            {functionalGroups.map((group, idx) => (
+                                                <span
+                                                    key={idx}
+                                                    style={{
+                                                        padding: '4px 10px',
+                                                        background: 'rgba(255,255,255,0.08)',
+                                                        border: '1px solid rgba(255,255,255,0.15)',
+                                                        borderRadius: 20,
+                                                        fontSize: '0.7rem',
+                                                        color: 'var(--neutral-300)',
+                                                    }}
+                                                >
+                                                    {group}
+                                                </span>
+                                            ))}
+                                        </div>
+                                    )}
+
+                                    {/* Description */}
+                                    <p style={{
+                                        margin: '0.75rem 0 1rem',
+                                        fontSize: '0.85rem',
+                                        color: 'var(--neutral-400)',
+                                        lineHeight: 1.5,
+                                    }}>
+                                        {mol.description}
+                                    </p>
+
+                                    {/* View 3D Button */}
+                                    <button
+                                        onClick={() => setViewMode(prev => ({ ...prev, [mol.name]: '3d' }))}
+                                        style={{
+                                            padding: '0.65rem 1.5rem',
+                                            background: buttonBg,
+                                            border: 'none',
+                                            borderRadius: 12,
+                                            color: 'white',
+                                            fontSize: '0.9rem',
+                                            fontWeight: 600,
+                                            cursor: 'pointer',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            gap: '0.5rem',
+                                            marginBottom: '1rem',
+                                            transition: 'all 0.2s ease',
+                                            boxShadow: '0 4px 12px rgba(139, 92, 246, 0.3)',
+                                        }}
+                                    >
+                                        🔬 View 3D Model
+                                    </button>
+
+                                    {/* 2D Structure */}
+                                    <Structure2D moleculeName={mol.name} />
+                                </>
+                            )}
                         </motion.div>
                     );
                 })}
