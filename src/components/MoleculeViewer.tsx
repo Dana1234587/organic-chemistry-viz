@@ -3,104 +3,76 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-// SmilesRenderer component - renders molecular structures from SMILES notation
-function SmilesRenderer({ smiles }: { smiles: string }) {
-    const canvasRef = useRef<HTMLCanvasElement>(null);
-    const [isLoaded, setIsLoaded] = useState(false);
+// Structure2DRenderer - renders 2D skeletal structures from PubChem
+function Structure2DRenderer({ pubchemCid, smiles, moleculeName }: {
+    pubchemCid?: number;
+    smiles?: string;
+    moleculeName: string;
+}) {
+    const [imageUrl, setImageUrl] = useState<string | null>(null);
+    const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        if (!canvasRef.current || !smiles) return;
+        setIsLoading(true);
+        setError(null);
 
-        const loadAndDraw = async () => {
-            try {
-                // Load SmilesDrawer from CDN if not loaded
-                if (!(window as any).SmilesDrawer) {
-                    const script = document.createElement('script');
-                    script.src = 'https://unpkg.com/smiles-drawer@2.1.7/dist/smiles-drawer.min.js';
-                    script.async = true;
-                    await new Promise((resolve, reject) => {
-                        script.onload = resolve;
-                        script.onerror = reject;
-                        document.head.appendChild(script);
-                    });
-                }
-
-                const SmilesDrawer = (window as any).SmilesDrawer;
-                const drawer = new SmilesDrawer.SmiDrawer({
-                    width: 280,
-                    height: 180,
-                    bondThickness: 1.5,
-                    bondLength: 25,
-                    shortBondLength: 0.85,
-                    bondSpacing: 5,
-                    atomVisualization: 'default',
-                    isomeric: true,
-                    debug: false,
-                    terminalCarbons: true,
-                    explicitHydrogens: false,
-                    overlapSensitivity: 0.42,
-                    overlapResolutionIterations: 1,
-                    compactDrawing: true,
-                    fontSizeLarge: 12,
-                    fontSizeSmall: 8,
-                    padding: 20,
-                    themes: {
-                        dark: {
-                            C: '#e0e0e0',
-                            O: '#ff4444',
-                            N: '#4488ff',
-                            S: '#ffff00',
-                            H: '#ffffff',
-                            F: '#90ee90',
-                            Cl: '#32cd32',
-                            Br: '#a52a2a',
-                            I: '#9400d3',
-                            BACKGROUND: 'transparent'
-                        }
-                    }
-                });
-
-                SmilesDrawer.parse(smiles, (tree: any) => {
-                    drawer.draw(tree, canvasRef.current, 'dark');
-                    setIsLoaded(true);
-                }, (err: any) => {
-                    setError('Could not parse SMILES');
-                    console.error('SMILES parse error:', err);
-                });
-            } catch (err) {
-                setError('Failed to load SmilesDrawer');
-                console.error('SmilesDrawer load error:', err);
-            }
-        };
-
-        loadAndDraw();
-    }, [smiles]);
+        // Use PubChem 2D image API - provides accurate skeletal structures
+        if (pubchemCid) {
+            // PubChem provides accurate 2D structures with proper bond angles
+            const url = `https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/${pubchemCid}/PNG?image_size=300x300`;
+            setImageUrl(url);
+            setIsLoading(false);
+        } else if (smiles) {
+            // Fallback to SMILES-based rendering via PubChem
+            const url = `https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/smiles/${encodeURIComponent(smiles)}/PNG?image_size=300x300`;
+            setImageUrl(url);
+            setIsLoading(false);
+        } else {
+            setError('No structure data available');
+            setIsLoading(false);
+        }
+    }, [pubchemCid, smiles]);
 
     return (
         <div style={{
             display: 'flex',
-            justifyContent: 'center',
+            flexDirection: 'column',
             alignItems: 'center',
-            minHeight: '180px',
-            background: 'rgba(0, 0, 0, 0.3)',
-            borderRadius: '8px',
-            padding: '10px',
+            justifyContent: 'center',
+            minHeight: '280px',
+            background: 'rgba(255, 255, 255, 0.95)',
+            borderRadius: '12px',
+            padding: '20px',
         }}>
-            {error ? (
-                <div style={{ color: 'var(--neutral-500)', fontSize: '0.8rem' }}>{error}</div>
-            ) : (
-                <canvas
-                    ref={canvasRef}
-                    width={280}
-                    height={180}
-                    style={{
-                        maxWidth: '100%',
-                        opacity: isLoaded ? 1 : 0.3,
-                        transition: 'opacity 0.3s',
-                    }}
-                />
-            )}
+            {isLoading ? (
+                <div style={{ color: '#666', fontSize: '0.9rem' }}>
+                    Loading 2D structure...
+                </div>
+            ) : error ? (
+                <div style={{ color: '#999', fontSize: '0.8rem' }}>{error}</div>
+            ) : imageUrl ? (
+                <>
+                    <img
+                        src={imageUrl}
+                        alt={`2D structure of ${moleculeName}`}
+                        style={{
+                            maxWidth: '100%',
+                            maxHeight: '250px',
+                            objectFit: 'contain',
+                        }}
+                        onError={() => setError('Could not load 2D structure')}
+                    />
+                    <div style={{
+                        marginTop: '12px',
+                        fontSize: '0.7rem',
+                        color: '#666',
+                        textAlign: 'center',
+                    }}>
+                        📐 Skeletal Formula (zigzag) • ═ Double Bond • ≡ Triple Bond
+                    </div>
+                </>
+            ) : null}
         </div>
     );
 }
@@ -716,6 +688,7 @@ export default function MoleculeViewer({
     const [isLoading, setIsLoading] = useState(false);
     const [isExpanded, setIsExpanded] = useState(false);
     const [isRotating, setIsRotating] = useState(false);
+    const [viewMode, setViewMode] = useState<'3d' | '2d'>('3d'); // Toggle between 3D and 2D
     const isMobile = useIsMobile();
 
     const molecule = moleculeData[moleculeName.toLowerCase()];
@@ -1196,39 +1169,74 @@ export default function MoleculeViewer({
                         userSelect: 'none',
                     }}
                 />
+
+                {/* 2D Structure View (when in 2D mode) */}
+                {viewMode === '2d' && molecule && (
+                    <div style={{
+                        position: 'absolute',
+                        inset: 0,
+                        zIndex: 5,
+                        background: 'var(--neutral-900)',
+                    }}>
+                        <Structure2DRenderer
+                            pubchemCid={molecule.pubchemCid}
+                            smiles={molecule.smiles}
+                            moleculeName={moleculeName}
+                        />
+                    </div>
+                )}
             </div>
 
-            {/* 2D Structure Formula - SmilesDrawer Canvas */}
-            {molecule?.smiles && (
-                <div style={{
-                    margin: '12px 16px',
-                    padding: '16px',
-                    background: 'linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(20, 20, 30, 0.9) 100%)',
-                    borderRadius: '12px',
-                    border: '1px solid rgba(139, 92, 246, 0.3)',
-                }}>
-                    <div style={{
-                        fontSize: '0.75rem',
-                        color: 'var(--primary-400)',
-                        marginBottom: '8px',
+            {/* 3D/2D Toggle */}
+            <div style={{
+                display: 'flex',
+                justifyContent: 'center',
+                gap: '8px',
+                margin: '12px 16px',
+            }}>
+                <button
+                    onClick={() => setViewMode('3d')}
+                    style={{
+                        flex: 1,
+                        padding: '10px',
+                        background: viewMode === '3d'
+                            ? 'linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%)'
+                            : 'rgba(255, 255, 255, 0.1)',
+                        border: 'none',
+                        borderRadius: '10px',
+                        color: viewMode === '3d' ? 'white' : 'var(--neutral-400)',
                         fontWeight: 600,
+                        cursor: 'pointer',
                         display: 'flex',
                         alignItems: 'center',
+                        justifyContent: 'center',
                         gap: '6px',
-                    }}>
-                        📐 2D Structure (accurate bond types)
-                    </div>
-                    <SmilesRenderer smiles={molecule.smiles} />
-                    <div style={{
-                        fontSize: '0.7rem',
-                        color: 'var(--neutral-500)',
-                        marginTop: '8px',
-                        textAlign: 'center',
-                    }}>
-                        ─ = Single Bond │ ═ = Double Bond │ ≡ = Triple Bond
-                    </div>
-                </div>
-            )}
+                    }}
+                >
+                    🔮 3D Model
+                </button>
+                <button
+                    onClick={() => setViewMode('2d')}
+                    style={{
+                        flex: 1,
+                        padding: '10px',
+                        background: viewMode === '2d'
+                            ? 'linear-gradient(135deg, #10b981 0%, #059669 100%)'
+                            : 'rgba(255, 255, 255, 0.1)',
+                        border: 'none',
+                        borderRadius: '10px',
+                        color: viewMode === '2d' ? 'white' : 'var(--neutral-400)',
+                        fontWeight: 600,
+                        cursor: 'pointer',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        gap: '6px',
+                    }}
+                >
+                    📐 2D Skeletal
+                </button>
+            </div>
 
             {/* Controls */}
             <div className="molecule-controls">
