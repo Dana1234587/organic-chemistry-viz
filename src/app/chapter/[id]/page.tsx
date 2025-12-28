@@ -388,64 +388,82 @@ export default function ChapterPage() {
                             </div>
                         )}
 
-                        {/* Chapter 3: Spectroscopy Diagrams */}
+                        {/* Chapter 3: Spectroscopy Diagrams - ACCURATE DATA FROM TEXTBOOK */}
+
+                        {/* MS: 4-Bromoanisole - Bromine 1:1 isotope pattern (Page 7) */}
                         {section.id === 'ms-introduction' && (
                             <MassSpectrumViewer
                                 peaks={[
-                                    { mz: 130, intensity: 20, label: 'M⁺', isM: true },
-                                    { mz: 115, intensity: 10, label: 'M-15' },
-                                    { mz: 87, intensity: 35 },
-                                    { mz: 70, intensity: 60 },
-                                    { mz: 43, intensity: 100, label: 'Base', isBase: true },
+                                    { mz: 186, intensity: 100, label: 'M⁺ (⁷⁹Br)', isM: true },
+                                    { mz: 188, intensity: 98, label: 'M+2 (⁸¹Br)' },
+                                    { mz: 171, intensity: 35, label: '-CH₃' },
+                                    { mz: 77, intensity: 55, label: 'C₆H₅⁺' },
                                 ]}
-                                molecularWeight={130}
-                                moleculeName="Isopentyl Acetate"
-                                formula="C₇H₁₄O₂"
+                                molecularWeight={186}
+                                moleculeName="4-Bromoanisole"
+                                formula="C₇H₇BrO"
+                                halogen="Br"
                             />
                         )}
 
+                        {/* MS: Topanol 354 - M+1 carbon isotope (Page 8) */}
                         {section.id === 'ms-isotopes' && (
                             <MassSpectrumViewer
                                 peaks={[
-                                    { mz: 112, intensity: 100, label: 'M⁺ (³⁵Cl)', isM: true },
-                                    { mz: 114, intensity: 33, label: 'M+2 (³⁷Cl)' },
-                                    { mz: 77, intensity: 80, label: 'C₆H₅⁺' },
-                                    { mz: 51, intensity: 40 },
+                                    { mz: 236, intensity: 100, label: 'M⁺', isM: true },
+                                    { mz: 237, intensity: 16.5, label: 'M+1 (¹³C × 15)' },
+                                    { mz: 221, intensity: 85, label: '-CH₃', isBase: true },
+                                    { mz: 57, intensity: 45, label: 't-Bu⁺' },
                                 ]}
-                                molecularWeight={112}
-                                moleculeName="Chlorobenzene"
-                                formula="C₆H₅Cl"
-                                halogen="Cl"
+                                molecularWeight={236}
+                                moleculeName="Topanol 354"
+                                formula="C₁₅H₂₄O₂"
                             />
                         )}
 
-                        {(section.id === 'nmr-13c-introduction' || section.id === 'nmr-symmetry') && (
+                        {/* ¹³C NMR: Lactic Acid - 3 signals (Page 14) */}
+                        {section.id === 'nmr-13c-introduction' && (
                             <NMRSpectrumViewer
                                 peaks={[
-                                    { ppm: 206, intensity: 70, label: 'C=O', carbon: 'Carbonyl' },
-                                    { ppm: 43, intensity: 90, label: 'α-C', carbon: 'Next to C=O' },
-                                    { ppm: 31, intensity: 80 },
-                                    { ppm: 23, intensity: 85 },
-                                    { ppm: 22, intensity: 75 },
-                                    { ppm: 14, intensity: 95, label: 'CH₃', carbon: 'Methyl' },
+                                    { ppm: 176.8, intensity: 60, label: 'C=O', carbon: 'Carbonyl (COOH)' },
+                                    { ppm: 66.0, intensity: 80, label: 'C-OH', carbon: 'Carbon attached to OH' },
+                                    { ppm: 19.9, intensity: 100, label: 'CH₃', carbon: 'Methyl carbon' },
                                 ]}
-                                moleculeName="Heptan-2-one"
-                                formula="C₇H₁₄O"
+                                moleculeName="Lactic Acid"
+                                formula="C₃H₆O₃"
                                 type="13C"
                             />
                         )}
 
+                        {/* ¹³C NMR: BHT - Symmetry example (Page 16) */}
+                        {section.id === 'nmr-symmetry' && (
+                            <NMRSpectrumViewer
+                                peaks={[
+                                    { ppm: 151.7, intensity: 50, label: 'C-OH', carbon: 'Phenolic C' },
+                                    { ppm: 136.0, intensity: 60, label: 'Quat', carbon: 'Quaternary Ar-C' },
+                                    { ppm: 125.8, intensity: 90, label: 'Ar-CH', carbon: 'Aromatic CH' },
+                                    { ppm: 34.3, intensity: 70, label: 'C(CH₃)₃', carbon: 't-Butyl quat' },
+                                    { ppm: 30.4, intensity: 100, label: 't-Bu', carbon: 't-Butyl CH₃' },
+                                    { ppm: 21.0, intensity: 85, label: 'Ar-CH₃', carbon: 'Aromatic methyl' },
+                                ]}
+                                moleculeName="BHT (Butylated Hydroxytoluene)"
+                                formula="C₁₅H₂₄O"
+                                type="13C"
+                            />
+                        )}
+
+                        {/* IR: Hexan-2-one - Simple ketone (Page 21) */}
                         {section.id === 'ir-introduction' && (
                             <IRSpectrumViewer
                                 peaks={[
-                                    { wavenumber: 3350, intensity: 'broad', bondType: 'O-H stretch' },
-                                    { wavenumber: 2970, intensity: 'strong', bondType: 'C-H stretch' },
-                                    { wavenumber: 1710, intensity: 'strong', bondType: 'C=O stretch' },
-                                    { wavenumber: 1510, intensity: 'medium', bondType: 'N-H bend' },
-                                    { wavenumber: 1230, intensity: 'medium', bondType: 'C-O stretch' },
+                                    { wavenumber: 2960, intensity: 'medium', bondType: 'C-H stretch (CH₃, CH₂)' },
+                                    { wavenumber: 2870, intensity: 'medium', bondType: 'C-H stretch' },
+                                    { wavenumber: 1720, intensity: 'strong', bondType: 'C=O stretch (ketone)' },
+                                    { wavenumber: 1460, intensity: 'medium', bondType: 'C-H bend' },
+                                    { wavenumber: 1360, intensity: 'weak', bondType: 'CH₃ symmetric bend' },
                                 ]}
-                                moleculeName="Paracetamol"
-                                formula="C₈H₉NO₂"
+                                moleculeName="Hexan-2-one"
+                                formula="C₆H₁₂O"
                             />
                         )}
 
