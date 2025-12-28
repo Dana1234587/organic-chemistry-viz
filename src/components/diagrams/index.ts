@@ -9,3 +9,9 @@ export { default as WedgeDashDiagram } from './WedgeDashDiagram';
 export { default as AbbreviationsDiagram } from './AbbreviationsDiagram';
 export { default as HybridizationDiagram } from './HybridizationDiagram';
 export { default as BondPolarityDiagram } from './BondPolarityDiagram';
+
+// Chapter 3: Spectroscopy Components
+export { default as MassSpectrumViewer } from './MassSpectrumViewer';
+export { default as NMRSpectrumViewer } from './NMRSpectrumViewer';
+export { default as IRSpectrumViewer } from './IRSpectrumViewer';
+export { default as DBECalculator } from './DBECalculator';
