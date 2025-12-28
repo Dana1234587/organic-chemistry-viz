@@ -31,81 +31,70 @@ const AminoAcidDiagram: React.FC<AminoAcidProps> = ({
 
     const renderGlycine = () => (
         <g transform={`scale(${sizeMultiplier})`}>
-            {/* H at top left */}
-            <text x="30" y="25" fill={COLORS.hydrogen} fontSize="14" fontFamily="Arial">H</text>
+            {/* Central alpha carbon */}
+            <circle cx="75" cy="65" r="3" fill={COLORS.carbon} />
 
-            {/* N-H bond */}
-            <line x1="40" y1="30" x2="50" y2="45" stroke={COLORS.bond} strokeWidth="1.5" />
+            {/* H atom - TOP (glycine has H instead of CH3) */}
+            <line x1="75" y1="65" x2="75" y2="35" stroke={COLORS.bond} strokeWidth="2" />
+            <text x="70" y="28" fill={COLORS.hydrogen} fontSize="14" fontFamily="Arial">H</text>
 
-            {/* NH2 group */}
-            <text x="50" y="55" fill={COLORS.nitrogen} fontSize="14" fontFamily="Arial" fontWeight="bold">NH</text>
-            <text x="72" y="58" fill={COLORS.nitrogen} fontSize="10" fontFamily="Arial">2</text>
+            {/* NH2 group - LEFT */}
+            <line x1="75" y1="65" x2="40" y2="65" stroke={COLORS.bond} strokeWidth="2" />
+            <text x="15" y="70" fill={COLORS.nitrogen} fontSize="14" fontFamily="Arial" fontWeight="bold">H₂N</text>
 
-            {/* Bond from NH2 to alpha carbon */}
-            <line x1="65" y1="60" x2="75" y2="75" stroke={COLORS.bond} strokeWidth="1.5" />
+            {/* H on alpha carbon - BOTTOM LEFT */}
+            <line x1="75" y1="65" x2="55" y2="90" stroke={COLORS.bond} strokeWidth="2" />
+            <text x="48" y="102" fill={COLORS.hydrogen} fontSize="14" fontFamily="Arial">H</text>
 
-            {/* Alpha carbon */}
-            <text x="70" y="85" fill={COLORS.carbon} fontSize="14" fontFamily="Arial">C</text>
-
-            {/* H on alpha carbon */}
-            <text x="55" y="85" fill={COLORS.hydrogen} fontSize="14" fontFamily="Arial">H</text>
-            <line x1="65" y1="80" x2="70" y2="80" stroke={COLORS.bond} strokeWidth="1.5" />
-
-            {/* Bond to carboxyl carbon */}
-            <line x1="82" y1="80" x2="100" y2="80" stroke={COLORS.bond} strokeWidth="1.5" />
+            {/* Bond to carboxyl carbon - RIGHT */}
+            <line x1="75" y1="65" x2="115" y2="65" stroke={COLORS.bond} strokeWidth="2" />
 
             {/* Carboxyl carbon */}
-            <text x="100" y="85" fill={COLORS.carbon} fontSize="14" fontFamily="Arial">C</text>
+            <circle cx="115" cy="65" r="3" fill={COLORS.carbon} />
 
-            {/* Double bond to O */}
-            <line x1="95" y1="90" x2="85" y2="105" stroke={COLORS.bond} strokeWidth="1.5" />
-            <line x1="100" y1="92" x2="90" y2="107" stroke={COLORS.bond} strokeWidth="1.5" />
-            <text x="75" y="115" fill={COLORS.oxygen} fontSize="14" fontFamily="Arial" fontWeight="bold">O</text>
+            {/* Double bond to O - TOP RIGHT */}
+            <line x1="115" y1="65" x2="135" y2="40" stroke={COLORS.bond} strokeWidth="2" />
+            <line x1="118" y1="62" x2="138" y2="37" stroke={COLORS.bond} strokeWidth="2" />
+            <text x="138" y="38" fill={COLORS.oxygen} fontSize="14" fontFamily="Arial" fontWeight="bold">O</text>
 
-            {/* OH group */}
-            <line x1="112" y1="85" x2="130" y2="85" stroke={COLORS.bond} strokeWidth="1.5" />
-            <text x="130" y="90" fill={COLORS.oxygen} fontSize="14" fontFamily="Arial" fontWeight="bold">OH</text>
+            {/* OH group - BOTTOM RIGHT */}
+            <line x1="115" y1="65" x2="135" y2="90" stroke={COLORS.bond} strokeWidth="2" />
+            <text x="138" y="95" fill={COLORS.oxygen} fontSize="14" fontFamily="Arial" fontWeight="bold">OH</text>
         </g>
     );
 
     const renderAlanine = () => (
         <g transform={`scale(${sizeMultiplier})`}>
-            {/* H at top left */}
-            <text x="30" y="25" fill={COLORS.hydrogen} fontSize="14" fontFamily="Arial">H</text>
+            {/* Central alpha carbon */}
+            <circle cx="75" cy="65" r="3" fill={COLORS.carbon} />
 
-            {/* N-H bond */}
-            <line x1="40" y1="30" x2="50" y2="45" stroke={COLORS.bond} strokeWidth="1.5" />
+            {/* CH3 group (methyl - R group for alanine) - TOP */}
+            <line x1="75" y1="65" x2="75" y2="30" stroke={COLORS.bond} strokeWidth="2" />
+            <text x="62" y="25" fill={COLORS.carbon} fontSize="14" fontFamily="Arial" fontWeight="bold">CH</text>
+            <text x="82" y="28" fill={COLORS.carbon} fontSize="10" fontFamily="Arial">3</text>
 
-            {/* NH2 group */}
-            <text x="50" y="55" fill={COLORS.nitrogen} fontSize="14" fontFamily="Arial" fontWeight="bold">NH</text>
-            <text x="72" y="58" fill={COLORS.nitrogen} fontSize="10" fontFamily="Arial">2</text>
+            {/* NH2 group - LEFT */}
+            <line x1="75" y1="65" x2="40" y2="65" stroke={COLORS.bond} strokeWidth="2" />
+            <text x="15" y="70" fill={COLORS.nitrogen} fontSize="14" fontFamily="Arial" fontWeight="bold">H₂N</text>
 
-            {/* Bond from NH2 to alpha carbon */}
-            <line x1="65" y1="60" x2="75" y2="75" stroke={COLORS.bond} strokeWidth="1.5" />
+            {/* H on alpha carbon - BOTTOM LEFT */}
+            <line x1="75" y1="65" x2="55" y2="90" stroke={COLORS.bond} strokeWidth="2" />
+            <text x="48" y="102" fill={COLORS.hydrogen} fontSize="14" fontFamily="Arial">H</text>
 
-            {/* Alpha carbon */}
-            <text x="70" y="85" fill={COLORS.carbon} fontSize="14" fontFamily="Arial">C</text>
-
-            {/* CH3 group (methyl - R group for alanine) */}
-            <line x1="68" y1="72" x2="55" y2="60" stroke={COLORS.bond} strokeWidth="1.5" />
-            <text x="35" y="55" fill={COLORS.carbon} fontSize="14" fontFamily="Arial">H</text>
-            <text x="42" y="58" fill={COLORS.carbon} fontSize="10" fontFamily="Arial">3</text>
-            <text x="48" y="55" fill={COLORS.carbon} fontSize="14" fontFamily="Arial">C</text>
-
-            {/* Bond to carboxyl carbon */}
-            <line x1="82" y1="80" x2="100" y2="80" stroke={COLORS.bond} strokeWidth="1.5" />
+            {/* Bond to carboxyl carbon - RIGHT */}
+            <line x1="75" y1="65" x2="115" y2="65" stroke={COLORS.bond} strokeWidth="2" />
 
             {/* Carboxyl carbon */}
-            <text x="100" y="85" fill={COLORS.carbon} fontSize="14" fontFamily="Arial">C</text>
+            <circle cx="115" cy="65" r="3" fill={COLORS.carbon} />
 
-            {/* Double bond to O */}
-            <line x1="95" y1="90" x2="85" y2="105" stroke={COLORS.bond} strokeWidth="1.5" />
-            <line x1="100" y1="92" x2="90" y2="107" stroke={COLORS.bond} strokeWidth="1.5" />
-            <text x="75" y="115" fill={COLORS.oxygen} fontSize="14" fontFamily="Arial" fontWeight="bold">O</text>
+            {/* Double bond to O - TOP RIGHT */}
+            <line x1="115" y1="65" x2="135" y2="40" stroke={COLORS.bond} strokeWidth="2" />
+            <line x1="118" y1="62" x2="138" y2="37" stroke={COLORS.bond} strokeWidth="2" />
+            <text x="138" y="38" fill={COLORS.oxygen} fontSize="14" fontFamily="Arial" fontWeight="bold">O</text>
 
-            {/* OH group */}
-            <line x1="112" y1="85" x2="130" y2="85" stroke={COLORS.bond} strokeWidth="1.5" />
-            <text x="130" y="90" fill={COLORS.oxygen} fontSize="14" fontFamily="Arial" fontWeight="bold">OH</text>
+            {/* OH group - BOTTOM RIGHT */}
+            <line x1="115" y1="65" x2="135" y2="90" stroke={COLORS.bond} strokeWidth="2" />
+            <text x="138" y="95" fill={COLORS.oxygen} fontSize="14" fontFamily="Arial" fontWeight="bold">OH</text>
         </g>
     );
 
@@ -197,8 +186,8 @@ const AminoAcidDiagram: React.FC<AminoAcidProps> = ({
         }}>
             <svg
                 width={structure === 'phenylalanine' ? width * 0.6 : width}
-                height={structure === 'phenylalanine' ? height * 1.4 : height}
-                viewBox={structure === 'phenylalanine' ? "-20 10 100 180" : "20 10 140 120"}
+                height={structure === 'phenylalanine' ? height * 1.4 : height + 10}
+                viewBox={structure === 'phenylalanine' ? "-20 10 100 180" : "0 10 170 110"}
             >
                 {renderStructure()}
             </svg>

@@ -78,6 +78,25 @@ ATOM      7  H5  ETH     1       1.147   0.513   0.887  1.00  0.00           H
 ATOM      8  H6  ETH     1       1.147   0.513  -0.887  1.00  0.00           H
 END`
     },
+    'acetone': {
+        color: '#f97316',
+        emoji: '🧴',
+        formula: 'C₃H₆O',
+        skeletal: 'Three carbons with central ketone (C=O)',
+        functionalGroups: ['Ketone (C=O)', 'Level 2 oxidation'],
+        pdb: `COMPND    ACETONE
+ATOM      1  C1  ACE     1      -1.270   0.000   0.000  1.00  0.00           C
+ATOM      2  C2  ACE     1       0.000   0.000   0.000  1.00  0.00           C
+ATOM      3  C3  ACE     1       1.270   0.000   0.000  1.00  0.00           C
+ATOM      4  O1  ACE     1       0.000   1.230   0.000  1.00  0.00           O
+ATOM      5  H1  ACE     1      -1.640   0.520   0.890  1.00  0.00           H
+ATOM      6  H2  ACE     1      -1.640   0.520  -0.890  1.00  0.00           H
+ATOM      7  H3  ACE     1      -1.640  -1.030   0.000  1.00  0.00           H
+ATOM      8  H4  ACE     1       1.640  -0.520   0.890  1.00  0.00           H
+ATOM      9  H5  ACE     1       1.640  -0.520  -0.890  1.00  0.00           H
+ATOM     10  H6  ACE     1       1.640   1.030   0.000  1.00  0.00           H
+END`
+    },
     'acetaldehyde': {
         color: '#f59e0b',
         emoji: '🧪',
