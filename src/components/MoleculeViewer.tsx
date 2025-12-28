@@ -30,9 +30,11 @@ interface MoleculeViewerProps {
     height?: number;
 }
 
-// Common molecules with PDB format, formulas, and structure info
+// Common molecules with structure data, formulas, and info
+// Using SDF format for accurate bond order visualization (double/triple bonds)
 const moleculeData: Record<string, {
     pdb: string;
+    format?: 'pdb' | 'sdf';
     color: string;
     emoji: string;
     formula: string;
@@ -82,53 +84,91 @@ END`
         color: '#f97316',
         emoji: '🧴',
         formula: 'C₃H₆O',
-        skeletal: 'Three carbons with central ketone (C=O)',
+        skeletal: 'Three carbons with central ketone (C=O double bond)',
         functionalGroups: ['Ketone (C=O)', 'Level 2 oxidation'],
-        pdb: `COMPND    ACETONE
-ATOM      1  C1  ACE     1      -1.270   0.000   0.000  1.00  0.00           C
-ATOM      2  C2  ACE     1       0.000   0.000   0.000  1.00  0.00           C
-ATOM      3  C3  ACE     1       1.270   0.000   0.000  1.00  0.00           C
-ATOM      4  O1  ACE     1       0.000   1.230   0.000  1.00  0.00           O
-ATOM      5  H1  ACE     1      -1.640   0.520   0.890  1.00  0.00           H
-ATOM      6  H2  ACE     1      -1.640   0.520  -0.890  1.00  0.00           H
-ATOM      7  H3  ACE     1      -1.640  -1.030   0.000  1.00  0.00           H
-ATOM      8  H4  ACE     1       1.640  -0.520   0.890  1.00  0.00           H
-ATOM      9  H5  ACE     1       1.640  -0.520  -0.890  1.00  0.00           H
-ATOM     10  H6  ACE     1       1.640   1.030   0.000  1.00  0.00           H
-END`
+        pdb: `
+Acetone
+  Generated
+
+ 10  9  0  0  0  0  0  0  0  0999 V2000
+   -1.2700    0.0000    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.0000    0.0000    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.2700    0.0000    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.0000    1.2300    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.6400    0.5200    0.8900 H   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.6400    0.5200   -0.8900 H   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.6400   -1.0300    0.0000 H   0  0  0  0  0  0  0  0  0  0  0  0
+    1.6400   -0.5200    0.8900 H   0  0  0  0  0  0  0  0  0  0  0  0
+    1.6400   -0.5200   -0.8900 H   0  0  0  0  0  0  0  0  0  0  0  0
+    1.6400    1.0300    0.0000 H   0  0  0  0  0  0  0  0  0  0  0  0
+  1  2  1  0  0  0  0
+  2  3  1  0  0  0  0
+  2  4  2  0  0  0  0
+  1  5  1  0  0  0  0
+  1  6  1  0  0  0  0
+  1  7  1  0  0  0  0
+  3  8  1  0  0  0  0
+  3  9  1  0  0  0  0
+  3 10  1  0  0  0  0
+M  END`,
+        format: 'sdf'
     },
     'acetaldehyde': {
         color: '#f59e0b',
         emoji: '🧪',
         formula: 'C₂H₄O',
-        skeletal: 'Two carbons, one C=O double bond (Level 2)',
-        functionalGroups: ['Aldehyde', 'Carbonyl'],
-        pdb: `COMPND    ACETALDEHYDE
-ATOM      1  C1  ALD     1       0.000   0.000   0.000  1.00  0.00           C
-ATOM      2  C2  ALD     1       1.530   0.000   0.000  1.00  0.00           C
-ATOM      3  O1  ALD     1       2.230   1.210   0.000  1.00  0.00           O
-ATOM      4  H1  ALD     1      -0.390  -0.510   0.890  1.00  0.00           H
-ATOM      5  H2  ALD     1      -0.390  -0.510  -0.890  1.00  0.00           H
-ATOM      6  H3  ALD     1      -0.390   1.020   0.000  1.00  0.00           H
-ATOM      7  H4  ALD     1       2.040  -0.960   0.000  1.00  0.00           H
-END`
+        skeletal: 'Two carbons, one C=O double bond (Aldehyde)',
+        functionalGroups: ['Aldehyde (CHO)', 'Carbonyl (C=O)'],
+        pdb: `
+Acetaldehyde
+  Generated
+
+  7  6  0  0  0  0  0  0  0  0999 V2000
+    0.0000    0.0000    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    1.5300    0.0000    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    2.2300    1.2100    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.3900   -0.5100    0.8900 H   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.3900   -0.5100   -0.8900 H   0  0  0  0  0  0  0  0  0  0  0  0
+   -0.3900    1.0200    0.0000 H   0  0  0  0  0  0  0  0  0  0  0  0
+    2.0400   -0.9600    0.0000 H   0  0  0  0  0  0  0  0  0  0  0  0
+  1  2  1  0  0  0  0
+  2  3  2  0  0  0  0
+  1  4  1  0  0  0  0
+  1  5  1  0  0  0  0
+  1  6  1  0  0  0  0
+  2  7  1  0  0  0  0
+M  END`,
+        format: 'sdf'
     },
     'acetic acid': {
         color: '#ef4444',
         emoji: '🥗',
         formula: 'C₂H₄O₂',
-        skeletal: 'Two carbons, C=O and -OH (Level 3)',
-        functionalGroups: ['Carboxylic Acid', 'Carbonyl', 'Hydroxyl'],
-        pdb: `COMPND    ACETIC ACID
-ATOM      1  C1  AAC     1      -1.465  -0.088   0.000  1.00  0.00           C
-ATOM      2  C2  AAC     1       0.000   0.141   0.000  1.00  0.00           C
-ATOM      3  O1  AAC     1       0.785  -0.923   0.000  1.00  0.00           O
-ATOM      4  O2  AAC     1       0.605   1.385   0.000  1.00  0.00           O
-ATOM      5  H1  AAC     1      -1.921   0.395   0.882  1.00  0.00           H
-ATOM      6  H2  AAC     1      -1.637  -1.164   0.007  1.00  0.00           H
-ATOM      7  H3  AAC     1      -1.921   0.395  -0.882  1.00  0.00           H
-ATOM      8  H4  AAC     1       1.751  -0.672   0.000  1.00  0.00           H
-END`
+        skeletal: 'Two carbons, C=O double bond and -OH (Level 3)',
+        functionalGroups: ['Carboxylic Acid (COOH)', 'Carbonyl (C=O)', 'Hydroxyl (-OH)'],
+        // SDF format with explicit bond orders: 1=single, 2=double
+        pdb: `
+Acetic Acid
+  Generated
+
+  8  7  0  0  0  0  0  0  0  0999 V2000
+   -1.4650   -0.0880    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.0000    0.1410    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0
+    0.7850   -0.9230    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+    0.6050    1.3850    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.9210    0.3950    0.8820 H   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.6370   -1.1640    0.0070 H   0  0  0  0  0  0  0  0  0  0  0  0
+   -1.9210    0.3950   -0.8820 H   0  0  0  0  0  0  0  0  0  0  0  0
+    1.7510   -0.6720    0.0000 H   0  0  0  0  0  0  0  0  0  0  0  0
+  1  2  1  0  0  0  0
+  2  3  1  0  0  0  0
+  2  4  2  0  0  0  0
+  1  5  1  0  0  0  0
+  1  6  1  0  0  0  0
+  1  7  1  0  0  0  0
+  3  8  1  0  0  0  0
+M  END`,
+        format: 'sdf' as const
     },
     'caffeine': {
         color: '#f59e0b',
@@ -629,7 +669,9 @@ export default function MoleculeViewer({
 
                 viewerRef.current = viewer;
 
-                viewer.addModel(molecule.pdb, 'pdb');
+                // Use SDF format for accurate bond orders (double/triple bonds)
+                const format = molecule.format || 'pdb';
+                viewer.addModel(molecule.pdb, format);
                 applyStyle(viewer, viewStyle, molecule.color);
                 viewer.zoomTo();
                 viewer.render();
