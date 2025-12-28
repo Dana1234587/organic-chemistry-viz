@@ -73,6 +73,74 @@ function Bond({ start, end, color }: {
     );
 }
 
+// Double bond - two parallel lines
+function DoubleBond({ start, end, color }: {
+    start: [number, number, number];
+    end: [number, number, number];
+    color: string;
+}) {
+    const offset = 0.08;
+    return (
+        <>
+            <Line
+                points={[
+                    [start[0], start[1] + offset, start[2]],
+                    [end[0], end[1] + offset, end[2]]
+                ]}
+                color={color}
+                lineWidth={3}
+                opacity={0.9}
+            />
+            <Line
+                points={[
+                    [start[0], start[1] - offset, start[2]],
+                    [end[0], end[1] - offset, end[2]]
+                ]}
+                color={color}
+                lineWidth={3}
+                opacity={0.9}
+            />
+        </>
+    );
+}
+
+// Triple bond - three parallel lines
+function TripleBond({ start, end, color }: {
+    start: [number, number, number];
+    end: [number, number, number];
+    color: string;
+}) {
+    const offset = 0.1;
+    return (
+        <>
+            <Line
+                points={[start, end]}
+                color={color}
+                lineWidth={3}
+                opacity={0.9}
+            />
+            <Line
+                points={[
+                    [start[0], start[1] + offset, start[2]],
+                    [end[0], end[1] + offset, end[2]]
+                ]}
+                color={color}
+                lineWidth={2}
+                opacity={0.7}
+            />
+            <Line
+                points={[
+                    [start[0], start[1] - offset, start[2]],
+                    [end[0], end[1] - offset, end[2]]
+                ]}
+                color={color}
+                lineWidth={2}
+                opacity={0.7}
+            />
+        </>
+    );
+}
+
 // Angle arc indicator
 function AngleIndicator({ center, point1, point2, angle, color }: {
     center: [number, number, number];
@@ -201,16 +269,34 @@ function SP2Structure({ color }: { color: string }) {
             <Atom position={positions[1]} color={color} label="C" size={0.4} />
             <Atom position={positions[2]} color="#888888" label="H" size={0.35} />
 
-            {/* Bonds */}
-            {positions.map((pos, i) => (
-                <Bond key={`bond-${i}`} start={[0, 0, 0]} end={pos} color={color} />
-            ))}
+            {/* Single bonds to H atoms */}
+            <Bond start={[0, 0, 0]} end={positions[0]} color={color} />
+            <Bond start={[0, 0, 0]} end={positions[2]} color={color} />
 
-            {/* p orbital visualization */}
+            {/* Double bond C=C */}
+            <DoubleBond start={[0, 0, 0]} end={positions[1]} color="#22c55e" />
+
+            {/* Double bond label */}
+            <Html position={[-0.8, -0.8, 0]}>
+                <div style={{
+                    background: 'rgba(34, 197, 94, 0.2)',
+                    border: '1px solid #22c55e',
+                    borderRadius: '8px',
+                    padding: '2px 8px',
+                    color: '#22c55e',
+                    fontWeight: 'bold',
+                    fontSize: '11px',
+                    whiteSpace: 'nowrap',
+                }}>
+                    C═C
+                </div>
+            </Html>
+
+            {/* p orbital visualization (π bond) */}
             <mesh position={[0, 0, 0]} rotation={[0, 0, 0]}>
                 <cylinderGeometry args={[0.1, 0.1, 1.5, 16]} />
                 <meshStandardMaterial
-                    color={color}
+                    color="#22c55e"
                     transparent
                     opacity={0.3}
                 />
@@ -251,18 +337,36 @@ function SPStructure({ color }: { color: string }) {
             {/* Right C */}
             <Atom position={[bondLength, 0, 0]} color={color} label="C" size={0.4} />
 
-            {/* Bonds */}
+            {/* Single bond to H */}
             <Bond start={[0, 0, 0]} end={[-bondLength, 0, 0]} color={color} />
-            <Bond start={[0, 0, 0]} end={[bondLength, 0, 0]} color={color} />
 
-            {/* p orbitals */}
-            <mesh position={[0, 0, 0]} rotation={[0, 0, 0]}>
+            {/* Triple bond C≡C */}
+            <TripleBond start={[0, 0, 0]} end={[bondLength, 0, 0]} color="#ef4444" />
+
+            {/* Triple bond label */}
+            <Html position={[0.65, -0.6, 0]}>
+                <div style={{
+                    background: 'rgba(239, 68, 68, 0.2)',
+                    border: '1px solid #ef4444',
+                    borderRadius: '8px',
+                    padding: '2px 8px',
+                    color: '#ef4444',
+                    fontWeight: 'bold',
+                    fontSize: '11px',
+                    whiteSpace: 'nowrap',
+                }}>
+                    C≡C
+                </div>
+            </Html>
+
+            {/* p orbitals (2 π bonds) */}
+            <mesh position={[0.65, 0, 0]} rotation={[0, 0, 0]}>
                 <cylinderGeometry args={[0.08, 0.08, 1.2, 16]} />
-                <meshStandardMaterial color={color} transparent opacity={0.25} />
+                <meshStandardMaterial color="#ef4444" transparent opacity={0.25} />
             </mesh>
-            <mesh position={[0, 0, 0]} rotation={[0, 0, Math.PI / 2]}>
+            <mesh position={[0.65, 0, 0]} rotation={[Math.PI / 2, 0, 0]}>
                 <cylinderGeometry args={[0.08, 0.08, 1.2, 16]} />
-                <meshStandardMaterial color={color} transparent opacity={0.25} />
+                <meshStandardMaterial color="#ef4444" transparent opacity={0.25} />
             </mesh>
 
             {/* Angle indicator */}
