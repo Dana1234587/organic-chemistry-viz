@@ -1,223 +1,644 @@
 import { ChapterSection } from '../../types';
 
-export const introduction = `Drawing organic molecules is not just about making pretty pictures—it's about communicating chemical reality. In organic chemistry, the structure IS the chemistry. 
+export const introduction = `Welcome to the language of organic chemistry! Drawing organic molecules is not just about making pretty pictures—it's about communicating chemical reality. In organic chemistry, the structure IS the chemistry.
 
-Because organic molecules can become very complex, chemists have developed a shorthand way to draw them that is fast, clear, and informative. This chapter will teach you how to "read and write" organic chemistry fluently, from understanding the zig-zag backbone of carbon chains to visualizing the 3D nature of molecules on a 2D page.`;
+Because organic molecules can become incredibly complex (some natural products have hundreds of atoms!), chemists have developed elegant shorthand conventions to draw them quickly and clearly. This chapter will teach you to "read and write" organic chemistry fluently.
+
+What you will master:
+• The zig-zag notation for carbon chains
+• How to interpret skeletal structures like a professional chemist  
+• The complete catalog of functional groups
+• Clayden's powerful oxidation level system
+• Essential trivial names you must memorize
+
+By the end, you'll be able to look at a drug like Ibuprofen and instantly identify all its functional groups!`;
 
 export const sections: ChapterSection[] = [
     {
-        id: "drawing-organic-structures",
-        title: "Drawing Organic Structures",
-        content: `Drawing molecules correctly is the first step to understanding them. We don't draw every single atom in organic chemistry because it would be too cluttered. Instead, we use **Skeletal Structures**.
+        id: "why-skeletal-structures",
+        title: "Why Skeletal Structures Matter: The Palytoxin Example",
+        content: `Before we dive into the rules, let's see WHY skeletal structures are essential.
 
-**GUIDELINE 1: The Zig-Zag Line**
-Carbon chains are drawn as zig-zag lines. Why? Because carbon atoms with single bonds are tetrahedral, with bond angles of roughly 109.5°. A zig-zag line on paper is the best way to represent this 3D shape in 2D.
-![Zig Zag Chain](/images/chapter2/zigzag_chain.png)
+Palytoxin is one of the most complex and toxic natural products known. It was isolated from a coral in Hawaii. If we tried to draw every atom:
+• 129 Carbon atoms
+• 223 Hydrogen atoms  
+• 54 Oxygen atoms
+• 3 Nitrogen atoms
 
-**GUIDELINE 2: Omit Carbons**
-We rarely write the letter 'C'. Any corner (vertex) or endpoint of a line represents a Carbon atom.
-*   A line end = a CH₃ group (methyl)
-*   A vertex = a CH₂ group (methylene)
-*   A vertex with a branch = a CH group (methine)
-*   A vertex with 3 branches = a C (quaternary carbon)
+The full structure would be unreadable chaos! But with skeletal notation, even Palytoxin can be drawn clearly on a single page.
 
-**GUIDELINE 3: Omit Hydrogens (mostly)**
-We do NOT draw hydrogen atoms attached to carbon. We know carbon always forms 4 bonds. If you see a carbon line end (1 bond), you assume there are 3 invisible hydrogens attached to satisfy the valency.
+THE POWER OF SIMPLIFICATION:
+Skeletal structures remove "noise" (the repetitive C's and H's) so you can focus on:
+1. The overall shape of the molecule
+2. The functional groups (the reactive parts)
+3. The stereochemistry (3D arrangement)
 
-**CRITICAL EXCEPTION:**
-You MUST write out hydrogens attached to **heteroatoms** (atoms that are not C). 
-*   Right: -OH, -NH₂
-*   Wrong: -O, -N (unless they are actually ions/radicals)
+Even simple molecules benefit. Compare these for pentane (C₅H₁₂):
 
-**Common Abbreviations:**
-*   **Me**: Methyl (-CH₃)
-*   **Et**: Ethyl (-CH₂CH₃)
-*   **Pr**: Propyl (-CH₂CH₂CH₃)
-*   **Bu**: Butyl (-CH₂CH₂CH₂CH₃)
-*   **Ph**: Phenyl (benzene ring group)
-*   **Ar**: Aryl group (any aromatic ring)
-*   **R**: Any alkyl group/wildcard
-*   **Solvents**: THF (Tetrahydrofuran), DMF (Dimethylformamide), DMSO (Dimethyl Sulfoxide)`,
+Full Structure: CH₃-CH₂-CH₂-CH₂-CH₃
+Skeletal Structure: A simple zig-zag with 5 corners
+
+Which is faster to draw? Which is easier to read? The skeletal version, always!`,
         keyPoints: [
-            "Draw carbon chains as zig-zags to mimic 109.5° angles",
-            "Carbon atoms are implied at corners and ends of lines",
-            "Hydrogen atoms on carbons are omitted (implied)",
-            "Hydrogens on Heteroatoms (O, N, S...) MUST be drawn",
-            "Learn abbreviations like Me, Et, Ph to save time"
+            "Skeletal structures simplify complex molecules",
+            "They reveal molecular shape and functional groups",
+            "Even simple molecules benefit from skeletal notation",
+            "Professional chemists use skeletal structures exclusively"
         ],
-        funFact: "The zig-zag convention is so universal that if you drew a straight line for a carbon chain, chemists would think you meant a Triple Bond (alkyne) which is actually linear!",
-        commonMistake: "Forgetting to draw the H's on heteroatoms. Writing '-O' instead of '-OH' changes the molecule from an alcohol to an alkoxy radical or ion!"
+        funFact: "Palytoxin is so toxic that the Hawaiian name 'limu-make-o-Hana' means 'the seaweed of death from Hana'. Just 4 micrograms (0.000004 grams) can kill a human!"
+    },
+    {
+        id: "drawing-organic-structures",
+        title: "The Three Golden Rules of Skeletal Structures",
+        content: `Drawing molecules correctly is the first step to understanding them. Master these three guidelines and you'll draw like a pro.
+
+═══════════════════════════════════════
+RULE 1: The Zig-Zag Line
+═══════════════════════════════════════
+
+Carbon chains are ALWAYS drawn as zig-zag lines. Why?
+
+Because carbon atoms with single bonds are tetrahedral, with bond angles of approximately 109.5°. A zig-zag line on paper is the best 2D representation of this 3D shape.
+
+Bond Angles by Hybridization:
+• sp³ (single bonds) → 109.5° → Zig-zag drawing
+• sp² (double bonds) → 120° → Slightly wider angle
+• sp (triple bonds) → 180° → Straight line
+
+⚠️ WARNING: Never draw a straight line for an alkane chain!
+If you draw a straight carbon chain, chemists will think you mean an alkyne (triple bond), which IS linear (180°).
+
+═══════════════════════════════════════
+RULE 2: Omit Carbon Labels
+═══════════════════════════════════════
+
+We NEVER write the letter 'C' for carbon atoms. Instead:
+
+• Line end = CH₃ (methyl group)
+• Simple corner = CH₂ (methylene)
+• Corner with 1 branch = CH (methine)
+• Corner with 2+ branches = C (quaternary)
+
+How to count hydrogens: Carbon ALWAYS forms 4 bonds. Count the visible bonds, subtract from 4, and that's how many H's are attached.
+
+Example: A corner with 2 lines = 2 bonds shown → 4 - 2 = 2 hydrogens → CH₂
+
+═══════════════════════════════════════
+RULE 3: Omit Hydrogens on Carbon
+═══════════════════════════════════════
+
+We do NOT draw hydrogen atoms attached to carbon. They are "invisible" but implied.
+
+❗ THE CRITICAL EXCEPTION:
+You MUST write out hydrogens attached to heteroatoms (atoms that are NOT carbon or hydrogen).
+
+✓ Correct: -OH, -NH₂, -SH
+✗ Wrong: -O, -N, -S
+
+This is the #1 beginner mistake. If you forget the H on oxygen, you've drawn a completely different (often impossible) molecule!`,
+        keyPoints: [
+            "Draw carbon chains as zig-zags (109.5° angles)",
+            "Carbon atoms are implied at corners and ends",
+            "Hydrogen atoms on carbons are omitted (count bonds to figure out H's)",
+            "Hydrogens on Heteroatoms (O, N, S...) MUST ALWAYS be drawn",
+            "A line end = CH₃, a corner = CH₂ (usually)"
+        ],
+        funFact: "The zig-zag convention is so universal that pharmaceutical patents worth billions of dollars are drawn using nothing but lines, letters for heteroatoms, and wedges!",
+        commonMistake: "Writing '-O' instead of '-OH' in an alcohol. This single missing H changes your molecule from a stable alcohol into an impossible alkoxy radical!"
+    },
+    {
+        id: "common-abbreviations",
+        title: "Common Abbreviations: The Chemist's Shorthand",
+        content: `Professional chemists use abbreviations constantly. You MUST memorize these to read the literature.
+
+═══════════════════════════════════════
+ALKYL GROUP ABBREVIATIONS
+═══════════════════════════════════════
+
+Me = Methyl (-CH₃) ──────────── 1 carbon
+Et = Ethyl (-CH₂CH₃) ─────────── 2 carbons
+Pr = Propyl (-CH₂CH₂CH₃) ────── 3 carbons
+iPr = Isopropyl (-CH(CH₃)₂) ──── 3 carbons (branched)
+Bu = Butyl (-CH₂CH₂CH₂CH₃) ─── 4 carbons
+tBu = tert-Butyl (-C(CH₃)₃) ──── 4 carbons (branched)
+
+═══════════════════════════════════════
+AROMATIC ABBREVIATIONS
+═══════════════════════════════════════
+
+Ph = Phenyl ─── A benzene ring as substituent (C₆H₅-)
+Bn = Benzyl ─── A CH₂ attached to benzene (PhCH₂-)
+Ar = Aryl ───── Any aromatic ring
+
+❗ IMPORTANT: Phenyl vs Benzyl - A Common Confusion!
+• Phenyl (Ph): The benzene ring directly attached (no CH₂)
+• Benzyl (Bn): Benzene ring with a CH₂ spacer
+
+Ph-OH = Phenol (OH directly on ring)
+Bn-OH = Benzyl alcohol (PhCH₂-OH, with CH₂ spacer)
+
+═══════════════════════════════════════
+WILDCARD SYMBOLS
+═══════════════════════════════════════
+
+R = Any alkyl group or hydrogen
+R' = A different R group
+X = Any halogen (F, Cl, Br, I)
+
+═══════════════════════════════════════
+COMMON SOLVENT ABBREVIATIONS
+═══════════════════════════════════════
+
+THF = Tetrahydrofuran
+DMF = Dimethylformamide
+DMSO = Dimethyl sulfoxide
+DCM = Dichloromethane
+EtOAc = Ethyl acetate
+MeOH = Methanol
+EtOH = Ethanol`,
+        keyPoints: [
+            "Me = Methyl, Et = Ethyl, Pr = Propyl, Bu = Butyl",
+            "Ph = Phenyl (benzene ring), Bn = Benzyl (PhCH₂)",
+            "R = generic alkyl group, X = any halogen",
+            "i = iso (branched), t = tertiary (highly branched)",
+            "Know solvent abbreviations: THF, DMF, DMSO, DCM"
+        ],
+        commonMistake: "Confusing Phenyl (Ph) and Benzyl (Bn). Remember: Benzyl has a 'bonus' CH₂ between the ring and the attachment point."
     },
     {
         id: "hydrocarbon-frameworks",
-        title: "Hydrocarbon Frameworks",
-        content: `The "skeleton" of a molecule is its hydrocarbon framework. It provides the shape and support but is usually not the reactive part.
+        title: "Hydrocarbon Frameworks: Chains and Rings",
+        content: `The hydrocarbon "skeleton" provides the shape and support of the molecule. It's usually unreactive—the chemistry happens at the functional groups attached to it.
 
-**Chains:**
-The backbone can be a straight chain or branched.
-*   **Saturated**: Contains only single bonds (Alkanes).
-*   **Unsaturated**: Contains double (Alkenes) or triple bonds (Alkynes).
+═══════════════════════════════════════
+TYPES OF CARBON CHAINS
+═══════════════════════════════════════
 
-**Rings:**
-Carbon chains can bite their own tails to form rings.
-*   **Cyclohexane**: A 6-membered ring (very common).
-*   **Benzene**: A special 6-membered ring with alternating double bonds. It is planar and very stable.
+Saturated vs Unsaturated:
 
-Rings can be fused together to create complex structures like steroids (e.g., cholesterol, testosterone).`,
+• Alkane: Single bonds only → Saturated → Example: Propane
+• Alkene: Contains C=C → Unsaturated → Example: Propene  
+• Alkyne: Contains C≡C → Unsaturated → Example: Propyne
+
+"Saturated" means the carbons are bonded to the maximum number of hydrogens possible. Adding a double or triple bond "unsaturates" the molecule (fewer H's).
+
+═══════════════════════════════════════
+RING STRUCTURES (CYCLIC COMPOUNDS)
+═══════════════════════════════════════
+
+Carbon chains can "bite their own tail" to form rings:
+
+Common Ring Sizes:
+• 3-membered (Cyclopropane) → Strained! (60° angles, wants 109°)
+• 4-membered (Cyclobutane) → Strained (90° angles)
+• 5-membered (Cyclopentane) → Stable (nearly ideal angles)
+• 6-membered (Cyclohexane) → Very stable (adopts "chair" shape)
+
+═══════════════════════════════════════
+AROMATIC RINGS: BENZENE AND BEYOND
+═══════════════════════════════════════
+
+Benzene is special. It's a 6-membered ring with alternating double bonds, but it behaves VERY differently from alkenes.
+
+Key features:
+• Completely planar (flat)
+• Extra stability from delocalization
+• Drawn as a hexagon with a circle inside (or alternating double bonds)
+• Does NOT react like typical double bonds
+
+Fused Ring Systems:
+Aromatic rings can share edges:
+• Naphthalene: Two fused benzene rings (mothball smell)
+• Anthracene: Three fused rings in a row
+• Pyrene: Four fused rings
+
+═══════════════════════════════════════
+STEROIDS: THE ULTIMATE RING SYSTEM
+═══════════════════════════════════════
+
+Steroids have a specific 4-ring structure that appears in many important hormones:
+
+Examples:
+• Cholesterol (membrane component)
+• Testosterone (male hormone)
+• Estradiol (female hormone)
+• Cortisol (stress hormone)
+
+The steroid skeleton has 3 six-membered rings and 1 five-membered ring fused together. Despite looking complex, every steroid shares this same basic framework!`,
         keyPoints: [
-            "Frameworks provide the structure/shape",
-            "Saturated = single bonds only",
+            "Saturated = maximum hydrogens (single bonds only)",
             "Unsaturated = contains double or triple bonds",
-            "Rings are common and can be fused together"
-        ]
+            "Small rings (3-4 carbon) are strained",
+            "6-membered rings (cyclohexane, benzene) are very stable",
+            "Steroids have a specific 4-ring fused structure"
+        ],
+        realWorldConnection: "Cholesterol (a steroid) is so important that every cell in your body makes it. It keeps cell membranes fluid and is the starting material for all steroid hormones!"
     },
     {
         id: "functional-groups",
-        title: "Functional Groups (The Reactive Parts)",
-        content: `If the carbon skeleton is the frame, the **Functional Groups** are the engine. These are specific atoms or groups of atoms that determine HOW the molecule reacts.
+        title: "Functional Groups: The Complete Catalog",
+        content: `If the carbon skeleton is the frame, Functional Groups are the engine. These specific atoms or groups determine HOW the molecule reacts.
 
-Molecules with the same functional group behave similarly. If you learn how an aldehyde reacts, you know how ALL aldehydes react.
+💡 THE BIG IDEA: Molecules with the same functional group behave similarly.
+If you learn how ONE aldehyde reacts, you know how ALL aldehydes react!
 
-![Functional Groups](/images/chapter2/functional_groups_chart.png)
+═══════════════════════════════════════
+GROUP 1: HYDROCARBONS (C-C Bonds)
+═══════════════════════════════════════
 
-**Key Functional Groups to Know:**
+• Alkane: C-C single bonds → Unreactive (no functional group!)
+• Alkene: C=C double bond → Reactive; adds things across bond
+• Alkyne: C≡C triple bond → Very reactive
+• Arene: Benzene ring → Special stability; unique reactions
 
-**Hydrocarbons:**
-*   **Alkane**: Single bonds only (Not reactive)
-*   **Alkene**: C=C double bond (Reactive)
-*   **Alkyne**: C≡C triple bond (Reactive)
-*   **Arene**: Aromatic ring (Special stability)
+═══════════════════════════════════════
+GROUP 2: SINGLE BOND TO HETEROATOM
+═══════════════════════════════════════
 
-**Single Bond to Heteroatom:**
-*   **Alcohol**: R-OH
-*   **Ether**: R-O-R
-*   **Amine**: R-NH₂
-*   **Halide**: R-X (X = F, Cl, Br, I)
+• Alcohol: R-OH → Hydrogen bonding; can be acidic
+• Ether: R-O-R → Relatively unreactive; good solvents
+• Amine: R-NH₂ → Basic (accepts H⁺); nucleophilic
+• Thiol: R-SH → Sulfur version of alcohol; smelly!
+• Sulfide: R-S-R → Sulfur version of ether
+• Halide: R-X → X = F, Cl, Br, or I
 
-**Carbonyls (C=O):**
-*   **Aldehyde**: R-CHO (Carbonyl at end)
-*   **Ketone**: R-CO-R (Carbonyl in middle)
-*   **Carboxylic Acid**: R-COOH (Acidic!)
-*   **Ester**: R-COOR (Sweet smells)
-*   **Amide**: R-CONH₂ (In proteins)
-*   **Acyl Chloride**: R-COCl (Very reactive)
-*   **Nitro Group**: R-NO₂ (Explosive potential)
-*   **Acetal**: R-C(OR)₂-H (Two ether groups on same carbon)
+═══════════════════════════════════════
+GROUP 3: CARBONYL COMPOUNDS (C=O)
+═══════════════════════════════════════
 
-> [!TIP]
-> **Key Reactivity Patterns:**
-> *   **Alcohols**: Nucleophiles (attack positive things) or Acids (lose H⁺).
-> *   **Carbonyls (C=O)**: Electrophiles at the C (attacked by negatives).
-> *   **Amines**: Bases (grab H⁺) and Nucleophiles.
-`,
+The carbonyl group is THE most important in organic chemistry!
+
+• Aldehyde: R-CHO → Carbonyl at END of chain
+• Ketone: R-CO-R → Carbonyl in MIDDLE of chain
+• Carboxylic Acid: R-COOH → Acidic! (gives up H⁺)
+• Ester: R-COO-R → Sweet/fruity smells
+• Amide: R-CONH₂ → Found in proteins
+• Acyl Chloride: R-COCl → Very reactive!
+• Acid Anhydride: R-CO-O-CO-R → Two carbonyls sharing oxygen
+• Nitrile: R-C≡N → Triple bond to nitrogen
+
+═══════════════════════════════════════
+GROUP 4: SPECIAL GROUPS
+═══════════════════════════════════════
+
+• Nitro: R-NO₂ → Found in explosives, drugs
+• Acetal: R-CH(OR)₂ → Two ether oxygens on same carbon
+• Hemiacetal: R-CH(OH)(OR) → One OH + one OR on same carbon
+• Imine: R-C=N-R → C=N double bond
+
+═══════════════════════════════════════
+KEY REACTIVITY RULES
+═══════════════════════════════════════
+
+• Alcohols: Can act as weak acids (lose H⁺) or nucleophiles
+• Amines: Basic (grab H⁺) and nucleophilic
+• Carbonyls: The carbon is electrophilic (attacked by negative things)
+• Carboxylic acids: Actually acidic (give up H⁺)
+
+Understanding these patterns will help you predict reactions in later chapters!`,
         keyPoints: [
             "Functional groups determine chemical reactivity",
-            "Alcohols contain -OH groups",
-            "Carbonyls contain C=O double bonds",
-            "Aldehydes vs Ketones: Position of C=O matters",
-            "Carboxylic acids are acidic; Amines are basic"
+            "Alkanes have NO functional group (unreactive)",
+            "Carbonyl group (C=O) is the most important",
+            "Aldehyde = C=O at end; Ketone = C=O in middle",
+            "Carboxylic acids are acidic; Amines are basic",
+            "Esters (fruity), Thiols (smelly), Amides (in proteins)"
         ],
-        realWorldConnection: "The smell of bananas comes from an ESTER (isoamyl acetate). The smell of rotting fish comes from an AMINE (trimethylamine). Functional groups determine what your nose detects!"
+        realWorldConnection: "The smell of bananas comes from an ESTER (isoamyl acetate). The smell of rotting fish comes from an AMINE (trimethylamine). The smell of skunks comes from a THIOL. Functional groups determine what your nose detects!"
     },
     {
         id: "oxidation-levels",
         title: "Classification by Oxidation Level",
-        content: `A useful way to organize organic chemistry is by **Oxidation Level**. This is defined by how many bonds a carbon has to a **Heteroatom** (more electronegative atom).
+        content: `One of Clayden's most powerful organizational tools is classifying carbon atoms by their Oxidation Level. This tells you how "oxidized" a carbon is.
 
-**Level 0 (Alkanes)**
-*   No bonds to heteroatoms.
-*   Example: Ethane (CH₃-CH₃)
+═══════════════════════════════════════
+THE DEFINITION
+═══════════════════════════════════════
 
-**Level 1 (Alcohols, Amines, Halides)**
-*   **One bond** to a heteroatom.
-*   Example: Ethanol (CH₃-CH₂-OH), Ethylamine
+Oxidation Level = Number of bonds from carbon to a heteroatom
+(any atom more electronegative than carbon: O, N, S, Cl, Br, etc.)
 
-**Level 2 (Carbonyls)**
-*   **Two bonds** to heteroatoms.
-*   Example: Ethanal (Aldehyde), Acetone (Ketone)
-*   Note: A C=O double bond counts as 2 bonds!
+Level 0: 0 bonds to heteroatom → Alkanes (CH₄, C₂H₆)
+Level 1: 1 bond → Alcohols, Amines, Halides
+Level 2: 2 bonds → Aldehydes, Ketones, gem-Dihalides
+Level 3: 3 bonds → Carboxylic Acids, Esters, Amides, Nitriles
+Level 4: 4 bonds → CO₂, Carbonates, CCl₄
 
-**Level 3 (Carboxylic Acids, Esters, Amides, Nitriles)**
-*   **Three bonds** to heteroatoms.
-*   Example: Acetic Acid (CH₃-COOH), Acetonitrile (CH₃-CN)
+❗ COUNTING DOUBLE BONDS:
+A C=O double bond counts as 2 bonds to oxygen, even though it's one "double bond" to one atom!
+Similarly, C≡N in a nitrile counts as 3 bonds to nitrogen.
 
-**Level 4 (Carbon Dioxide)**
-*   **Four bonds** to heteroatoms.
-*   Example: CO₂, Carbonates.
+═══════════════════════════════════════
+THE ONE-CARBON OXIDATION SERIES
+═══════════════════════════════════════
 
-Moving from Level 0 → 4 is **Oxidation**.
-Moving from Level 4 → 0 is **Reduction**.
+Follow the oxidation of methane all the way to CO₂:
 
-### Visual Oxidation Series
+Level 0: Methane (CH₄) ────────── 0 bonds to O
+Level 1: Methanol (CH₃OH) ────── 1 bond to O
+Level 2: Formaldehyde (H-CHO) ── 2 bonds to O
+Level 3: Formic Acid (HCOOH) ─── 3 bonds to O
+Level 4: Carbon Dioxide (CO₂) ── 4 bonds to O
 
-See how the number of bonds to oxygen increases?
+═══════════════════════════════════════
+THE TWO-CARBON OXIDATION SERIES
+═══════════════════════════════════════
 
-**Level 0: Alkane** (Ethane) --[Oxidation]--> **Level 2: Aldehyde** (Acetaldehyde) --[Oxidation]--> **Level 3: Carboxylic Acid** (Acetic Acid)`,
+This is even more practical:
+
+Level 0: Ethane (CH₃-CH₃) ─────── No bonds to heteroatoms
+Level 1: Ethanol (CH₃-CH₂-OH) ── 1 bond to O (alcohol)
+Level 2: Acetaldehyde (CH₃-CHO) ─ 2 bonds to O (C=O)
+Level 3: Acetic Acid (CH₃-COOH) ─ 3 bonds to O
+
+═══════════════════════════════════════
+WHY THIS MATTERS
+═══════════════════════════════════════
+
+• Oxidation = Moving UP levels (0→1→2→3→4)
+• Reduction = Moving DOWN levels (4→3→2→1→0)
+
+This framework lets you instantly classify reactions:
+• Alcohol → Ketone = OXIDATION (Level 1 → 2)
+• Aldehyde → Alcohol = REDUCTION (Level 2 → 1)
+• Alkane → Alkyl halide = OXIDATION (Level 0 → 1)
+
+💡 TIP: Oxidation doesn't always involve oxygen! Converting C-H to C-Cl is also oxidation (adding a bond to an electronegative atom).`,
         keyPoints: [
-            "Classification based on bonds to heteroatoms (O, N, X)",
-            "Level 0: Hydrocarbons",
-            "Level 1: Alcohols/Amines (1 bond)",
-            "Level 2: Aldehydes/Ketones (2 bonds)",
-            "Level 3: Acids/Esters (3 bonds)",
-            "Level 4: CO₂ (4 bonds)"
+            "Oxidation Level = bonds to heteroatoms (O, N, halogen)",
+            "Level 0: Hydrocarbons (no heteroatoms)",
+            "Level 1: Alcohols, Amines, Halides (1 bond)",
+            "Level 2: Aldehydes, Ketones (2 bonds, C=O)",
+            "Level 3: Acids, Esters, Amides (3 bonds)",
+            "Level 4: CO₂, CCl₄ (4 bonds)",
+            "Going up in level = Oxidation; Down = Reduction"
         ],
-        commonMistake: "Thinking oxidation always involves Oxygen. Transforming an alkane to an alkyl chloride (C-H -> C-Cl) is also an oxidation!",
         molecules: [
             { name: "Ethane", description: "Level 0: No bonds to heteroatoms" },
+            { name: "Ethanol", description: "Level 1: One bond to oxygen (C-OH)" },
             { name: "Acetaldehyde", description: "Level 2: Two bonds to oxygen (C=O)" },
-            { name: "Acetic Acid", description: "Level 3: Three bonds to oxygen" }
-        ]
+            { name: "Acetic Acid", description: "Level 3: Three bonds to oxygen (C=O + C-O)" }
+        ],
+        commonMistake: "Thinking oxidation always involves oxygen. Transforming an alkane to an alkyl chloride (C-H → C-Cl) is ALSO an oxidation because you're adding a bond to an electronegative atom!"
+    },
+    {
+        id: "trivial-names",
+        title: "Essential Trivial Names You Must Memorize",
+        content: `Systematic IUPAC names are logical but sometimes clunky. In daily lab use, everyone uses trivial (common) names for simple, important molecules.
+
+⚠️ You MUST memorize these names. Professors and textbooks assume you know them!
+
+═══════════════════════════════════════
+THE ESSENTIAL 10
+═══════════════════════════════════════
+
+ALDEHYDES:
+• Formaldehyde = Methanal (H-CHO) ──── 1 carbon
+• Acetaldehyde = Ethanal (CH₃-CHO) ─── 2 carbons
+
+KETONES:
+• Acetone = Propan-2-one (CH₃-CO-CH₃)
+
+CARBOXYLIC ACIDS:
+• Formic Acid = Methanoic acid (H-COOH) ── 1 carbon
+• Acetic Acid = Ethanoic acid (CH₃-COOH) ─ 2 carbons
+
+AROMATICS:
+• Benzene = C₆H₆ ring (the parent aromatic)
+• Toluene = Methylbenzene (C₆H₅-CH₃)
+• Phenol = Hydroxybenzene (C₆H₅-OH)
+• Aniline = Aminobenzene (C₆H₅-NH₂)
+• Pyridine = Azabenzene (C₅H₅N ring - N is IN the ring)
+
+═══════════════════════════════════════
+MEMORY TIPS
+═══════════════════════════════════════
+
+For Aldehydes/Acids:
+• "Form" = 1 carbon (like the word "first")
+• "Acet" = 2 carbons (like "acetate" in vinegar)
+
+For Aromatics:
+Think of the BASE: Benzene
+• Add -OH → Phenol
+• Add -NH₂ → Aniline  
+• Add -CH₃ → Toluene
+
+For Pyridine:
+Benzene where one C-H is replaced by N. The N is IN the ring (not attached to it).
+
+═══════════════════════════════════════
+WHY COMMON NAMES PERSIST
+═══════════════════════════════════════
+
+For complex molecules like Strychnine (a poison) or Vitamin B12, the systematic names are PAGES long! Common names are essential for practical use.
+
+Even for simple molecules:
+• "Acetone" is faster than "Propan-2-one"
+• "Acetic acid" is clearer than "Ethanoic acid"
+
+You need to know BOTH systems, but common names dominate conversation.`,
+        keyPoints: [
+            "Formaldehyde (1C aldehyde), Acetaldehyde (2C aldehyde)",
+            "Acetone = simplest ketone",
+            "Formic acid (1C), Acetic acid (2C) - 'Form' = 1, 'Acet' = 2",
+            "Benzene, Toluene (Ph-CH₃), Phenol (Ph-OH), Aniline (Ph-NH₂)",
+            "Pyridine = benzene with N in the ring"
+        ],
+        funFact: "Formic acid gets its name from 'formica' (Latin for ant). Ants produce formic acid as a defense mechanism—that's why ant bites sting!"
     },
     {
         id: "naming-compounds",
-        title: "Naming Compounds",
-        content: `There are two languages in organic chemistry:
-1.  **Systematic (IUPAC) Names**: Precise, logical, rule-based. Everyone understands them.
-2.  **Common (Trivial) Names**: Historical, widely used in industry/labs.
+        title: "Systematic IUPAC Nomenclature",
+        content: `While trivial names are common, you must understand systematic naming for new compounds.
 
-**Basic IUPAC Rules:**
-1.  **Longest Chain**: Find the longest continuous carbon chain. This is the parent name (e.g., 5 carbons = Pentane).
-2.  **Numbering**: Number the chain to give the functional group the lowest number.
-3.  **Substituents**: Name branches (methyl, ethyl) and list them alphabetically.
+═══════════════════════════════════════
+THE IUPAC SYSTEM
+═══════════════════════════════════════
 
-**Examples:**
-*   Systematic: **Propanone** vs Common: **Acetone**
-*   Systematic: **Ethanoic Acid** vs Common: **Acetic Acid**
-*   Systematic: **Trichloromethane** vs Common: **Chloroform**
-*   Systematic: **Propan-1-ol** vs **Propan-2-ol** (Numbering is key!)
+STEP 1: Find the Parent Chain
+• Identify the longest continuous carbon chain containing the principal functional group
+• This determines the base name:
+  - 1C = methane, 2C = ethane, 3C = propane, 4C = butane, 5C = pentane...
 
-For very complex molecules like **Strychnine** or **Vitamin B12**, we almost exclusively use the common name because the systematic name would be lines long!
+STEP 2: Number the Chain
+• Number from the end that gives the functional group the lowest number
+• If there's a tie, give substituents the lowest numbers
 
-You typically need to know both!`,
-        molecules: [
-            { name: "Acetone", description: "Common name for Propanone" },
-            { name: "Acetic Acid", description: "Common name for Ethanoic Acid" }
-        ],
+STEP 3: Name Substituents
+• Identify branches (methyl, ethyl, etc.)
+• List them alphabetically before the parent name
+• Use prefixes (di-, tri-, tetra-) for multiples
+
+STEP 4: Assemble the Name
+• Substituents in alphabetical order + position numbers + parent name + suffix
+
+═══════════════════════════════════════
+FUNCTIONAL GROUP SUFFIXES
+═══════════════════════════════════════
+
+• Alkane → -ane → Example: Propane
+• Alkene → -ene → Example: Propene
+• Alkyne → -yne → Example: Propyne
+• Alcohol → -ol → Example: Propanol
+• Aldehyde → -al → Example: Propanal
+• Ketone → -one → Example: Propanone
+• Carboxylic Acid → -oic acid → Example: Propanoic acid
+• Amine → -amine → Example: Propylamine
+
+═══════════════════════════════════════
+EXAMPLES WITH POSITIONS
+═══════════════════════════════════════
+
+• CH₃-CH₂-OH → Ethanol (2C alcohol)
+• CH₃-CH(OH)-CH₃ → Propan-2-ol (OH on carbon 2)
+• CH₃-CO-CH₃ → Propan-2-one (C=O on carbon 2)
+• CH₃-CHO → Ethanal (aldehyde always at C1)
+
+═══════════════════════════════════════
+WHEN TO USE EACH SYSTEM
+═══════════════════════════════════════
+
+• Lab notebook, conversation → Trivial names (faster)
+• Formal publications, new compounds → IUPAC names (unambiguous)
+• Complex natural products → Trivial only (IUPAC too long)
+
+For this course: Know both! Use trivial names for common molecules, IUPAC for everything else.`,
         keyPoints: [
-            "IUPAC names are systematic and unique",
-            "Common names are historical but very common in practice",
-            "Rule 1: Always find the longest carbon chain first",
-            "Number from the end closest to the functional group"
+            "Find longest chain first → parent name",
+            "Number from end closest to functional group",
+            "List substituents alphabetically",
+            "Suffix indicates functional group (-ol, -al, -one, -oic acid)",
+            "Position numbers are included when needed"
+        ],
+        molecules: [
+            { name: "Acetone", description: "Trivial name for Propan-2-one" },
+            { name: "Acetic Acid", description: "Trivial name for Ethanoic Acid" }
         ]
     },
     {
-        id: "3d-representation",
-        title: "3D Representation in 2D",
-        content: `Molecules are 3D objects, but paper is 2D. To show depth, we use **Wedge and Dash** bonds.
+        id: "real-drug-examples",
+        title: "Real-World Application: Functional Groups in Drugs",
+        content: `Let's apply everything you've learned! Can you identify the functional groups in these real molecules?
 
-![Wedge Dash Bond](/images/chapter2/wedge_dash_bond.png)
+═══════════════════════════════════════
+VANILLIN (Vanilla Flavor)
+═══════════════════════════════════════
 
-*   **Solid Line**: Bond is flat in the plane of the paper.
-*   **Wedge (Solid Triangle)**: Bond is coming **OUT** towards you.
-*   **Dash (Hashed Line)**: Bond is going **IN** away from you.
+What is it? The main component of vanilla extract.
 
-**Why does this matter?**
-Biochemistry depends on shape. An enzyme might only accept a molecule where a specific group is pointing "up" (wedge) and not "down" (dash). This concept leads to Stereochemistry (Chapter 4).`,
+Functional groups present:
+• Aldehyde (-CHO): Gives characteristic smell
+• Ether (-OCH₃): A methoxy group on the ring
+• Phenol (-OH on benzene ring): Makes it slightly acidic
+
+Structure notes:
+• Aromatic ring with three substituents
+• The aldehyde is directly on the benzene ring (benzaldehyde derivative)
+
+═══════════════════════════════════════
+IBUPROFEN (Pain Reliever)
+═══════════════════════════════════════
+
+What is it? A common NSAID (Non-Steroidal Anti-Inflammatory Drug).
+
+Functional groups present:
+• Carboxylic Acid (-COOH): Essential for activity, makes it acidic
+• Aromatic Ring: The benzene core
+• Alkyl chains: Propyl and isobutyl groups
+
+Structure notes:
+• The carboxylic acid is not directly on the ring
+• There's a CH₃ branch near the acid (chiral center)
+
+═══════════════════════════════════════
+LINALOOL (Lavender Scent)
+═══════════════════════════════════════
+
+What is it? A terpene found in lavender and many other plants.
+
+Functional groups present:
+• Alcohol (-OH): A tertiary alcohol
+• Alkene (C=C): Two double bonds
+
+Structure notes:
+• Not aromatic (no benzene ring)
+• Acyclic (no rings at all)
+• Pleasant floral smell
+
+═══════════════════════════════════════
+YOUR CHALLENGE
+═══════════════════════════════════════
+
+For any new molecule you encounter:
+1. Identify the skeleton: Is it cyclic? Aromatic? Branched?
+2. Find heteroatoms: Where are the O, N, S, or halogens?
+3. Name the functional groups: What type? (aldehyde, ketone, acid, etc.)
+4. Assign oxidation levels: What level is each carbon attached to heteroatoms?
+
+With practice, this becomes automatic!`,
         keyPoints: [
-            "Molecules are 3D objects",
-            "Wedge = Out (towards viewer)",
-            "Dash = In (away from viewer)",
-            "Crucial for stereochemistry and biology"
-        ]
+            "Real drugs contain multiple functional groups",
+            "Vanillin: aldehyde + ether + phenol",
+            "Ibuprofen: carboxylic acid + aromatic ring",
+            "Linalool: alcohol + alkenes",
+            "Practice identifying functional groups in real molecules"
+        ],
+        realWorldConnection: "Pharmaceutical companies spend billions developing drugs. Understanding structure helps predict how a drug will behave in the body, what side effects it might have, and how to modify it to work better!"
+    },
+    {
+        id: "3d-representation",
+        title: "3D Representation: Wedges and Dashes",
+        content: `Molecules are 3D objects, but we draw them on 2D paper. To show depth, we use the wedge and dash convention.
+
+═══════════════════════════════════════
+THE CONVENTION
+═══════════════════════════════════════
+
+• Solid line ─── In the plane of the paper (flat)
+• Solid wedge ▲ ─── Coming OUT towards you (forward)
+• Dashed line ╌╌╌ ─── Going IN away from you (backward)
+
+═══════════════════════════════════════
+HOW TO READ WEDGE-DASH STRUCTURES
+═══════════════════════════════════════
+
+Imagine you're looking at a table:
+• Solid lines = bonds lying flat on the table
+• Wedges = bonds pointing UP off the table towards your eyes
+• Dashes = bonds pointing DOWN through the table away from you
+
+═══════════════════════════════════════
+WHY THIS MATTERS
+═══════════════════════════════════════
+
+Biochemistry depends on shape!
+
+Consider your hands: Left and right hands have the same components but are mirror images. Many molecules are like this—two versions that are non-superimposable mirror images.
+
+Examples:
+• L-Alanine (amino acid our bodies use) vs D-Alanine (not used)
+• Thalidomide: One form treats morning sickness, the mirror image causes birth defects!
+
+Enzymes are like locks. Only the correctly shaped molecular "key" fits. If a group is pointing the wrong way (wedge instead of dash), the molecule won't work—or worse, may cause harm.
+
+═══════════════════════════════════════
+WHEN TO USE WEDGES AND DASHES
+═══════════════════════════════════════
+
+You don't need them for every molecule. Use them when:
+1. Stereochemistry matters (Chapter 4+)
+2. Showing a specific 3D shape (like tetrahedral carbon)
+3. Ring conformations (chair cyclohexane)
+
+For now, just recognize what they mean when you see them. We'll dive deep into stereochemistry later!`,
+        keyPoints: [
+            "Molecules are 3D objects on 2D paper",
+            "Wedge (solid triangle) = bond coming OUT towards you",
+            "Dash (hashed line) = bond going IN away from you",
+            "Shape determines biological activity",
+            "Crucial for understanding drug action and biochemistry"
+        ],
+        funFact: "The thalidomide tragedy in the 1960s led to much stricter drug testing requirements. Now all chiral drugs must have both mirror-image forms tested separately!"
     }
 ];
