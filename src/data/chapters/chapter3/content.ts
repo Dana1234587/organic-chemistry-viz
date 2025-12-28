@@ -1,23 +1,185 @@
 import { ChapterSection } from '../../types';
 
-export const introduction = `Welcome to the world of structural determination! In this chapter, you'll learn how chemists act as molecular detectives, using powerful spectroscopic techniques to deduce the exact structure of unknown compounds.
+export const introduction = `Welcome to the world of structural determination! 🔬
 
-We'll explore four essential tools:
-• **Mass Spectrometry (MS)** - Weighing molecules and detecting elements
-• **¹³C NMR** - Mapping the carbon skeleton  
-• **¹H NMR** - Probing hydrogen environments
-• **IR Spectroscopy** - Identifying functional groups
+Imagine being a molecular detective. You have an unknown compound in a vial—perhaps a new drug candidate, a natural product from a rainforest plant, or a metabolite from a patient's blood sample. Your mission: determine its exact structure, atom by atom.
 
-By the end, you'll combine all these techniques to solve structural puzzles like a pro!`;
+In this chapter, you'll master the four pillars of structural determination:
+• **X-ray Crystallography** - The "final appeal" that shows atoms directly
+• **Mass Spectrometry (MS)** - Weighing molecules and detecting elements  
+• **NMR Spectroscopy** - Mapping carbon skeletons and hydrogen environments
+• **IR Spectroscopy** - Identifying functional groups through vibrations
+
+Each technique reveals different clues. Together, they solve the molecular mystery!`;
 
 export const sections: ChapterSection[] = [
     // ========================================
-    // MODULE 1: MASS SPECTROMETRY
+    // PHASE 1: X-RAY & INTRODUCTION (Pages 1-4)
+    // ========================================
+    {
+        id: 'why-structure-matters',
+        title: 'Why Structure Matters',
+        content: `<h4>🏥 Would You Trust a Mystery Medicine?</h4>
+
+<p>Imagine a doctor offering you a pill but saying: "I have no idea what's in it, but it might help!" <strong>You'd refuse.</strong> Knowing the exact structure of a molecule is critical because:</p>
+
+<div class="highlight-box">
+<strong>Structure Determines Everything:</strong>
+<ul>
+<li>💊 <strong>Drug activity</strong> - Wrong structure = wrong effect (or dangerous!)</li>
+<li>🧬 <strong>Biological interactions</strong> - Enzymes recognize 3D shape precisely</li>
+<li>⚗️ <strong>Chemical reactivity</strong> - Predict how molecules transform</li>
+<li>🏭 <strong>Quality control</strong> - Confirm you made what you intended</li>
+</ul>
+</div>
+
+<h4>🔍 The Detective Analogy</h4>
+
+<p>Structure determination is like solving a crime:</p>
+
+<table class="reference-table">
+<thead>
+<tr><th>Crime Scene</th><th>Chemistry Lab</th></tr>
+</thead>
+<tbody>
+<tr><td>Fingerprints</td><td>IR spectrum (functional group fingerprint)</td></tr>
+<tr><td>DNA evidence</td><td>Mass spectrum (molecular identity)</td></tr>
+<tr><td>Witness testimony</td><td>NMR signals (atom environments)</td></tr>
+<tr><td>Photograph of suspect</td><td>X-ray structure (direct visualization)</td></tr>
+</tbody>
+</table>
+
+<div class="tip-box">
+<strong>💡 Historical Note:</strong> Before spectroscopy (pre-1950s), chemists spent years doing tedious chemical reactions to prove structures. Today, we can determine complex structures in hours!
+</div>`,
+        keyPoints: [
+            'Molecular structure determines ALL properties',
+            'Wrong structure = wrong drug effect',
+            'Modern spectroscopy replaced years of chemical tests',
+            'Multiple techniques used together give the full picture'
+        ]
+    },
+    {
+        id: 'xray-crystallography',
+        title: 'X-ray Crystallography: The Final Appeal',
+        content: `<h4>⚖️ The Ultimate Proof</h4>
+
+<p>If structure determination were a court case, <strong>X-ray crystallography would be the DNA evidence</strong>—definitive and unambiguous. It directly shows where atoms are positioned in 3D space!</p>
+
+<div class="highlight-box">
+<strong>How X-ray Crystallography Works:</strong>
+<ol>
+<li>Grow a <strong>single crystal</strong> of your compound</li>
+<li>Shine <strong>X-rays</strong> through the crystal</li>
+<li>Measure the <strong>diffraction pattern</strong></li>
+<li>Calculate <strong>electron density maps</strong></li>
+<li>Build the 3D molecular structure!</li>
+</ol>
+</div>
+
+<h4>📊 Reading an X-ray Structure</h4>
+
+<p>X-ray reveals:</p>
+<ul>
+<li>✅ Exact bond lengths (to 0.001 Å precision!)</li>
+<li>✅ Bond angles</li>
+<li>✅ 3D conformation</li>
+<li>✅ Crystal packing</li>
+</ul>
+
+<div class="tip-box">
+<strong>💎 Famous Example:</strong> The structure of DNA (Watson & Crick, 1953) was solved using X-ray diffraction data from Rosalind Franklin's crystallography work!
+</div>
+
+<h4>🎯 Why It's Called "The Final Appeal"</h4>
+
+<p>When all other evidence is ambiguous, an X-ray structure settles the matter definitively. It's like a photograph of the molecule—showing every atom's position.</p>`,
+        keyPoints: [
+            'X-ray crystallography directly shows atom positions',
+            'Requires growing a single crystal',
+            'Gives bond lengths to 0.001 Å precision',
+            'Used to solve DNA structure in 1953'
+        ],
+        molecules: [
+            { name: 'Adipic Acid', description: 'Classic X-ray example - zigzag structure' },
+            { name: 'Caffeine', description: 'Famous X-ray structure determination' }
+        ]
+    },
+    {
+        id: 'xray-limitations',
+        title: 'Limitations of X-ray: Why We Need Spectroscopy',
+        content: `<h4>⚠️ X-ray Isn't Always Possible</h4>
+
+<p>Despite its power, X-ray crystallography has significant limitations:</p>
+
+<div class="warning-box">
+<strong>Problem 1: Need for Crystals</strong>
+<ul>
+<li>Must grow a <strong>single crystal</strong> of suitable quality</li>
+<li>Many compounds are oily liquids or don't crystallize</li>
+<li>Some crystals are too small or have defects</li>
+</ul>
+</div>
+
+<div class="warning-box">
+<strong>Problem 2: Missing Hydrogens</strong>
+<ul>
+<li>X-rays scatter off <strong>electrons</strong></li>
+<li>Hydrogen has only 1 electron—very weak signal!</li>
+<li>H positions often must be calculated, not observed</li>
+</ul>
+</div>
+
+<div class="warning-box">
+<strong>Problem 3: Time and Resources</strong>
+<ul>
+<li>Crystal growing can take weeks/months</li>
+<li>Equipment is expensive</li>
+<li>Not practical for routine analysis</li>
+</ul>
+</div>
+
+<h4>💡 The Spectroscopic Alternative</h4>
+
+<p>This is where <strong>spectroscopy</strong> shines! It works on:</p>
+
+<table class="reference-table">
+<thead>
+<tr><th>Sample Type</th><th>X-ray?</th><th>Spectroscopy?</th></tr>
+</thead>
+<tbody>
+<tr><td>Pure crystal</td><td>✅ Yes</td><td>✅ Yes</td></tr>
+<tr><td>Liquid</td><td>❌ No</td><td>✅ Yes</td></tr>
+<tr><td>Gas</td><td>❌ No</td><td>✅ Yes</td></tr>
+<tr><td>Mixture</td><td>❌ No</td><td>✅ Yes</td></tr>
+<tr><td>Tiny amount</td><td>❌ Usually no</td><td>✅ Yes</td></tr>
+</tbody>
+</table>
+
+<div class="highlight-box">
+<strong>The Spectroscopy Toolkit:</strong>
+<ul>
+<li><strong>MS</strong> - Molecular weight & formula</li>
+<li><strong>NMR</strong> - Carbon skeleton & proton environments</li>
+<li><strong>IR</strong> - Functional groups</li>
+</ul>
+Together, these often give enough information without ever needing an X-ray!
+</div>`,
+        keyPoints: [
+            'X-ray needs high-quality single crystals',
+            'Hydrogen atoms are hard to see with X-rays',
+            'Spectroscopy works on liquids, gases, mixtures',
+            'MS + NMR + IR together can solve most structures'
+        ]
+    },
+    // ========================================
+    // PHASE 2: MASS SPECTROMETRY (Pages 5-9)
     // ========================================
     {
         id: 'ms-introduction',
         title: 'Mass Spectrometry: Weighing Molecules',
         content: `<h4>🎯 The Molecular Scale</h4>
+
 
 <p>Mass spectrometry (MS) is like having an incredibly precise scale that can weigh individual molecules! But it goes further than just mass - it can also:</p>
 

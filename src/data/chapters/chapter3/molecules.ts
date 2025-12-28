@@ -215,4 +215,64 @@ ATOM      7  H3  EGL     1       1.920  -0.500   0.900  1.00  0.00           H
 ATOM      8  H4  EGL     1       1.920  -0.500  -0.900  1.00  0.00           H
 END`
     },
+
+    // ========================================
+    // PHASE 1: X-ray Examples
+    // ========================================
+
+    // Caffeine - Famous X-ray structure
+    'caffeine': {
+        color: '#8b4513',
+        emoji: '☕',
+        formula: 'C₈H₁₀N₄O₂',
+        skeletal: 'Trimethylxanthine - structure solved by X-ray (MW = 194)',
+        functionalGroups: ['Purine ring', 'Carbonyl (C=O) x2', 'N-methyl (x3)'],
+        pubchemCid: 2519,
+        smiles: 'CN1C=NC2=C1C(=O)N(C(=O)N2C)C'
+    },
+
+    // Propranolol - MS fragmentation example
+    'propranolol': {
+        color: '#2563eb',
+        emoji: '💊',
+        formula: 'C₁₆H₂₁NO₂',
+        skeletal: 'Beta-blocker - classic MS fragmentation example (MW = 259)',
+        functionalGroups: ['Secondary amine', 'Ether (-O-)', 'Naphthalene ring', 'Alcohol (-OH)'],
+        pubchemCid: 4946,
+        smiles: 'CC(C)NCC(COC1=CC=CC2=C1C=CC=C2)O'
+    },
+
+    // m-Nitrotoluene - MS spectrum example
+    'm-nitrotoluene': {
+        color: '#dc2626',
+        emoji: '💥',
+        formula: 'C₇H₇NO₂',
+        skeletal: '3-Nitrotoluene - MS shows M+ at 137 (MW = 137)',
+        functionalGroups: ['Aromatic ring', 'Nitro (-NO₂)', 'Methyl (-CH₃)'],
+        pubchemCid: 10454,
+        smiles: 'CC1=CC(=CC=C1)[N+](=O)[O-]'
+    },
+
+    // Heptan-2-one - NMR guided tour example
+    'heptan-2-one': {
+        color: '#f97316',
+        emoji: '🍋',
+        formula: 'C₇H₁₄O',
+        skeletal: 'Methyl pentyl ketone - NMR example (MW = 114)',
+        functionalGroups: ['Ketone (C=O)', 'Alkyl chain'],
+        pubchemCid: 8025,
+        smiles: 'CCCCCC(=O)C'
+    },
+
+    // Propanal - NMR guided tour
+    'propanal': {
+        color: '#eab308',
+        emoji: '🔬',
+        formula: 'C₃H₆O',
+        skeletal: 'Propionaldehyde - 3 distinct carbons in NMR (MW = 58)',
+        functionalGroups: ['Aldehyde (-CHO)', 'Methyl (-CH₃)'],
+        pubchemCid: 527,
+        smiles: 'CCC=O'
+    },
 };
+
