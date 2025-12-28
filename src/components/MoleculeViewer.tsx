@@ -686,28 +686,59 @@ export default function MoleculeViewer({
 
     const applyStyle = (viewer: any, style: ViewStyle, color: string) => {
         viewer.setStyle({}, {});
+        viewer.removeAllLabels();
+
+        // Define element colors for reference (Jmol scheme)
+        const elementColors: Record<string, string> = {
+            'C': '#909090', // Gray - Carbon
+            'O': '#FF0D0D', // Red - Oxygen  
+            'N': '#3050F8', // Blue - Nitrogen
+            'H': '#FFFFFF', // White - Hydrogen
+            'S': '#FFFF00', // Yellow - Sulfur
+            'F': '#90E050', // Light green - Fluorine
+            'Cl': '#1FF01F', // Green - Chlorine
+            'Br': '#A62929', // Brown - Bromine
+        };
 
         switch (style) {
             case 'stick':
+                // Ball and stick with clear bonds
                 viewer.setStyle({}, {
-                    stick: { radius: 0.15, colorscheme: 'Jmol' },
-                    sphere: { scale: 0.25, colorscheme: 'Jmol' }
+                    stick: { radius: 0.12, colorscheme: 'Jmol' },
+                    sphere: { scale: 0.3, colorscheme: 'Jmol' }
                 });
                 break;
             case 'sphere':
+                // Large spheres to show atoms clearly
                 viewer.setStyle({}, {
-                    sphere: { scale: 1, colorscheme: 'Jmol' }
+                    sphere: { scale: 0.9, colorscheme: 'Jmol' }
+                });
+                // Add labels on spheres
+                const atoms = viewer.getModel().atoms;
+                atoms.forEach((atom: any) => {
+                    if (atom.elem !== 'H') { // Skip hydrogen labels for clarity
+                        viewer.addLabel(atom.elem, {
+                            position: { x: atom.x, y: atom.y, z: atom.z },
+                            backgroundColor: 'rgba(0,0,0,0.7)',
+                            fontColor: elementColors[atom.elem] || '#FFFFFF',
+                            fontSize: 14,
+                            fontOpacity: 1,
+                            borderRadius: 4,
+                            padding: 2,
+                        });
+                    }
                 });
                 break;
             case 'line':
                 viewer.setStyle({}, {
-                    line: { colorscheme: 'Jmol' }
+                    line: { colorscheme: 'Jmol', linewidth: 2 }
                 });
                 break;
             case 'cartoon':
+                // Custom colored representation
                 viewer.setStyle({}, {
-                    stick: { radius: 0.3, color: color },
-                    sphere: { scale: 0.4, color: color }
+                    stick: { radius: 0.25, color: color },
+                    sphere: { scale: 0.45, color: color }
                 });
                 break;
         }
@@ -1044,6 +1075,46 @@ export default function MoleculeViewer({
                 <button onClick={toggleRotation}>
                     {isRotating ? '⏸ Pause' : '▶ Rotate'}
                 </button>
+            </div>
+
+            {/* Element Color Legend */}
+            <div style={{
+                display: 'flex',
+                justifyContent: 'center',
+                gap: '16px',
+                flexWrap: 'wrap',
+                padding: '10px 16px',
+                background: 'rgba(0, 0, 0, 0.3)',
+                borderRadius: '12px',
+                margin: '12px 16px 0',
+            }}>
+                <span style={{ fontSize: '0.75rem', color: 'var(--neutral-400)', marginRight: '4px' }}>Colors:</span>
+                {[
+                    { symbol: 'C', name: 'Carbon', color: '#909090' },
+                    { symbol: 'O', name: 'Oxygen', color: '#FF0D0D' },
+                    { symbol: 'N', name: 'Nitrogen', color: '#3050F8' },
+                    { symbol: 'H', name: 'Hydrogen', color: '#FFFFFF' },
+                    { symbol: 'S', name: 'Sulfur', color: '#FFFF30' },
+                ].map(el => (
+                    <div key={el.symbol} style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '4px',
+                        fontSize: '0.7rem',
+                        color: 'var(--neutral-300)',
+                    }}>
+                        <span style={{
+                            width: '12px',
+                            height: '12px',
+                            borderRadius: '50%',
+                            background: el.color,
+                            border: el.symbol === 'H' ? '1px solid #666' : 'none',
+                            boxShadow: `0 0 6px ${el.color}60`,
+                        }} />
+                        <span style={{ fontWeight: 600 }}>{el.symbol}</span>
+                        <span style={{ color: 'var(--neutral-500)' }}>{el.name}</span>
+                    </div>
+                ))}
             </div>
         </motion.div>
     );
