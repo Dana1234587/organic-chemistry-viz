@@ -148,53 +148,66 @@ This is the #1 beginner mistake. If you forget the H on oxygen, you've drawn a c
     {
         id: "common-abbreviations",
         title: "Common Abbreviations: The Chemist's Shorthand",
-        content: `Professional chemists use abbreviations constantly. You MUST memorize these to read the literature.
+        content: `Professional chemists use abbreviations constantly. You <strong>MUST</strong> memorize these to read the literature.
 
-═══════════════════════════════════════
-ALKYL GROUP ABBREVIATIONS
-═══════════════════════════════════════
+<h4>📋 Alkyl Group Abbreviations</h4>
+<table class="reference-table">
+<thead>
+<tr><th>Abbrev.</th><th>Name</th><th>Structure</th><th>Carbons</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Me</strong></td><td>Methyl</td><td>-CH₃</td><td>1</td></tr>
+<tr><td><strong>Et</strong></td><td>Ethyl</td><td>-CH₂CH₃</td><td>2</td></tr>
+<tr><td><strong>Pr</strong></td><td>Propyl</td><td>-CH₂CH₂CH₃</td><td>3</td></tr>
+<tr><td><strong>iPr</strong></td><td>Isopropyl</td><td>-CH(CH₃)₂</td><td>3 (branched)</td></tr>
+<tr><td><strong>Bu</strong></td><td>Butyl</td><td>-CH₂CH₂CH₂CH₃</td><td>4</td></tr>
+<tr><td><strong>tBu</strong></td><td>tert-Butyl</td><td>-C(CH₃)₃</td><td>4 (branched)</td></tr>
+</tbody>
+</table>
 
-Me = Methyl (-CH₃) ──────────── 1 carbon
-Et = Ethyl (-CH₂CH₃) ─────────── 2 carbons
-Pr = Propyl (-CH₂CH₂CH₃) ────── 3 carbons
-iPr = Isopropyl (-CH(CH₃)₂) ──── 3 carbons (branched)
-Bu = Butyl (-CH₂CH₂CH₂CH₃) ─── 4 carbons
-tBu = tert-Butyl (-C(CH₃)₃) ──── 4 carbons (branched)
+<h4>🔵 Aromatic Abbreviations</h4>
+<table class="reference-table">
+<thead>
+<tr><th>Abbrev.</th><th>Name</th><th>Meaning</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Ph</strong></td><td>Phenyl</td><td>Benzene ring as substituent (C₆H₅-)</td></tr>
+<tr><td><strong>Bn</strong></td><td>Benzyl</td><td>CH₂ attached to benzene (PhCH₂-)</td></tr>
+<tr><td><strong>Ar</strong></td><td>Aryl</td><td>Any aromatic ring</td></tr>
+</tbody>
+</table>
 
-═══════════════════════════════════════
-AROMATIC ABBREVIATIONS
-═══════════════════════════════════════
+<div class="warning-box">
+<strong>⚠️ Phenyl vs Benzyl - Common Confusion!</strong>
+<ul>
+<li><strong>Phenyl (Ph)</strong>: Benzene ring directly attached (no CH₂)</li>
+<li><strong>Benzyl (Bn)</strong>: Benzene ring with a CH₂ spacer</li>
+</ul>
+<p>Ph-OH = Phenol (OH on ring) | Bn-OH = Benzyl alcohol (PhCH₂-OH)</p>
+</div>
 
-Ph = Phenyl ─── A benzene ring as substituent (C₆H₅-)
-Bn = Benzyl ─── A CH₂ attached to benzene (PhCH₂-)
-Ar = Aryl ───── Any aromatic ring
+<h4>🔤 Wildcard Symbols</h4>
+<table class="reference-table compact">
+<tr><td><strong>R</strong></td><td>Any alkyl group or hydrogen</td></tr>
+<tr><td><strong>R'</strong></td><td>A different R group</td></tr>
+<tr><td><strong>X</strong></td><td>Any halogen (F, Cl, Br, I)</td></tr>
+</table>
 
-❗ IMPORTANT: Phenyl vs Benzyl - A Common Confusion!
-• Phenyl (Ph): The benzene ring directly attached (no CH₂)
-• Benzyl (Bn): Benzene ring with a CH₂ spacer
-
-Ph-OH = Phenol (OH directly on ring)
-Bn-OH = Benzyl alcohol (PhCH₂-OH, with CH₂ spacer)
-
-═══════════════════════════════════════
-WILDCARD SYMBOLS
-═══════════════════════════════════════
-
-R = Any alkyl group or hydrogen
-R' = A different R group
-X = Any halogen (F, Cl, Br, I)
-
-═══════════════════════════════════════
-COMMON SOLVENT ABBREVIATIONS
-═══════════════════════════════════════
-
-THF = Tetrahydrofuran
-DMF = Dimethylformamide
-DMSO = Dimethyl sulfoxide
-DCM = Dichloromethane
-EtOAc = Ethyl acetate
-MeOH = Methanol
-EtOH = Ethanol`,
+<h4>🧪 Common Solvent Abbreviations</h4>
+<table class="reference-table">
+<thead>
+<tr><th>Abbrev.</th><th>Full Name</th></tr>
+</thead>
+<tbody>
+<tr><td>THF</td><td>Tetrahydrofuran</td></tr>
+<tr><td>DMF</td><td>Dimethylformamide</td></tr>
+<tr><td>DMSO</td><td>Dimethyl sulfoxide</td></tr>
+<tr><td>DCM</td><td>Dichloromethane</td></tr>
+<tr><td>EtOAc</td><td>Ethyl acetate</td></tr>
+<tr><td>MeOH</td><td>Methanol</td></tr>
+<tr><td>EtOH</td><td>Ethanol</td></tr>
+</tbody>
+</table>`,
         keyPoints: [
             "Me = Methyl, Et = Ethyl, Pr = Propyl, Bu = Butyl",
             "Ph = Phenyl (benzene ring), Bn = Benzyl (PhCH₂)",
@@ -279,65 +292,71 @@ The steroid skeleton has 3 six-membered rings and 1 five-membered ring fused tog
     {
         id: "functional-groups",
         title: "Functional Groups: The Complete Catalog",
-        content: `If the carbon skeleton is the frame, Functional Groups are the engine. These specific atoms or groups determine HOW the molecule reacts.
+        content: `If the carbon skeleton is the frame, <strong>Functional Groups are the engine</strong>. These specific atoms or groups determine HOW the molecule reacts.
 
-💡 THE BIG IDEA: Molecules with the same functional group behave similarly.
+<div class="highlight-box">
+💡 <strong>THE BIG IDEA:</strong> Molecules with the same functional group behave similarly.<br/>
 If you learn how ONE aldehyde reacts, you know how ALL aldehydes react!
+</div>
 
-═══════════════════════════════════════
-GROUP 1: HYDROCARBONS (C-C Bonds)
-═══════════════════════════════════════
+<h4>🔷 Group 1: Hydrocarbons (C-C Bonds)</h4>
+<table class="reference-table">
+<thead>
+<tr><th>Name</th><th>Structure</th><th>Reactivity</th></tr>
+</thead>
+<tbody>
+<tr><td>Alkane</td><td>C-C single bonds</td><td>Unreactive (no functional group!)</td></tr>
+<tr><td>Alkene</td><td>C=C double bond</td><td>Reactive; adds things across bond</td></tr>
+<tr><td>Alkyne</td><td>C≡C triple bond</td><td>Very reactive</td></tr>
+<tr><td>Arene</td><td>Benzene ring</td><td>Special stability; unique reactions</td></tr>
+</tbody>
+</table>
 
-• Alkane: C-C single bonds → Unreactive (no functional group!)
-• Alkene: C=C double bond → Reactive; adds things across bond
-• Alkyne: C≡C triple bond → Very reactive
-• Arene: Benzene ring → Special stability; unique reactions
+<h4>🔷 Group 2: Single Bond to Heteroatom</h4>
+<table class="reference-table">
+<thead>
+<tr><th>Name</th><th>Structure</th><th>Properties</th></tr>
+</thead>
+<tbody>
+<tr><td>Alcohol</td><td>R-OH</td><td>Hydrogen bonding; can be acidic</td></tr>
+<tr><td>Ether</td><td>R-O-R</td><td>Relatively unreactive; good solvents</td></tr>
+<tr><td>Amine</td><td>R-NH₂</td><td>Basic (accepts H⁺); nucleophilic</td></tr>
+<tr><td>Thiol</td><td>R-SH</td><td>Sulfur version of alcohol; smelly!</td></tr>
+<tr><td>Sulfide</td><td>R-S-R</td><td>Sulfur version of ether</td></tr>
+<tr><td>Halide</td><td>R-X</td><td>X = F, Cl, Br, or I</td></tr>
+</tbody>
+</table>
 
-═══════════════════════════════════════
-GROUP 2: SINGLE BOND TO HETEROATOM
-═══════════════════════════════════════
+<h4>⭐ Group 3: Carbonyl Compounds (C=O) - THE MOST IMPORTANT!</h4>
+<table class="reference-table">
+<thead>
+<tr><th>Name</th><th>Structure</th><th>Key Feature</th></tr>
+</thead>
+<tbody>
+<tr class="highlight-row"><td><strong>Aldehyde</strong></td><td>R-CHO</td><td>Carbonyl at END of chain</td></tr>
+<tr class="highlight-row"><td><strong>Ketone</strong></td><td>R-CO-R</td><td>Carbonyl in MIDDLE of chain</td></tr>
+<tr><td>Carboxylic Acid</td><td>R-COOH</td><td>Acidic! (gives up H⁺)</td></tr>
+<tr><td>Ester</td><td>R-COO-R</td><td>Sweet/fruity smells</td></tr>
+<tr><td>Amide</td><td>R-CONH₂</td><td>Found in proteins</td></tr>
+<tr><td>Acyl Chloride</td><td>R-COCl</td><td>Very reactive!</td></tr>
+<tr><td>Nitrile</td><td>R-C≡N</td><td>Triple bond to nitrogen</td></tr>
+</tbody>
+</table>
 
-• Alcohol: R-OH → Hydrogen bonding; can be acidic
-• Ether: R-O-R → Relatively unreactive; good solvents
-• Amine: R-NH₂ → Basic (accepts H⁺); nucleophilic
-• Thiol: R-SH → Sulfur version of alcohol; smelly!
-• Sulfide: R-S-R → Sulfur version of ether
-• Halide: R-X → X = F, Cl, Br, or I
+<h4>🔷 Group 4: Special Groups</h4>
+<table class="reference-table compact">
+<tr><td>Nitro</td><td>R-NO₂</td><td>Found in explosives, drugs</td></tr>
+<tr><td>Acetal</td><td>R-CH(OR)₂</td><td>Two ether oxygens on same carbon</td></tr>
+<tr><td>Imine</td><td>R-C=N-R</td><td>C=N double bond</td></tr>
+</table>
 
-═══════════════════════════════════════
-GROUP 3: CARBONYL COMPOUNDS (C=O)
-═══════════════════════════════════════
-
-The carbonyl group is THE most important in organic chemistry!
-
-• Aldehyde: R-CHO → Carbonyl at END of chain
-• Ketone: R-CO-R → Carbonyl in MIDDLE of chain
-• Carboxylic Acid: R-COOH → Acidic! (gives up H⁺)
-• Ester: R-COO-R → Sweet/fruity smells
-• Amide: R-CONH₂ → Found in proteins
-• Acyl Chloride: R-COCl → Very reactive!
-• Acid Anhydride: R-CO-O-CO-R → Two carbonyls sharing oxygen
-• Nitrile: R-C≡N → Triple bond to nitrogen
-
-═══════════════════════════════════════
-GROUP 4: SPECIAL GROUPS
-═══════════════════════════════════════
-
-• Nitro: R-NO₂ → Found in explosives, drugs
-• Acetal: R-CH(OR)₂ → Two ether oxygens on same carbon
-• Hemiacetal: R-CH(OH)(OR) → One OH + one OR on same carbon
-• Imine: R-C=N-R → C=N double bond
-
-═══════════════════════════════════════
-KEY REACTIVITY RULES
-═══════════════════════════════════════
-
-• Alcohols: Can act as weak acids (lose H⁺) or nucleophiles
-• Amines: Basic (grab H⁺) and nucleophilic
-• Carbonyls: The carbon is electrophilic (attacked by negative things)
-• Carboxylic acids: Actually acidic (give up H⁺)
-
-Understanding these patterns will help you predict reactions in later chapters!`,
+<h4>🎯 Key Reactivity Rules</h4>
+<table class="reference-table">
+<tr><td><strong>Alcohols</strong></td><td>Can act as weak acids (lose H⁺) or nucleophiles</td></tr>
+<tr><td><strong>Amines</strong></td><td>Basic (grab H⁺) and nucleophilic</td></tr>
+<tr><td><strong>Carbonyls</strong></td><td>The carbon is electrophilic (attacked by negative things)</td></tr>
+<tr><td><strong>Carboxylic acids</strong></td><td>Actually acidic (give up H⁺)</td></tr>
+</table>`,
         keyPoints: [
             "Functional groups determine chemical reactivity",
             "Alkanes have NO functional group (unreactive)",
@@ -359,61 +378,65 @@ Understanding these patterns will help you predict reactions in later chapters!`
     {
         id: "oxidation-levels",
         title: "Classification by Oxidation Level",
-        content: `One of Clayden's most powerful organizational tools is classifying carbon atoms by their Oxidation Level. This tells you how "oxidized" a carbon is.
+        content: `One of Clayden's most powerful organizational tools is classifying carbon atoms by their <strong>Oxidation Level</strong>. This tells you how "oxidized" a carbon is.
 
-═══════════════════════════════════════
-THE DEFINITION
-═══════════════════════════════════════
-
-Oxidation Level = Number of bonds from carbon to a heteroatom
+<div class="highlight-box">
+<strong>📐 THE DEFINITION:</strong><br/>
+<em>Oxidation Level = Number of bonds from carbon to a heteroatom</em><br/>
 (any atom more electronegative than carbon: O, N, S, Cl, Br, etc.)
+</div>
 
-Level 0: 0 bonds to heteroatom → Alkanes (CH₄, C₂H₆)
-Level 1: 1 bond → Alcohols, Amines, Halides
-Level 2: 2 bonds → Aldehydes, Ketones, gem-Dihalides
-Level 3: 3 bonds → Carboxylic Acids, Esters, Amides, Nitriles
-Level 4: 4 bonds → CO₂, Carbonates, CCl₄
+<h4>📊 The Oxidation Level Scale</h4>
+<table class="reference-table oxidation-table">
+<thead>
+<tr><th>Level</th><th>Bonds to Heteroatom</th><th>Examples</th></tr>
+</thead>
+<tbody>
+<tr class="level-0"><td><strong>0</strong></td><td>0 bonds</td><td>Alkanes (CH₄, Ethane)</td></tr>
+<tr class="level-1"><td><strong>1</strong></td><td>1 bond</td><td>Alcohols, Amines, Halides</td></tr>
+<tr class="level-2"><td><strong>2</strong></td><td>2 bonds</td><td>Aldehydes, Ketones</td></tr>
+<tr class="level-3"><td><strong>3</strong></td><td>3 bonds</td><td>Carboxylic Acids, Esters, Amides</td></tr>
+<tr class="level-4"><td><strong>4</strong></td><td>4 bonds</td><td>CO₂, Carbonates, CCl₄</td></tr>
+</tbody>
+</table>
 
-❗ COUNTING DOUBLE BONDS:
-A C=O double bond counts as 2 bonds to oxygen, even though it's one "double bond" to one atom!
-Similarly, C≡N in a nitrile counts as 3 bonds to nitrogen.
+<div class="warning-box">
+<strong>❗ COUNTING DOUBLE BONDS:</strong>
+<ul>
+<li>A C=O double bond counts as <strong>2 bonds</strong> to oxygen!</li>
+<li>C≡N in a nitrile counts as <strong>3 bonds</strong> to nitrogen</li>
+</ul>
+</div>
 
-═══════════════════════════════════════
-THE ONE-CARBON OXIDATION SERIES
-═══════════════════════════════════════
+<h4>🧪 The Two-Carbon Oxidation Series (Most Practical!)</h4>
+<div class="oxidation-ladder">
+<table class="reference-table">
+<tr class="level-0"><td>Level 0</td><td><strong>Ethane</strong></td><td>CH₃-CH₃</td><td>No bonds to O</td></tr>
+<tr><td colspan="4" class="arrow">↓ +1 oxidation</td></tr>
+<tr class="level-1"><td>Level 1</td><td><strong>Ethanol</strong></td><td>CH₃-CH₂-OH</td><td>1 bond to O</td></tr>
+<tr><td colspan="4" class="arrow">↓ +1 oxidation</td></tr>
+<tr class="level-2"><td>Level 2</td><td><strong>Acetaldehyde</strong></td><td>CH₃-CHO</td><td>2 bonds to O</td></tr>
+<tr><td colspan="4" class="arrow">↓ +1 oxidation</td></tr>
+<tr class="level-3"><td>Level 3</td><td><strong>Acetic Acid</strong></td><td>CH₃-COOH</td><td>3 bonds to O</td></tr>
+</table>
+</div>
 
-Follow the oxidation of methane all the way to CO₂:
+<h4>🎯 Why This Matters</h4>
+<table class="reference-table compact">
+<tr><td><strong>Oxidation</strong></td><td>= Moving UP levels (0→1→2→3→4)</td></tr>
+<tr><td><strong>Reduction</strong></td><td>= Moving DOWN levels (4→3→2→1→0)</td></tr>
+</table>
 
-Level 0: Methane (CH₄) ────────── 0 bonds to O
-Level 1: Methanol (CH₃OH) ────── 1 bond to O
-Level 2: Formaldehyde (H-CHO) ── 2 bonds to O
-Level 3: Formic Acid (HCOOH) ─── 3 bonds to O
-Level 4: Carbon Dioxide (CO₂) ── 4 bonds to O
+<p>This framework lets you instantly classify reactions:</p>
+<table class="reference-table">
+<tr><td>Alcohol → Ketone</td><td>= OXIDATION (Level 1 → 2)</td></tr>
+<tr><td>Aldehyde → Alcohol</td><td>= REDUCTION (Level 2 → 1)</td></tr>
+<tr><td>Alkane → Alkyl halide</td><td>= OXIDATION (Level 0 → 1)</td></tr>
+</table>
 
-═══════════════════════════════════════
-THE TWO-CARBON OXIDATION SERIES
-═══════════════════════════════════════
-
-This is even more practical:
-
-Level 0: Ethane (CH₃-CH₃) ─────── No bonds to heteroatoms
-Level 1: Ethanol (CH₃-CH₂-OH) ── 1 bond to O (alcohol)
-Level 2: Acetaldehyde (CH₃-CHO) ─ 2 bonds to O (C=O)
-Level 3: Acetic Acid (CH₃-COOH) ─ 3 bonds to O
-
-═══════════════════════════════════════
-WHY THIS MATTERS
-═══════════════════════════════════════
-
-• Oxidation = Moving UP levels (0→1→2→3→4)
-• Reduction = Moving DOWN levels (4→3→2→1→0)
-
-This framework lets you instantly classify reactions:
-• Alcohol → Ketone = OXIDATION (Level 1 → 2)
-• Aldehyde → Alcohol = REDUCTION (Level 2 → 1)
-• Alkane → Alkyl halide = OXIDATION (Level 0 → 1)
-
-💡 TIP: Oxidation doesn't always involve oxygen! Converting C-H to C-Cl is also oxidation (adding a bond to an electronegative atom).`,
+<div class="tip-box">
+💡 <strong>TIP:</strong> Oxidation doesn't always involve oxygen! Converting C-H to C-Cl is also oxidation (adding a bond to an electronegative atom).
+</div>`,
         keyPoints: [
             "Oxidation Level = bonds to heteroatoms (O, N, halogen)",
             "Level 0: Hydrocarbons (no heteroatoms)",
@@ -439,58 +462,72 @@ This framework lets you instantly classify reactions:
         title: "Essential Trivial Names You Must Memorize",
         content: `Systematic IUPAC names are logical but sometimes clunky. In daily lab use, everyone uses trivial (common) names for simple, important molecules.
 
-⚠️ You MUST memorize these names. Professors and textbooks assume you know them!
+<div class="warning-box">
+⚠️ You <strong>MUST</strong> memorize these names. Professors and textbooks assume you know them!
+</div>
 
-═══════════════════════════════════════
-THE ESSENTIAL 10
-═══════════════════════════════════════
+<h4>📝 The Essential 10</h4>
 
-ALDEHYDES:
-• Formaldehyde = Methanal (H-CHO) ──── 1 carbon
-• Acetaldehyde = Ethanal (CH₃-CHO) ─── 2 carbons
+<h5>Aldehydes</h5>
+<table class="reference-table">
+<thead>
+<tr><th>Trivial Name</th><th>IUPAC Name</th><th>Formula</th><th>Carbons</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Formaldehyde</strong></td><td>Methanal</td><td>H-CHO</td><td>1</td></tr>
+<tr><td><strong>Acetaldehyde</strong></td><td>Ethanal</td><td>CH₃-CHO</td><td>2</td></tr>
+</tbody>
+</table>
 
-KETONES:
-• Acetone = Propan-2-one (CH₃-CO-CH₃)
+<h5>Ketones</h5>
+<table class="reference-table">
+<tr><td><strong>Acetone</strong></td><td>Propan-2-one</td><td>CH₃-CO-CH₃</td><td>3</td></tr>
+</table>
 
-CARBOXYLIC ACIDS:
-• Formic Acid = Methanoic acid (H-COOH) ── 1 carbon
-• Acetic Acid = Ethanoic acid (CH₃-COOH) ─ 2 carbons
+<h5>Carboxylic Acids</h5>
+<table class="reference-table">
+<thead>
+<tr><th>Trivial Name</th><th>IUPAC Name</th><th>Formula</th><th>Carbons</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Formic Acid</strong></td><td>Methanoic acid</td><td>H-COOH</td><td>1</td></tr>
+<tr><td><strong>Acetic Acid</strong></td><td>Ethanoic acid</td><td>CH₃-COOH</td><td>2</td></tr>
+</tbody>
+</table>
 
-AROMATICS:
-• Benzene = C₆H₆ ring (the parent aromatic)
-• Toluene = Methylbenzene (C₆H₅-CH₃)
-• Phenol = Hydroxybenzene (C₆H₅-OH)
-• Aniline = Aminobenzene (C₆H₅-NH₂)
-• Pyridine = Azabenzene (C₅H₅N ring - N is IN the ring)
+<h5>Aromatics</h5>
+<table class="reference-table">
+<thead>
+<tr><th>Trivial Name</th><th>Systematic</th><th>Structure</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>Benzene</strong></td><td>—</td><td>C₆H₆ ring (parent aromatic)</td></tr>
+<tr><td><strong>Toluene</strong></td><td>Methylbenzene</td><td>C₆H₅-CH₃</td></tr>
+<tr><td><strong>Phenol</strong></td><td>Hydroxybenzene</td><td>C₆H₅-OH</td></tr>
+<tr><td><strong>Aniline</strong></td><td>Aminobenzene</td><td>C₆H₅-NH₂</td></tr>
+<tr><td><strong>Pyridine</strong></td><td>Azabenzene</td><td>C₅H₅N (N in ring)</td></tr>
+</tbody>
+</table>
 
-═══════════════════════════════════════
-MEMORY TIPS
-═══════════════════════════════════════
+<h4>🧠 Memory Tips</h4>
+<div class="tip-box">
+<strong>For Aldehydes/Acids:</strong>
+<ul>
+<li><strong>"Form"</strong> = 1 carbon (like "first")</li>
+<li><strong>"Acet"</strong> = 2 carbons (like "acetate" in vinegar)</li>
+</ul>
+</div>
 
-For Aldehydes/Acids:
-• "Form" = 1 carbon (like the word "first")
-• "Acet" = 2 carbons (like "acetate" in vinegar)
+<div class="tip-box">
+<strong>For Aromatics:</strong> Think of the BASE: <strong>Benzene</strong>
+<ul>
+<li>Add -OH → <strong>Phenol</strong></li>
+<li>Add -NH₂ → <strong>Aniline</strong></li>
+<li>Add -CH₃ → <strong>Toluene</strong></li>
+</ul>
+</div>
 
-For Aromatics:
-Think of the BASE: Benzene
-• Add -OH → Phenol
-• Add -NH₂ → Aniline  
-• Add -CH₃ → Toluene
-
-For Pyridine:
-Benzene where one C-H is replaced by N. The N is IN the ring (not attached to it).
-
-═══════════════════════════════════════
-WHY COMMON NAMES PERSIST
-═══════════════════════════════════════
-
-For complex molecules like Strychnine (a poison) or Vitamin B12, the systematic names are PAGES long! Common names are essential for practical use.
-
-Even for simple molecules:
-• "Acetone" is faster than "Propan-2-one"
-• "Acetic acid" is clearer than "Ethanoic acid"
-
-You need to know BOTH systems, but common names dominate conversation.`,
+<p><strong>Why common names persist:</strong> For complex molecules like Strychnine or Vitamin B12, systematic names are PAGES long! "Acetone" is much faster than "Propan-2-one".</p>`,
         keyPoints: [
             "Formaldehyde (1C aldehyde), Acetaldehyde (2C aldehyde)",
             "Acetone = simplest ketone",
