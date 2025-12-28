@@ -10,6 +10,7 @@ import InteractiveQuiz from '@/components/InteractiveQuiz';
 import ContentRenderer from '@/components/ContentRenderer';
 import InteractiveInfoBox from '@/components/InteractiveInfoBox';
 import MiniQuiz from '@/components/MiniQuiz';
+import MoleculeComparisonTable from '@/components/MoleculeComparisonTable';
 import ConceptDiagram from '@/components/ConceptDiagram';
 import TextToSpeech from '@/components/TextToSpeech';
 import Flashcards from '@/components/Flashcards';
@@ -406,23 +407,16 @@ export default function ChapterPage() {
                             </InteractiveInfoBox>
                         )}
 
-                        {/* Molecules */}
+                        {/* Molecules - Premium Comparison Table */}
                         {section.molecules && section.molecules.length > 0 && (
-                            <div style={{
-                                display: 'grid',
-                                gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-                                gap: '1.5rem',
-                                marginBottom: '2rem'
-                            }}>
-                                {section.molecules.map((molecule, mIndex) => (
-                                    <MoleculeViewer
-                                        key={mIndex}
-                                        moleculeName={molecule.name}
-                                        description={molecule.description}
-                                        height={300}
-                                    />
-                                ))}
-                            </div>
+                            <MoleculeComparisonTable
+                                title={`🔬 ${section.title} - Interactive Molecules`}
+                                molecules={section.molecules.map((mol, idx) => ({
+                                    ...mol,
+                                    level: section.id === 'oxidation-levels' ? idx : undefined,
+                                }))}
+                                showLevels={section.id === 'oxidation-levels'}
+                            />
                         )}
 
                         {/* Key Points */}
