@@ -42,7 +42,7 @@ const featuredChapters = [
     description: "Introduction to how and why organic reactions occur.",
     icon: "⚡",
     color: "#f43f5e",
-    available: false
+    available: true
   },
   {
     id: 6,

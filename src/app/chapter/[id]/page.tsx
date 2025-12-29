@@ -40,7 +40,11 @@ import {
     HybridizationWizard,
     VSEPRLaboratory,
     BondOrderCalculator,
-    RotationSimulator
+    RotationSimulator,
+    // Chapter 5: Organic Reactions Components
+    NucleoElectroIdentifier,
+    CurlyArrowSimulator,
+    HOMOLUMOVisualizer
 } from '@/components/diagrams';
 import QuickCheck from '@/components/QuickCheck';
 import OnePageSummary from '@/components/OnePageSummary';
@@ -564,6 +568,12 @@ export default function ChapterPage() {
                         {section.id === 'vsepr-theory' && <VSEPRLaboratory />}
                         {section.id === 'molecular-rotation' && <RotationSimulator />}
 
+                        {/* Chapter 5: Organic Reactions Interactive Components */}
+                        {section.id === 'nucleophiles-electrophiles' && <NucleoElectroIdentifier />}
+                        {section.id === 'homo-lumo' && <HOMOLUMOVisualizer />}
+                        {section.id === 'curly-arrows' && <CurlyArrowSimulator />}
+                        {section.id === 'making-breaking-bonds' && <CurlyArrowSimulator />}
+
                         {/* Fun Fact */}
                         {section.funFact && (
                             <InteractiveInfoBox type="funFact">
@@ -754,6 +764,7 @@ export default function ChapterPage() {
                         definition: card.back
                     }))}
                     title={`Chapter ${chapter.id} Games`}
+                    chapterId={chapter.id}
                 />
             </motion.div>
 

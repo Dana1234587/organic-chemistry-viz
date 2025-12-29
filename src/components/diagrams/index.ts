@@ -37,3 +37,8 @@ export { HybridizationWizard } from './orbital-theory';
 export { VSEPRLaboratory } from './orbital-theory';
 export { BondOrderCalculator } from './orbital-theory';
 export { RotationSimulator } from './orbital-theory';
+
+// Chapter 5: Organic Reactions Components
+export { NucleoElectroIdentifier } from './reactions';
+export { CurlyArrowSimulator } from './reactions';
+export { HOMOLUMOVisualizer } from './reactions';
