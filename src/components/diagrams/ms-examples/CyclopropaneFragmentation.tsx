@@ -75,26 +75,26 @@ export default function CyclopropaneFragmentation({ className = '' }: Cyclopropa
                 </h4>
 
                 <svg viewBox="0 0 900 450" className="w-full h-auto">
-                    {/* Molecularمع Ion - BASE PEAK */}
+                    {/* Molecular Ion - BASE PEAK */}
                     <g>
-                        <rect x="330" y="30" width="240" height="120" fill="#dcfce7" stroke="#16a34a" strokeWidth="4" rx="8" />
-                        <text x="450" y="55" textAnchor="middle" className="text-sm font-bold fill-green-800">
+                        <rect x="330" y="25" width="240" height="130" fill="#dcfce7" stroke="#16a34a" strokeWidth="4" rx="8" />
+                        <text x="450" y="48" textAnchor="middle" className="text-sm font-bold fill-green-800">
                             Molecular Ion (M⁺•)
                         </text>
-                        <text x="450" y="72" textAnchor="middle" className="text-xs fill-green-700 font-bold">
+                        <text x="450" y="68" textAnchor="middle" className="text-xs fill-green-700 font-bold">
                             m/z = 42 (BASE PEAK!)
                         </text>
 
-                        {/* Cyclopropane ring */}
-                        <g transform="translate(410, 95)">
-                            <polygon points="0,-20 17.3,10 -17.3,10" fill="none" stroke="#000" strokeWidth="3" />
-                            <text x="-10" y="-25" className="text-sm fill-gray-800">H₂C</text>
-                            <text x="15" y="20" className="text-sm fill-gray-800">CH₂</text>
-                            <text x="-32" y="20" className="text-sm fill-gray-800">H₂C</text>
+                        {/* Cyclopropane ring - repositioned */}
+                        <g transform="translate(450, 108)">
+                            <polygon points="0,-22 19,11 -19,11" fill="none" stroke="#000" strokeWidth="3" />
+                            <text x="-30" y="28" className="text-sm fill-gray-800">H₂C</text>
+                            <text x="15" y="28" className="text-sm fill-gray-800">CH₂</text>
+                            <text x="0" y="-30" textAnchor="middle" className="text-sm fill-gray-800">CH₂</text>
                         </g>
 
-                        <circle cx="450" cy="135" r="3" fill="#dc2626" />
-                        <text x="455" y="138" className="text-xs fill-red-600">•⁺</text>
+                        <circle cx="480" cy="135" r="3" fill="#dc2626" />
+                        <text x="487" y="140" className="text-xs fill-red-600 font-bold">•⁺</text>
                     </g>
 
                     {/* Pathway 1: H loss */}

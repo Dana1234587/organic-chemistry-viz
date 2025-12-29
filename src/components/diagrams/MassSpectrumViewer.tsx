@@ -73,7 +73,7 @@ export default function MassSpectrumViewer({
         return calculateIsotopePattern(molecularWeight, selectedHalogen);
     }, [molecularWeight, selectedHalogen, showIsotopePattern]);
 
-    // Combine user peaks with isotope pattern
+    // Combine user peaks with isotope pattern and sort by m/z
     const allPeaks = useMemo(() => {
         const combined = [...peaks];
         isotopePattern.forEach(ip => {
@@ -84,9 +84,34 @@ export default function MassSpectrumViewer({
         return combined.sort((a, b) => a.mz - b.mz);
     }, [peaks, isotopePattern]);
 
-    // Find max m/z for scale
+    // Calculate LINEAR scale for x-axis (SCIENTIFIC ACCURACY)
+    // The x-axis MUST be linear - equal spacing for equal m/z differences
+    const minMz = 0; // Always start from 0 for proper scientific representation
     const maxMz = Math.max(...allPeaks.map(p => p.mz)) + 20;
-    const minMz = Math.max(0, Math.min(...allPeaks.map(p => p.mz)) - 10);
+
+    // SVG dimensions
+    const svgWidth = 600;
+    const svgHeight = 300;
+    const margin = { top: 30, right: 30, bottom: 50, left: 60 };
+    const plotWidth = svgWidth - margin.left - margin.right;
+    const plotHeight = svgHeight - margin.top - margin.bottom;
+
+    // Linear scale function for x-axis (m/z)
+    const xScale = (mz: number) => {
+        return margin.left + ((mz - minMz) / (maxMz - minMz)) * plotWidth;
+    };
+
+    // Linear scale function for y-axis (intensity)
+    const yScale = (intensity: number) => {
+        return margin.top + plotHeight - (intensity / 100) * plotHeight;
+    };
+
+    // Generate x-axis ticks at regular intervals (every 20 or 50 m/z depending on range)
+    const tickInterval = maxMz > 200 ? 50 : 20;
+    const xTicks = [];
+    for (let i = 0; i <= maxMz; i += tickInterval) {
+        xTicks.push(i);
+    }
 
     return (
         <motion.div
@@ -104,7 +129,7 @@ export default function MassSpectrumViewer({
             }}
         >
             {/* Header */}
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem', flexWrap: 'wrap', gap: '0.5rem' }}>
                 <div>
                     <h4 style={{ margin: 0, color: 'white', fontSize: '1.1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                         📊 Mass Spectrum: {moleculeName}
@@ -117,7 +142,7 @@ export default function MassSpectrumViewer({
                 </div>
 
                 {/* Halogen Selector */}
-                <div style={{ display: 'flex', gap: '0.5rem' }}>
+                <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
                     {['None', 'Cl', 'Br', 'Cl2', 'Br2'].map(h => (
                         <button
                             key={h}
@@ -140,81 +165,181 @@ export default function MassSpectrumViewer({
                 </div>
             </div>
 
-            {/* Spectrum SVG */}
+            {/* Spectrum SVG - SCIENTIFICALLY ACCURATE LINEAR SCALE */}
             <svg
                 width="100%"
-                height="250"
-                viewBox="0 0 500 250"
+                height={svgHeight}
+                viewBox={`0 0 ${svgWidth} ${svgHeight}`}
                 preserveAspectRatio="xMidYMid meet"
-                style={{ overflow: 'hidden', maxWidth: '100%' }}
+                style={{ overflow: 'visible', maxWidth: '100%', background: 'rgba(0,0,0,0.2)', borderRadius: 8 }}
             >
-                {/* Background grid */}
-                <defs>
-                    <pattern id="grid" width="50" height="25" patternUnits="userSpaceOnUse">
-                        <path d="M 50 0 L 0 0 0 25" fill="none" stroke="rgba(255,255,255,0.05)" strokeWidth="0.5" />
-                    </pattern>
-                </defs>
-                <rect x="50" y="10" width="430" height="200" fill="url(#grid)" />
+                {/* Grid lines */}
+                {xTicks.map(tick => (
+                    <line
+                        key={`grid-${tick}`}
+                        x1={xScale(tick)}
+                        y1={margin.top}
+                        x2={xScale(tick)}
+                        y2={margin.top + plotHeight}
+                        stroke="rgba(255,255,255,0.05)"
+                        strokeWidth="1"
+                    />
+                ))}
+                {[0, 25, 50, 75, 100].map(intensity => (
+                    <line
+                        key={`grid-y-${intensity}`}
+                        x1={margin.left}
+                        y1={yScale(intensity)}
+                        x2={margin.left + plotWidth}
+                        y2={yScale(intensity)}
+                        stroke="rgba(255,255,255,0.05)"
+                        strokeWidth="1"
+                    />
+                ))}
 
                 {/* Y-axis */}
-                <line x1="50" y1="10" x2="50" y2="210" stroke="rgba(255,255,255,0.3)" strokeWidth="1" />
-                <text x="25" y="20" fill="rgba(255,255,255,0.7)" fontSize="10" textAnchor="middle">100%</text>
-                <text x="25" y="115" fill="rgba(255,255,255,0.7)" fontSize="10" textAnchor="middle">50%</text>
-                <text x="25" y="210" fill="rgba(255,255,255,0.7)" fontSize="10" textAnchor="middle">0%</text>
-                <text x="15" y="120" fill="rgba(255,255,255,0.5)" fontSize="9" textAnchor="middle" transform="rotate(-90, 15, 120)">
-                    Relative Abundance
+                <line
+                    x1={margin.left}
+                    y1={margin.top}
+                    x2={margin.left}
+                    y2={margin.top + plotHeight}
+                    stroke="rgba(255,255,255,0.4)"
+                    strokeWidth="1"
+                />
+                {[0, 25, 50, 75, 100].map(intensity => (
+                    <g key={`y-${intensity}`}>
+                        <line
+                            x1={margin.left - 5}
+                            y1={yScale(intensity)}
+                            x2={margin.left}
+                            y2={yScale(intensity)}
+                            stroke="rgba(255,255,255,0.4)"
+                        />
+                        <text
+                            x={margin.left - 10}
+                            y={yScale(intensity) + 4}
+                            fill="rgba(255,255,255,0.7)"
+                            fontSize="10"
+                            textAnchor="end"
+                        >
+                            {intensity}%
+                        </text>
+                    </g>
+                ))}
+                <text
+                    x={20}
+                    y={margin.top + plotHeight / 2}
+                    fill="rgba(255,255,255,0.6)"
+                    fontSize="11"
+                    textAnchor="middle"
+                    transform={`rotate(-90, 20, ${margin.top + plotHeight / 2})`}
+                >
+                    Relative Abundance (%)
                 </text>
 
-                {/* X-axis */}
-                <line x1="50" y1="210" x2="480" y2="210" stroke="rgba(255,255,255,0.3)" strokeWidth="1" />
-                <text x="265" y="240" fill="rgba(255,255,255,0.5)" fontSize="10" textAnchor="middle">m/z</text>
+                {/* X-axis - LINEAR SCALE */}
+                <line
+                    x1={margin.left}
+                    y1={margin.top + plotHeight}
+                    x2={margin.left + plotWidth}
+                    y2={margin.top + plotHeight}
+                    stroke="rgba(255,255,255,0.4)"
+                    strokeWidth="1"
+                />
+                {xTicks.map(tick => (
+                    <g key={`x-${tick}`}>
+                        <line
+                            x1={xScale(tick)}
+                            y1={margin.top + plotHeight}
+                            x2={xScale(tick)}
+                            y2={margin.top + plotHeight + 5}
+                            stroke="rgba(255,255,255,0.4)"
+                        />
+                        <text
+                            x={xScale(tick)}
+                            y={margin.top + plotHeight + 18}
+                            fill="rgba(255,255,255,0.7)"
+                            fontSize="10"
+                            textAnchor="middle"
+                        >
+                            {tick}
+                        </text>
+                    </g>
+                ))}
+                <text
+                    x={margin.left + plotWidth / 2}
+                    y={svgHeight - 5}
+                    fill="rgba(255,255,255,0.6)"
+                    fontSize="11"
+                    textAnchor="middle"
+                >
+                    m/z (mass-to-charge ratio)
+                </text>
 
-                {/* X-axis ticks */}
-                {[0, 0.25, 0.5, 0.75, 1].map(frac => {
-                    const mz = Math.round(minMz + frac * (maxMz - minMz));
-                    const x = 50 + frac * 430;
-                    return (
-                        <g key={frac}>
-                            <line x1={x} y1="210" x2={x} y2="215" stroke="rgba(255,255,255,0.3)" />
-                            <text x={x} y="225" fill="rgba(255,255,255,0.7)" fontSize="9" textAnchor="middle">{mz}</text>
-                        </g>
-                    );
-                })}
-
-                {/* Peaks */}
+                {/* Peaks - as THIN LINES (scientifically accurate) */}
                 {allPeaks.map((peak, i) => {
-                    const x = 50 + ((peak.mz - minMz) / (maxMz - minMz)) * 430;
-                    const height = (peak.intensity / 100) * 190;
+                    const x = xScale(peak.mz);
+                    const y1 = yScale(0);
+                    const y2 = yScale(peak.intensity);
                     const isHovered = hoveredPeak === peak;
                     const color = peak.isM ? '#ef4444' : peak.isBase ? '#22c55e' : '#8b5cf6';
 
                     return (
                         <g key={i}>
-                            <motion.rect
-                                x={x - 4}
-                                y={210 - height}
-                                width={8}
-                                height={height}
-                                fill={color}
-                                opacity={isHovered ? 1 : 0.8}
-                                initial={{ height: 0, y: 210 }}
-                                animate={{ height, y: 210 - height }}
-                                transition={{ delay: i * 0.05, duration: 0.3 }}
+                            {/* Peak line (thin vertical line = scientific standard) */}
+                            <motion.line
+                                x1={x}
+                                y1={y1}
+                                x2={x}
+                                y2={y2}
+                                stroke={color}
+                                strokeWidth={isHovered ? 4 : 2}
+                                opacity={isHovered ? 1 : 0.9}
+                                initial={{ y2: y1 }}
+                                animate={{ y2 }}
+                                transition={{ delay: i * 0.03, duration: 0.3 }}
                                 onMouseEnter={() => setHoveredPeak(peak)}
                                 onMouseLeave={() => setHoveredPeak(null)}
                                 style={{ cursor: 'pointer' }}
                             />
-                            {/* Label */}
-                            {(peak.isM || peak.intensity > 50 || isHovered) && (
+                            {/* Peak cap (small rectangle at top) */}
+                            <motion.rect
+                                x={x - 3}
+                                y={y2 - 2}
+                                width={6}
+                                height={4}
+                                fill={color}
+                                initial={{ y: y1 }}
+                                animate={{ y: y2 - 2 }}
+                                transition={{ delay: i * 0.03, duration: 0.3 }}
+                                onMouseEnter={() => setHoveredPeak(peak)}
+                                onMouseLeave={() => setHoveredPeak(null)}
+                                style={{ cursor: 'pointer' }}
+                            />
+                            {/* Label for important peaks */}
+                            {(peak.isM || peak.isBase || peak.intensity > 40 || isHovered) && (
                                 <text
                                     x={x}
-                                    y={210 - height - 8}
+                                    y={y2 - 10}
                                     fill={color}
                                     fontSize="9"
                                     textAnchor="middle"
                                     fontWeight={isHovered ? 'bold' : 'normal'}
                                 >
                                     {peak.label || peak.mz}
+                                </text>
+                            )}
+                            {/* m/z value below label for hovered peak */}
+                            {isHovered && (
+                                <text
+                                    x={x}
+                                    y={y2 - 22}
+                                    fill="rgba(255,255,255,0.8)"
+                                    fontSize="10"
+                                    textAnchor="middle"
+                                    fontWeight="bold"
+                                >
+                                    m/z {peak.mz}
                                 </text>
                             )}
                         </g>
@@ -227,34 +352,50 @@ export default function MassSpectrumViewer({
                 <div style={{
                     marginTop: '0.5rem',
                     padding: '0.75rem',
-                    background: 'rgba(0,0,0,0.5)',
+                    background: 'rgba(0,0,0,0.6)',
                     borderRadius: 8,
                     fontSize: '0.85rem',
+                    border: '1px solid rgba(139, 92, 246, 0.3)',
                 }}>
                     <strong style={{ color: '#8b5cf6' }}>m/z = {hoveredPeak.mz}</strong>
                     <span style={{ color: 'rgba(255,255,255,0.7)', marginLeft: '1rem' }}>
-                        Intensity: {hoveredPeak.intensity}%
+                        Relative Intensity: {hoveredPeak.intensity}%
                     </span>
                     {hoveredPeak.label && (
                         <span style={{ color: '#fbbf24', marginLeft: '1rem' }}>{hoveredPeak.label}</span>
                     )}
+                    {hoveredPeak.isM && <span style={{ color: '#ef4444', marginLeft: '0.5rem' }}>(Molecular Ion)</span>}
+                    {hoveredPeak.isBase && <span style={{ color: '#22c55e', marginLeft: '0.5rem' }}>(Base Peak)</span>}
                 </div>
             )}
 
             {/* Legend */}
-            <div style={{ display: 'flex', gap: '1.5rem', marginTop: '1rem', fontSize: '0.75rem' }}>
+            <div style={{ display: 'flex', gap: '1.5rem', marginTop: '1rem', fontSize: '0.75rem', flexWrap: 'wrap' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-                    <div style={{ width: 12, height: 12, background: '#ef4444', borderRadius: 2 }} />
+                    <div style={{ width: 3, height: 16, background: '#ef4444', borderRadius: 1 }} />
                     <span style={{ color: 'rgba(255,255,255,0.7)' }}>Molecular Ion (M⁺)</span>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-                    <div style={{ width: 12, height: 12, background: '#22c55e', borderRadius: 2 }} />
+                    <div style={{ width: 3, height: 16, background: '#22c55e', borderRadius: 1 }} />
                     <span style={{ color: 'rgba(255,255,255,0.7)' }}>Base Peak (100%)</span>
                 </div>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-                    <div style={{ width: 12, height: 12, background: '#8b5cf6', borderRadius: 2 }} />
+                    <div style={{ width: 3, height: 16, background: '#8b5cf6', borderRadius: 1 }} />
                     <span style={{ color: 'rgba(255,255,255,0.7)' }}>Fragment Ions</span>
                 </div>
+            </div>
+
+            {/* Scientific note */}
+            <div style={{
+                marginTop: '0.75rem',
+                padding: '0.5rem',
+                background: 'rgba(139, 92, 246, 0.1)',
+                borderRadius: 6,
+                fontSize: '0.7rem',
+                color: 'rgba(255,255,255,0.5)',
+                textAlign: 'center'
+            }}>
+                💡 X-axis uses linear scale (equal spacing for equal m/z differences) for scientific accuracy
             </div>
         </motion.div>
     );
