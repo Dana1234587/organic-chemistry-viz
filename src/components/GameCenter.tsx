@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, Reorder } from 'framer-motion';
 
 interface MatchPair {
     id: string;
@@ -18,7 +18,20 @@ interface MemoryCard {
     isMatched: boolean;
 }
 
-type GameType = 'matching' | 'memory' | 'sorting';
+interface SortItem {
+    id: string;
+    text: string;
+    correctOrder: number;
+}
+
+interface SpeedQuizQuestion {
+    id: string;
+    question: string;
+    options: string[];
+    correctIndex: number;
+}
+
+type GameType = 'matching' | 'memory' | 'sorting' | 'speed' | 'fillblanks';
 
 interface GameCenterProps {
     pairs: MatchPair[];
@@ -34,6 +47,60 @@ const ORGANIC_PAIRS: MatchPair[] = [
     { id: '6', term: 'sp³ Hybrid', definition: 'Tetrahedral geometry (109.5°)' },
     { id: '7', term: 'sp² Hybrid', definition: 'Trigonal planar geometry (120°)' },
     { id: '8', term: 'sp Hybrid', definition: 'Linear geometry (180°)' },
+];
+
+// Sorting game data - order matters!
+const SORTING_SETS = [
+    {
+        title: 'Bond Angles (Smallest to Largest)',
+        items: [
+            { id: 's1', text: 'H₂O (104.5°)', correctOrder: 0 },
+            { id: 's2', text: 'NH₃ (107°)', correctOrder: 1 },
+            { id: 's3', text: 'CH₄ (109.5°)', correctOrder: 2 },
+            { id: 's4', text: 'BF₃ (120°)', correctOrder: 3 },
+            { id: 's5', text: 'CO₂ (180°)', correctOrder: 4 },
+        ]
+    },
+    {
+        title: 'Electronegativity (Lowest to Highest)',
+        items: [
+            { id: 'e1', text: 'Carbon (2.5)', correctOrder: 0 },
+            { id: 'e2', text: 'Nitrogen (3.0)', correctOrder: 1 },
+            { id: 'e3', text: 'Chlorine (3.2)', correctOrder: 2 },
+            { id: 'e4', text: 'Oxygen (3.5)', correctOrder: 3 },
+            { id: 'e5', text: 'Fluorine (4.0)', correctOrder: 4 },
+        ]
+    },
+    {
+        title: 'Bond Strength (Weakest to Strongest)',
+        items: [
+            { id: 'b1', text: 'Van der Waals', correctOrder: 0 },
+            { id: 'b2', text: 'Hydrogen Bond', correctOrder: 1 },
+            { id: 'b3', text: 'Ionic Bond', correctOrder: 2 },
+            { id: 'b4', text: 'Covalent Bond', correctOrder: 3 },
+        ]
+    },
+];
+
+// Speed quiz questions
+const SPEED_QUESTIONS: SpeedQuizQuestion[] = [
+    { id: 'q1', question: 'What is the bond angle in methane (CH₄)?', options: ['90°', '107°', '109.5°', '120°'], correctIndex: 2 },
+    { id: 'q2', question: 'sp² hybridization gives which geometry?', options: ['Linear', 'Tetrahedral', 'Trigonal Planar', 'Bent'], correctIndex: 2 },
+    { id: 'q3', question: 'How many sigma bonds in a triple bond?', options: ['0', '1', '2', '3'], correctIndex: 1 },
+    { id: 'q4', question: 'What is the shape of water (H₂O)?', options: ['Linear', 'Bent', 'Trigonal', 'Tetrahedral'], correctIndex: 1 },
+    { id: 'q5', question: 'Which element is most electronegative?', options: ['Oxygen', 'Carbon', 'Fluorine', 'Nitrogen'], correctIndex: 2 },
+    { id: 'q6', question: 'Pi bonds form from which orbital overlap?', options: ['Head-on', 'Side-by-side', 's-s', 's-p'], correctIndex: 1 },
+    { id: 'q7', question: 'Bond order of N₂?', options: ['1', '2', '3', '4'], correctIndex: 2 },
+    { id: 'q8', question: 'Lone pairs occupy more space than bonding pairs?', options: ['True', 'False', 'Sometimes', 'Never'], correctIndex: 0 },
+];
+
+// Fill in blanks
+const FILL_BLANKS = [
+    { sentence: 'Carbon has ___ valence electrons.', answer: '4', options: ['2', '4', '6', '8'] },
+    { sentence: 'A double bond consists of 1 sigma and ___ pi bond(s).', answer: '1', options: ['0', '1', '2', '3'] },
+    { sentence: 'sp³ hybridization creates ___ degree bond angles.', answer: '109.5', options: ['90', '109.5', '120', '180'] },
+    { sentence: 'The molecular shape of NH₃ is trigonal ___.', answer: 'pyramidal', options: ['planar', 'pyramidal', 'linear', 'bipyramidal'] },
+    { sentence: 'Rotation is restricted around ___ bonds.', answer: 'double', options: ['single', 'double', 'ionic', 'hydrogen'] },
 ];
 
 export default function GameCenter({ pairs = ORGANIC_PAIRS, title = 'Chemistry Games' }: GameCenterProps) {
@@ -52,6 +119,23 @@ export default function GameCenter({ pairs = ORGANIC_PAIRS, title = 'Chemistry G
     const [memoryCards, setMemoryCards] = useState<MemoryCard[]>([]);
     const [flippedCards, setFlippedCards] = useState<string[]>([]);
     const [memoryMoves, setMemoryMoves] = useState(0);
+
+    // Sorting Game State
+    const [sortItems, setSortItems] = useState<SortItem[]>([]);
+    const [currentSortSet, setCurrentSortSet] = useState(0);
+    const [sortingChecked, setSortingChecked] = useState(false);
+    const [sortingCorrect, setSortingCorrect] = useState(false);
+
+    // Speed Quiz State
+    const [speedQuestions, setSpeedQuestions] = useState<SpeedQuizQuestion[]>([]);
+    const [currentSpeedQ, setCurrentSpeedQ] = useState(0);
+    const [speedTimer, setSpeedTimer] = useState(10);
+    const [speedAnswered, setSpeedAnswered] = useState<number | null>(null);
+
+    // Fill Blanks State
+    const [fillBlankIndex, setFillBlankIndex] = useState(0);
+    const [fillBlankAnswer, setFillBlankAnswer] = useState<string | null>(null);
+    const [fillBlankChecked, setFillBlankChecked] = useState(false);
 
     // Initialize games
     const initMatchingGame = useCallback(() => {
@@ -76,6 +160,51 @@ export default function GameCenter({ pairs = ORGANIC_PAIRS, title = 'Chemistry G
         setGameScore(0);
         setGameComplete(false);
     }, [pairs]);
+
+    const initSortingGame = useCallback(() => {
+        const setIndex = Math.floor(Math.random() * SORTING_SETS.length);
+        setCurrentSortSet(setIndex);
+        const items = [...SORTING_SETS[setIndex].items].sort(() => Math.random() - 0.5);
+        setSortItems(items);
+        setSortingChecked(false);
+        setSortingCorrect(false);
+        setGameScore(0);
+        setGameComplete(false);
+    }, []);
+
+    const initSpeedQuiz = useCallback(() => {
+        const questions = [...SPEED_QUESTIONS].sort(() => Math.random() - 0.5).slice(0, 5);
+        setSpeedQuestions(questions);
+        setCurrentSpeedQ(0);
+        setSpeedTimer(10);
+        setSpeedAnswered(null);
+        setGameScore(0);
+        setGameComplete(false);
+    }, []);
+
+    const initFillBlanks = useCallback(() => {
+        setFillBlankIndex(0);
+        setFillBlankAnswer(null);
+        setFillBlankChecked(false);
+        setGameScore(0);
+        setGameComplete(false);
+    }, []);
+
+    // Speed timer effect
+    useEffect(() => {
+        if (selectedGame === 'speed' && !gameComplete && speedAnswered === null) {
+            const timer = setInterval(() => {
+                setSpeedTimer(prev => {
+                    if (prev <= 1) {
+                        handleSpeedTimeout();
+                        return 10;
+                    }
+                    return prev - 1;
+                });
+            }, 1000);
+            return () => clearInterval(timer);
+        }
+    }, [selectedGame, gameComplete, currentSpeedQ, speedAnswered]);
 
     // Matching Game Logic
     const handleTermClick = (termId: string) => {
@@ -133,17 +262,85 @@ export default function GameCenter({ pairs = ORGANIC_PAIRS, title = 'Chemistry G
         }
     };
 
+    // Sorting Game Logic
+    const checkSortOrder = () => {
+        const isCorrect = sortItems.every((item, index) => item.correctOrder === index);
+        setSortingChecked(true);
+        setSortingCorrect(isCorrect);
+        if (isCorrect) {
+            setGameScore(prev => prev + 200);
+            setTimeout(() => setGameComplete(true), 1500);
+        }
+    };
+
+    // Speed Quiz Logic
+    const handleSpeedAnswer = (answerIndex: number) => {
+        if (speedAnswered !== null) return;
+        setSpeedAnswered(answerIndex);
+
+        const isCorrect = speedQuestions[currentSpeedQ].correctIndex === answerIndex;
+        if (isCorrect) {
+            setGameScore(prev => prev + speedTimer * 10); // Bonus for speed!
+        }
+
+        setTimeout(() => {
+            if (currentSpeedQ + 1 >= speedQuestions.length) {
+                setGameComplete(true);
+            } else {
+                setCurrentSpeedQ(prev => prev + 1);
+                setSpeedTimer(10);
+                setSpeedAnswered(null);
+            }
+        }, 1000);
+    };
+
+    const handleSpeedTimeout = () => {
+        if (currentSpeedQ + 1 >= speedQuestions.length) {
+            setGameComplete(true);
+        } else {
+            setCurrentSpeedQ(prev => prev + 1);
+            setSpeedTimer(10);
+            setSpeedAnswered(null);
+        }
+    };
+
+    // Fill Blanks Logic
+    const handleFillBlankAnswer = (answer: string) => {
+        setFillBlankAnswer(answer);
+        setFillBlankChecked(true);
+
+        const isCorrect = FILL_BLANKS[fillBlankIndex].answer === answer;
+        if (isCorrect) {
+            setGameScore(prev => prev + 100);
+        }
+
+        setTimeout(() => {
+            if (fillBlankIndex + 1 >= FILL_BLANKS.length) {
+                setGameComplete(true);
+            } else {
+                setFillBlankIndex(prev => prev + 1);
+                setFillBlankAnswer(null);
+                setFillBlankChecked(false);
+            }
+        }, 1200);
+    };
+
     // Start game
     const startGame = (game: GameType) => {
         setSelectedGame(game);
         if (game === 'matching') initMatchingGame();
         else if (game === 'memory') initMemoryGame();
+        else if (game === 'sorting') initSortingGame();
+        else if (game === 'speed') initSpeedQuiz();
+        else if (game === 'fillblanks') initFillBlanks();
     };
 
     const games = [
         { type: 'matching' as GameType, icon: '🔗', title: 'Match the Pairs', description: 'Connect terms with their definitions', color: '#8b5cf6' },
         { type: 'memory' as GameType, icon: '🧠', title: 'Memory Challenge', description: 'Find matching pairs by memory', color: '#10b981' },
         { type: 'sorting' as GameType, icon: '📊', title: 'Sort It Out', description: 'Arrange items in correct order', color: '#f59e0b' },
+        { type: 'speed' as GameType, icon: '⚡', title: 'Speed Quiz', description: 'Answer fast for bonus points!', color: '#ef4444' },
+        { type: 'fillblanks' as GameType, icon: '✏️', title: 'Fill the Blank', description: 'Complete the sentence', color: '#06b6d4' },
     ];
 
     if (!isOpen) {
@@ -207,7 +404,7 @@ export default function GameCenter({ pairs = ORGANIC_PAIRS, title = 'Chemistry G
                     exit={{ opacity: 0, y: 50, scale: 0.9 }}
                     style={{
                         width: '100%',
-                        maxWidth: '800px',
+                        maxWidth: '900px',
                         maxHeight: '90vh',
                         background: 'rgba(30, 30, 46, 0.98)',
                         border: '1px solid rgba(255, 255, 255, 0.1)',
@@ -266,35 +463,28 @@ export default function GameCenter({ pairs = ORGANIC_PAIRS, title = 'Chemistry G
                                     initial={{ opacity: 0 }}
                                     animate={{ opacity: 1 }}
                                     exit={{ opacity: 0 }}
-                                    style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '16px' }}
+                                    style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '16px' }}
                                 >
                                     {games.map((game, index) => (
                                         <motion.button
                                             key={game.type}
                                             initial={{ opacity: 0, y: 20 }}
                                             animate={{ opacity: 1, y: 0 }}
-                                            transition={{ delay: index * 0.1 }}
+                                            transition={{ delay: index * 0.08 }}
                                             whileHover={{ scale: 1.03, y: -5 }}
                                             onClick={() => startGame(game.type)}
-                                            disabled={game.type === 'sorting'}
                                             style={{
                                                 background: `linear-gradient(135deg, ${game.color}20 0%, rgba(30, 30, 46, 0.8) 100%)`,
                                                 border: `1px solid ${game.color}40`,
                                                 borderRadius: '20px',
-                                                padding: '28px 24px',
-                                                cursor: game.type === 'sorting' ? 'not-allowed' : 'pointer',
+                                                padding: '24px 20px',
+                                                cursor: 'pointer',
                                                 textAlign: 'left',
-                                                opacity: game.type === 'sorting' ? 0.5 : 1,
                                             }}
                                         >
-                                            <span style={{ fontSize: '3rem', display: 'block', marginBottom: '12px' }}>{game.icon}</span>
-                                            <h3 style={{ margin: '0 0 8px', color: '#f4f4f7', fontSize: '1.1rem' }}>{game.title}</h3>
-                                            <p style={{ margin: 0, color: '#9898a8', fontSize: '0.85rem' }}>{game.description}</p>
-                                            {game.type === 'sorting' && (
-                                                <span style={{ marginTop: '12px', display: 'inline-block', padding: '4px 12px', background: 'rgba(255,255,255,0.1)', borderRadius: '20px', fontSize: '0.75rem', color: '#6b6b7b' }}>
-                                                    Coming Soon
-                                                </span>
-                                            )}
+                                            <span style={{ fontSize: '2.5rem', display: 'block', marginBottom: '12px' }}>{game.icon}</span>
+                                            <h3 style={{ margin: '0 0 6px', color: '#f4f4f7', fontSize: '1rem' }}>{game.title}</h3>
+                                            <p style={{ margin: 0, color: '#9898a8', fontSize: '0.8rem' }}>{game.description}</p>
                                         </motion.button>
                                     ))}
                                 </motion.div>
@@ -313,7 +503,7 @@ export default function GameCenter({ pairs = ORGANIC_PAIRS, title = 'Chemistry G
                                     {selectedGame === 'memory' && (
                                         <p style={{ color: '#9898a8', marginBottom: '24px' }}>Completed in {memoryMoves} moves</p>
                                     )}
-                                    <div style={{ display: 'flex', gap: '12px', justifyContent: 'center' }}>
+                                    <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
                                         <button
                                             onClick={() => startGame(selectedGame)}
                                             style={{
@@ -368,7 +558,7 @@ export default function GameCenter({ pairs = ORGANIC_PAIRS, title = 'Chemistry G
                                         {/* Definitions Column */}
                                         <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                                             <h4 style={{ color: '#10b981', margin: '0 0 8px', fontSize: '0.9rem' }}>📖 Definitions</h4>
-                                            {[...matchingPairs].sort(() => Math.random() - 0.5).map(pair => (
+                                            {[...matchingPairs].sort((a, b) => a.definition.localeCompare(b.definition)).map(pair => (
                                                 <motion.button
                                                     key={`def-${pair.id}`}
                                                     onClick={() => handleDefinitionClick(pair)}
@@ -430,6 +620,253 @@ export default function GameCenter({ pairs = ORGANIC_PAIRS, title = 'Chemistry G
                                                 }}
                                             >
                                                 {(flippedCards.includes(card.id) || card.isMatched) ? card.content : '❓'}
+                                            </motion.button>
+                                        ))}
+                                    </div>
+                                </motion.div>
+                            ) : selectedGame === 'sorting' ? (
+                                <motion.div key="sorting" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                                    <div style={{ textAlign: 'center', marginBottom: '20px' }}>
+                                        <h4 style={{ color: '#f59e0b', margin: '0 0 8px' }}>{SORTING_SETS[currentSortSet].title}</h4>
+                                        <p style={{ color: '#9898a8', margin: 0, fontSize: '0.9rem' }}>
+                                            Drag items to arrange them in the correct order
+                                        </p>
+                                    </div>
+                                    <Reorder.Group
+                                        axis="y"
+                                        values={sortItems}
+                                        onReorder={setSortItems}
+                                        style={{ listStyle: 'none', padding: 0, margin: 0, maxWidth: '400px', marginInline: 'auto' }}
+                                    >
+                                        {sortItems.map((item, index) => (
+                                            <Reorder.Item
+                                                key={item.id}
+                                                value={item}
+                                                style={{
+                                                    padding: '16px 20px',
+                                                    marginBottom: '10px',
+                                                    background: sortingChecked
+                                                        ? item.correctOrder === index
+                                                            ? 'rgba(16, 185, 129, 0.2)'
+                                                            : 'rgba(239, 68, 68, 0.2)'
+                                                        : 'rgba(255,255,255,0.08)',
+                                                    border: sortingChecked
+                                                        ? `2px solid ${item.correctOrder === index ? '#10b981' : '#ef4444'}`
+                                                        : '2px solid rgba(255,255,255,0.15)',
+                                                    borderRadius: '12px',
+                                                    color: '#f4f4f7',
+                                                    fontSize: '1rem',
+                                                    fontWeight: 500,
+                                                    cursor: sortingChecked ? 'default' : 'grab',
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    gap: '12px',
+                                                }}
+                                            >
+                                                <span style={{
+                                                    width: '28px',
+                                                    height: '28px',
+                                                    borderRadius: '8px',
+                                                    background: sortingChecked
+                                                        ? item.correctOrder === index ? '#10b981' : '#ef4444'
+                                                        : '#f59e0b',
+                                                    display: 'flex',
+                                                    alignItems: 'center',
+                                                    justifyContent: 'center',
+                                                    fontSize: '0.85rem',
+                                                    fontWeight: 700,
+                                                }}>
+                                                    {sortingChecked ? (item.correctOrder === index ? '✓' : '✗') : index + 1}
+                                                </span>
+                                                {item.text}
+                                            </Reorder.Item>
+                                        ))}
+                                    </Reorder.Group>
+                                    {!sortingChecked ? (
+                                        <div style={{ textAlign: 'center', marginTop: '24px' }}>
+                                            <button
+                                                onClick={checkSortOrder}
+                                                style={{
+                                                    padding: '14px 32px',
+                                                    background: 'linear-gradient(135deg, #f59e0b, #d97706)',
+                                                    border: 'none',
+                                                    borderRadius: '12px',
+                                                    color: 'white',
+                                                    fontSize: '1rem',
+                                                    fontWeight: 600,
+                                                    cursor: 'pointer',
+                                                }}
+                                            >
+                                                ✅ Check Order
+                                            </button>
+                                        </div>
+                                    ) : (
+                                        <motion.div
+                                            initial={{ opacity: 0, y: 10 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            style={{ textAlign: 'center', marginTop: '20px' }}
+                                        >
+                                            <p style={{
+                                                color: sortingCorrect ? '#10b981' : '#ef4444',
+                                                fontSize: '1.1rem',
+                                                fontWeight: 600,
+                                            }}>
+                                                {sortingCorrect ? '🎉 Perfect! +200 points' : '❌ Not quite right. Try again!'}
+                                            </p>
+                                            {!sortingCorrect && (
+                                                <button
+                                                    onClick={initSortingGame}
+                                                    style={{
+                                                        marginTop: '12px',
+                                                        padding: '10px 24px',
+                                                        background: 'rgba(255,255,255,0.1)',
+                                                        border: 'none',
+                                                        borderRadius: '10px',
+                                                        color: '#c4c4d0',
+                                                        cursor: 'pointer',
+                                                    }}
+                                                >
+                                                    🔄 Try Again
+                                                </button>
+                                            )}
+                                        </motion.div>
+                                    )}
+                                </motion.div>
+                            ) : selectedGame === 'speed' ? (
+                                <motion.div key="speed" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                                    {/* Timer bar */}
+                                    <div style={{ marginBottom: '20px' }}>
+                                        <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
+                                            <span style={{ color: '#ef4444', fontWeight: 600 }}>⏱️ {speedTimer}s</span>
+                                            <span style={{ color: '#6b6b7b' }}>Question {currentSpeedQ + 1}/{speedQuestions.length}</span>
+                                        </div>
+                                        <div style={{ height: '8px', background: 'rgba(255,255,255,0.1)', borderRadius: '4px', overflow: 'hidden' }}>
+                                            <motion.div
+                                                animate={{ width: `${(speedTimer / 10) * 100}%` }}
+                                                style={{
+                                                    height: '100%',
+                                                    background: speedTimer > 5 ? '#10b981' : speedTimer > 2 ? '#f59e0b' : '#ef4444',
+                                                    borderRadius: '4px',
+                                                }}
+                                            />
+                                        </div>
+                                    </div>
+
+                                    {speedQuestions[currentSpeedQ] && (
+                                        <>
+                                            <h3 style={{ color: '#f4f4f7', fontSize: '1.3rem', textAlign: 'center', marginBottom: '24px' }}>
+                                                {speedQuestions[currentSpeedQ].question}
+                                            </h3>
+                                            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px', maxWidth: '500px', margin: '0 auto' }}>
+                                                {speedQuestions[currentSpeedQ].options.map((option, idx) => (
+                                                    <motion.button
+                                                        key={idx}
+                                                        onClick={() => handleSpeedAnswer(idx)}
+                                                        whileHover={{ scale: speedAnswered === null ? 1.03 : 1 }}
+                                                        style={{
+                                                            padding: '18px',
+                                                            background: speedAnswered === null
+                                                                ? 'rgba(255,255,255,0.08)'
+                                                                : idx === speedQuestions[currentSpeedQ].correctIndex
+                                                                    ? 'rgba(16, 185, 129, 0.3)'
+                                                                    : speedAnswered === idx
+                                                                        ? 'rgba(239, 68, 68, 0.3)'
+                                                                        : 'rgba(255,255,255,0.05)',
+                                                            border: `2px solid ${speedAnswered === null
+                                                                    ? 'rgba(255,255,255,0.15)'
+                                                                    : idx === speedQuestions[currentSpeedQ].correctIndex
+                                                                        ? '#10b981'
+                                                                        : speedAnswered === idx
+                                                                            ? '#ef4444'
+                                                                            : 'rgba(255,255,255,0.1)'
+                                                                }`,
+                                                            borderRadius: '12px',
+                                                            color: '#f4f4f7',
+                                                            fontSize: '1rem',
+                                                            fontWeight: 500,
+                                                            cursor: speedAnswered === null ? 'pointer' : 'default',
+                                                        }}
+                                                    >
+                                                        {option}
+                                                    </motion.button>
+                                                ))}
+                                            </div>
+                                        </>
+                                    )}
+                                </motion.div>
+                            ) : selectedGame === 'fillblanks' ? (
+                                <motion.div key="fillblanks" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                                    <div style={{ textAlign: 'center', marginBottom: '8px' }}>
+                                        <span style={{ color: '#6b6b7b', fontSize: '0.85rem' }}>
+                                            Question {fillBlankIndex + 1}/{FILL_BLANKS.length}
+                                        </span>
+                                    </div>
+
+                                    <div style={{
+                                        background: 'rgba(6, 182, 212, 0.1)',
+                                        border: '2px solid rgba(6, 182, 212, 0.3)',
+                                        borderRadius: '16px',
+                                        padding: '32px',
+                                        textAlign: 'center',
+                                        marginBottom: '24px',
+                                    }}>
+                                        <p style={{ color: '#f4f4f7', fontSize: '1.3rem', margin: 0, lineHeight: 1.6 }}>
+                                            {FILL_BLANKS[fillBlankIndex].sentence.split('___').map((part, i, arr) => (
+                                                <span key={i}>
+                                                    {part}
+                                                    {i < arr.length - 1 && (
+                                                        <span style={{
+                                                            display: 'inline-block',
+                                                            minWidth: '80px',
+                                                            padding: '4px 16px',
+                                                            margin: '0 8px',
+                                                            background: fillBlankChecked
+                                                                ? fillBlankAnswer === FILL_BLANKS[fillBlankIndex].answer
+                                                                    ? 'rgba(16, 185, 129, 0.3)'
+                                                                    : 'rgba(239, 68, 68, 0.3)'
+                                                                : 'rgba(255,255,255,0.2)',
+                                                            borderRadius: '8px',
+                                                            borderBottom: '3px solid #06b6d4',
+                                                        }}>
+                                                            {fillBlankAnswer || '____'}
+                                                        </span>
+                                                    )}
+                                                </span>
+                                            ))}
+                                        </p>
+                                    </div>
+
+                                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px', maxWidth: '400px', margin: '0 auto' }}>
+                                        {FILL_BLANKS[fillBlankIndex].options.map((option, idx) => (
+                                            <motion.button
+                                                key={idx}
+                                                onClick={() => !fillBlankChecked && handleFillBlankAnswer(option)}
+                                                whileHover={{ scale: !fillBlankChecked ? 1.03 : 1 }}
+                                                style={{
+                                                    padding: '16px',
+                                                    background: fillBlankChecked
+                                                        ? option === FILL_BLANKS[fillBlankIndex].answer
+                                                            ? 'rgba(16, 185, 129, 0.3)'
+                                                            : fillBlankAnswer === option
+                                                                ? 'rgba(239, 68, 68, 0.3)'
+                                                                : 'rgba(255,255,255,0.05)'
+                                                        : 'rgba(255,255,255,0.08)',
+                                                    border: `2px solid ${fillBlankChecked
+                                                            ? option === FILL_BLANKS[fillBlankIndex].answer
+                                                                ? '#10b981'
+                                                                : fillBlankAnswer === option
+                                                                    ? '#ef4444'
+                                                                    : 'rgba(255,255,255,0.1)'
+                                                            : 'rgba(255,255,255,0.15)'
+                                                        }`,
+                                                    borderRadius: '12px',
+                                                    color: '#f4f4f7',
+                                                    fontSize: '1rem',
+                                                    fontWeight: 500,
+                                                    cursor: fillBlankChecked ? 'default' : 'pointer',
+                                                }}
+                                            >
+                                                {option}
                                             </motion.button>
                                         ))}
                                     </div>
