@@ -181,249 +181,122 @@ Together, these often give enough information without ever needing an X-ray!
     {
         id: 'ms-introduction',
         title: 'Mass Spectrometry: Weighing Molecules',
-        content: `<h4>🎯 ما هو مطياف الكتلة؟ What is Mass Spectrometry?</h4>
+        content: `<h4>🎯 The Molecular Scale</h4>
 
-<p>تخيل أن لديك <strong>ميزان فائق الدقة</strong> يستطيع وزن جزيء واحد! هذا بالضبط ما يفعله مطياف الكتلة. لكنه يذهب أبعد من ذلك - فهو يكشف لك <strong>كيف يتفكك الجزيء</strong> إلى قطع أصغر.</p>
 
-<div class="highlight-box">
-<strong>🔬 المكونات الثلاثة للجهاز:</strong>
-<table class="reference-table">
-<thead>
-<tr><th>المكون</th><th>الوظيفة</th><th>التشبيه</th></tr>
-</thead>
-<tbody>
-<tr><td><strong>Ion Source</strong></td><td>تحويل الجزيء إلى أيون</td><td>مثل إزالة إلكترون من الجزيء</td></tr>
-<tr><td><strong>Mass Analyzer</strong></td><td>فصل الأيونات حسب الكتلة</td><td>مثل غربال يفرز حسب الحجم</td></tr>
-<tr><td><strong>Detector</strong></td><td>قياس كمية كل أيون</td><td>مثل عداد يحسب كل نوع</td></tr>
-</tbody>
-</table>
-</div>
-
-<h4>⚡ كيف يعمل؟ The Process Step-by-Step</h4>
+<p>Mass spectrometry (MS) is like having an incredibly precise scale that can weigh individual molecules! But it goes further than just mass - it can also:</p>
 
 <div class="highlight-box">
-<strong>الخطوة 1: التأين (Ionization) - EI Mode</strong>
-<p>يُقذف الجزيء بحزمة إلكترونات عالية الطاقة (70 eV). هذا يطرد إلكترون واحد من الجزيء:</p>
-<p style="text-align: center; font-size: 1.2em; font-family: monospace;">
-M + e⁻ → M<sup>+•</sup> + 2e⁻
-</p>
-<p>الناتج <strong>M<sup>+•</sup></strong> يُسمى <strong>Molecular Ion</strong> أو <strong>Parent Ion</strong></p>
-</div>
-
-<div class="highlight-box">
-<strong>الخطوة 2: التفتت (Fragmentation)</strong>
-<p>الطاقة الزائدة تجعل الجزيء غير مستقر → يتكسر إلى قطع أصغر</p>
+<strong>What MS Tells Us:</strong>
 <ul>
-<li>كل قطعة مشحونة تظهر كـ <strong>Peak</strong> في الطيف</li>
-<li>القطع المحايدة (بدون شحنة) <strong>لا تُكتشف</strong></li>
+<li>📊 <strong>Molecular Weight</strong> - The exact mass of your molecule</li>
+<li>🧩 <strong>Fragments</strong> - How the molecule breaks apart</li>
+<li>🔍 <strong>Elemental Composition</strong> - Which elements are present</li>
+<li>🎲 <strong>Isotope Patterns</strong> - Reveals Cl, Br, and other halogens</li>
 </ul>
 </div>
 
-<div class="highlight-box">
-<strong>الخطوة 3: الفصل والكشف (Separation & Detection)</strong>
-<p>الأيونات تُسرَّع في مجال كهربائي، ثم تُفصل حسب نسبة <strong>m/z</strong> (الكتلة/الشحنة)</p>
-<p>معظم الأيونات لها شحنة +1، لذا <strong>m/z = الكتلة</strong></p>
-</div>
+<h4>⚡ How It Works: The "Brick Wall" Analogy</h4>
 
-<h4>📊 كيف تقرأ طيف الكتلة؟ Reading a Mass Spectrum</h4>
+<p>Imagine throwing a molecule at a brick wall at incredible speed. What happens?</p>
+
+<ol>
+<li><strong>Ionization:</strong> An electron gets knocked off → M⁺ (molecular ion)</li>
+<li><strong>Fragmentation:</strong> The molecule breaks into pieces</li>
+<li><strong>Detection:</strong> Fragments are sorted by mass-to-charge ratio (m/z)</li>
+</ol>
 
 <div class="warning-box">
-<strong>🎯 دليلك المرجعي السريع:</strong>
-<ol>
-<li><strong>ابحث عن أعلى m/z</strong> → هذا غالباً الـ Molecular Ion (M⁺) = الوزن الجزيئي</li>
-<li><strong>ابحث عن أطول قمة</strong> → هذا الـ Base Peak (نضعه = 100%)</li>
-<li><strong>احسب الفروقات</strong> → الفرق بين M⁺ والقمم الأخرى يخبرك ماذا فُقد</li>
-<li><strong>تحقق من الأنماط</strong> → هل يوجد M+2؟ قد يكون Cl أو Br</li>
-</ol>
+<strong>⚠️ Key Point:</strong> MS measures <em>mass-to-charge ratio (m/z)</em>, not just mass!
+For singly charged ions (most common), m/z = mass.
 </div>
 
-<h4>📈 أنواع القمم في الطيف</h4>
+<h4>📈 Reading a Mass Spectrum</h4>
 
 <table class="reference-table">
 <thead>
-<tr><th>نوع القمة</th><th>الرمز</th><th>ماذا يعني؟</th><th>كيف تجده؟</th></tr>
+<tr><th>Peak Type</th><th>Symbol</th><th>Meaning</th></tr>
 </thead>
 <tbody>
-<tr>
-<td><strong>Molecular Ion</strong></td>
-<td>M⁺ أو M<sup>+•</sup></td>
-<td>الجزيء كامل ناقص إلكترون واحد</td>
-<td>عادةً أعلى m/z (لكن ليس دائماً الأطول!)</td>
-</tr>
-<tr>
-<td><strong>Base Peak</strong></td>
-<td>100%</td>
-<td>الأيون الأكثر استقراراً/وفرة</td>
-<td>أطول قمة في الطيف</td>
-</tr>
-<tr>
-<td><strong>Fragment Ions</strong></td>
-<td>متنوعة</td>
-<td>قطع ناتجة عن تكسر الجزيء</td>
-<td>قمم أصغر من M⁺</td>
-</tr>
-<tr>
-<td><strong>M+1 Peak</strong></td>
-<td>M+1</td>
-<td>يحتوي ذرة ¹³C واحدة</td>
-<td>بجانب M⁺، أصغر بكثير</td>
-</tr>
-<tr>
-<td><strong>M+2 Peak</strong></td>
-<td>M+2</td>
-<td>يشير لوجود Cl أو Br</td>
-<td>قمة بعد M⁺ بـ 2 وحدات</td>
-</tr>
+<tr><td>Molecular Ion</td><td>M⁺</td><td>Intact molecule with one electron removed</td></tr>
+<tr><td>Base Peak</td><td>100%</td><td>Most abundant ion (tallest peak)</td></tr>
+<tr><td>Fragment Ions</td><td>Various</td><td>Pieces of the broken molecule</td></tr>
+<tr><td>M+1 Peak</td><td>M+1</td><td>Contains one ¹³C atom</td></tr>
 </tbody>
-</table>
-
-<h4>🧮 حساب الفقدانات الشائعة</h4>
-
-<div class="highlight-box">
-<strong>جدول الفقدانات المهمة:</strong>
-<table class="reference-table">
-<thead>
-<tr><th>الفرق (Δm)</th><th>ماذا فُقد؟</th><th>التفسير</th></tr>
-</thead>
-<tbody>
-<tr><td>-1</td><td>H•</td><td>ذرة هيدروجين</td></tr>
-<tr><td>-15</td><td>CH₃•</td><td>مجموعة ميثيل</td></tr>
-<tr><td>-17</td><td>OH•</td><td>مجموعة هيدروكسيل</td></tr>
-<tr><td>-18</td><td>H₂O</td><td>ماء (من كحول)</td></tr>
-<tr><td>-28</td><td>CO أو C₂H₄</td><td>كربونيل أو إيثيلين</td></tr>
-<tr><td>-29</td><td>CHO• أو C₂H₅•</td><td>ألدهيد أو إيثيل</td></tr>
-<tr><td>-31</td><td>OCH₃•</td><td>ميثوكسي</td></tr>
-<tr><td>-43</td><td>CH₃CO• أو C₃H₇•</td><td>أسيتيل أو بروبيل</td></tr>
-<tr><td>-45</td><td>OC₂H₅• أو CHO₂•</td><td>إيثوكسي أو فورميت</td></tr>
-</tbody>
-</table>
-</div>
-
-<div class="tip-box">
-<strong>💡 مثال عملي:</strong>
-<p>إذا رأيت M⁺ = 186 وقمة عند 171:</p>
-<p>الفرق = 186 - 171 = <strong>15</strong> → فُقدت مجموعة <strong>CH₃</strong></p>
-</div>`,
+</table>`,
         keyPoints: [
-            'MS يقيس نسبة الكتلة/الشحنة (m/z)',
-            'Molecular Ion (M⁺) يعطيك الوزن الجزيئي مباشرة',
-            'Base Peak هي أطول قمة (أكثر الأيونات استقراراً)',
-            'الفرق بين القمم يكشف ما فُقد من الجزيء',
-            'M+2 يشير لوجود Cl أو Br'
+            'MS measures mass-to-charge ratio (m/z)',
+            'Electron impact removes an electron, creating M⁺',
+            'The base peak is the tallest (most stable fragment)',
+            'M⁺ gives the molecular weight directly'
         ],
         molecules: [
-            { name: '4-Bromoanisole', description: 'MW = 186, يظهر نمط البروم 1:1' },
-            { name: 'Hexan-2-one', description: 'MW = 100, يظهر فقدان CH₃ و CH₃CO' }
+            { name: 'Isopentyl Acetate', description: 'Bee pheromone - MW = 130' },
+            { name: 'Propan-2-ol', description: 'Secondary alcohol - see fragmentation' }
         ]
     },
     {
         id: 'ms-isotopes',
         title: 'Isotope Patterns: Detecting Cl and Br',
-        content: `<h4>🎲 بصمة الطبيعة - Nature's Fingerprint</h4>
+        content: `<h4>🎲 Nature's Fingerprint</h4>
 
-<p>بعض العناصر لها <strong>نظائر متعددة</strong> توجد طبيعياً. هذا يخلق أنماطاً مميزة في طيف الكتلة تعمل كـ<strong>بصمات</strong> للعناصر!</p>
+<p>Some elements have multiple naturally occurring isotopes. This creates characteristic patterns in mass spectra that act like fingerprints!</p>
 
-<div class="warning-box">
-<strong>🔑 المفتاح:</strong> انظر دائماً إلى القمم عند <strong>M+2</strong>. إذا وجدت قمة كبيرة هناك، فهذا يعني وجود <strong>Cl</strong> أو <strong>Br</strong>!
-</div>
-
-<h4>🔬 الكلور (Chlorine): النمط 3:1</h4>
+<h4>🔬 Chlorine: The 3:1 Pattern</h4>
 
 <div class="highlight-box">
-<strong>نظائر الكلور:</strong>
-<table class="reference-table">
-<thead><tr><th>النظير</th><th>الكتلة</th><th>النسبة الطبيعية</th></tr></thead>
-<tbody>
-<tr><td>³⁵Cl</td><td>35</td><td><strong>75.77%</strong> (≈ 3 أجزاء)</td></tr>
-<tr><td>³⁷Cl</td><td>37</td><td><strong>24.23%</strong> (≈ 1 جزء)</td></tr>
-</tbody>
-</table>
-<p style="margin-top: 0.5rem;"><strong>النتيجة:</strong> نسبة M : M+2 = <strong>3:1</strong> (أو 100% : 33%)</p>
+<strong>Chlorine Isotopes:</strong>
+<ul>
+<li>³⁵Cl: 75% natural abundance</li>
+<li>³⁷Cl: 25% natural abundance</li>
+</ul>
+<strong>Result:</strong> M : M+2 ratio = <strong>3:1</strong>
 </div>
 
-<div class="tip-box">
-<strong>💡 كيف تتعرف على Cl؟</strong>
-<p>إذا رأيت قمة M+2 تساوي <strong>ثلث</strong> ارتفاع M⁺ → يوجد <strong>كلور واحد</strong></p>
-</div>
+<p>For molecules with <strong>2 chlorines (Cl₂)</strong>:</p>
+<ul>
+<li>M : M+2 : M+4 = <strong>9:6:1</strong></li>
+<li>This comes from: (3:1) × (3:1) = 9:6:1</li>
+</ul>
 
-<h4>🟤 البروم (Bromine): النمط 1:1</h4>
+<h4>🟤 Bromine: The 1:1 Pattern</h4>
 
 <div class="highlight-box">
-<strong>نظائر البروم:</strong>
-<table class="reference-table">
-<thead><tr><th>النظير</th><th>الكتلة</th><th>النسبة الطبيعية</th></tr></thead>
-<tbody>
-<tr><td>⁷⁹Br</td><td>79</td><td><strong>50.50%</strong></td></tr>
-<tr><td>⁸¹Br</td><td>81</td><td><strong>49.50%</strong></td></tr>
-</tbody>
-</table>
-<p style="margin-top: 0.5rem;"><strong>النتيجة:</strong> نسبة M : M+2 = <strong>1:1</strong> (قمتان متساويتان!)</p>
+<strong>Bromine Isotopes:</strong>
+<ul>
+<li>⁷⁹Br: 50% natural abundance</li>
+<li>⁸¹Br: 50% natural abundance</li>
+</ul>
+<strong>Result:</strong> M : M+2 ratio = <strong>1:1</strong> (equal heights)
 </div>
 
-<div class="warning-box">
-<strong>🎯 كيف تتعرف على Br؟</strong>
-<p>إذا رأيت قمتين <strong>متساويتين تقريباً</strong> تفصلهما وحدتان → يوجد <strong>بروم</strong>!</p>
-<p>هذا أسهل نمط للتعرف عليه في MS!</p>
-</div>
-
-<h4>📊 جدول أنماط الهالوجينات</h4>
+<h4>📊 Quick Reference: Halogen Patterns</h4>
 
 <table class="reference-table">
 <thead>
-<tr><th>الهالوجين</th><th>النمط</th><th>ارتفاع M+2</th><th>الشكل</th></tr>
+<tr><th>Halogen</th><th>Pattern</th><th>M+2 Height</th></tr>
 </thead>
 <tbody>
-<tr><td><strong>1 × Cl</strong></td><td>3:1</td><td>33% من M</td><td>قمة صغيرة بعد M⁺</td></tr>
-<tr><td><strong>2 × Cl</strong></td><td>9:6:1</td><td>67% من M</td><td>ثلاث قمم متدرجة</td></tr>
-<tr><td><strong>3 × Cl</strong></td><td>27:27:9:1</td><td>100% من M</td><td>نمط معقد</td></tr>
-<tr><td><strong>1 × Br</strong></td><td>1:1</td><td>100% من M</td><td>قمتان متساويتان ⭐</td></tr>
-<tr><td><strong>2 × Br</strong></td><td>1:2:1</td><td>200% من M</td><td>ثلاث قمم (الوسطى أكبر)</td></tr>
-<tr><td><strong>Cl + Br</strong></td><td>3:4:1</td><td>معقد</td><td>أربع إلى ست قمم</td></tr>
+<tr><td>1 × Cl</td><td>3:1</td><td>33% of M</td></tr>
+<tr><td>2 × Cl</td><td>9:6:1</td><td>67% of M</td></tr>
+<tr><td>1 × Br</td><td>1:1</td><td>100% of M</td></tr>
+<tr><td>Cl + Br</td><td>3:4:1</td><td>Complex</td></tr>
 </tbody>
 </table>
 
-<h4>🔢 قمة M+1: حساب عدد ذرات الكربون</h4>
-
-<div class="highlight-box">
-<strong>نظير الكربون ¹³C:</strong>
-<ul>
-<li>¹²C: 98.9% (الأكثر شيوعاً)</li>
-<li>¹³C: <strong>1.1%</strong> (يسبب M+1)</li>
-</ul>
-
-<p><strong>القاعدة:</strong> نسبة M+1 ≈ <strong>1.1% × عدد ذرات الكربون</strong></p>
-</div>
-
 <div class="tip-box">
-<strong>💡 مثال عملي:</strong>
-<p>إذا كان ارتفاع M+1 = <strong>16.5%</strong> من M⁺</p>
-<p>عدد الكربونات = 16.5 ÷ 1.1 = <strong>15 ذرة كربون</strong></p>
-<p>هذه طريقة سريعة لتقدير الصيغة الجزيئية!</p>
-</div>
-
-<h4>🎯 ملخص سريع للتعرف</h4>
-
-<div class="warning-box">
-<strong>دليلك السريع:</strong>
-<ul>
-<li>قمتان <strong>متساويتان</strong> (M و M+2)؟ → <strong>Br</strong> واحد</li>
-<li>M+2 = <strong>⅓</strong> من M؟ → <strong>Cl</strong> واحد</li>
-<li>M+2 = <strong>⅔</strong> من M؟ → <strong>2 × Cl</strong></li>
-<li>M+1 كبيرة؟ → احسب عدد الكربونات</li>
-<li>لا M+2 ملحوظة؟ → لا هالوجينات ثقيلة</li>
-</ul>
+<strong>💡 Pro Tip:</strong> See equal M and M+2 peaks? Think BROMINE!
+See M+2 that's ⅓ of M? Think CHLORINE!
 </div>`,
         keyPoints: [
-            'Chlorine: نسبة 3:1 (M+2 = 33% من M)',
-            'Bromine: نسبة 1:1 (قمتان متساويتان)',
-            'M+1 peak يكشف عدد ذرات الكربون (×1.1%)',
-            'نمطان Cl يعطيان 9:6:1',
-            'Isotope patterns هي بصمات العناصر'
+            'Chlorine shows a 3:1 (M:M+2) pattern',
+            'Bromine shows a 1:1 (M:M+2) pattern - equal heights!',
+            'Two chlorines give 9:6:1 pattern',
+            'Isotope patterns are like molecular fingerprints'
         ],
         molecules: [
-            { name: 'Chloroform', description: 'CHCl₃ - نمط 3 كلورات معقد' },
-            { name: 'Bromoethane', description: 'C₂H₅Br - نمط 1:1 كلاسيكي' },
-            { name: 'Methylene Chloride', description: 'CH₂Cl₂ - نمط 9:6:1' }
+            { name: 'Chloroform', description: 'CHCl₃ - complex isotope pattern' },
+            { name: 'Bromoethane', description: 'C₂H₅Br - classic 1:1 pattern' }
         ]
     },
     {
@@ -487,232 +360,6 @@ How do we distinguish them?
             'Exact masses distinguish isomeric formulas',
             'Carbon is exactly 12.00000 by definition',
             'Nitrogen Rule: Odd MW = Odd N count'
-        ]
-    },
-    {
-        id: 'ms-fragmentation',
-        title: 'Fragmentation: How Molecules Break Apart',
-        content: `<h4>⚡ لماذا يتفتت الجزيء؟ Why Do Molecules Fragment?</h4>
-
-<p>بعد التأين، يحتوي الـ Molecular Ion (M⁺) على <strong>طاقة زائدة</strong>. هذه الطاقة تكسر الروابط الأضعف!</p>
-
-<div class="highlight-box">
-<strong>🔑 القاعدة الذهبية:</strong>
-<ul>
-<li>الروابط <strong>C-C</strong> أضعف من <strong>C-H</strong> → تنكسر أولاً</li>
-<li>الشظايا الأكثر <strong>استقراراً</strong> تظهر بكثافة أعلى</li>
-<li>الـ <strong>Base Peak</strong> هي الشظية الأكثر استقراراً</li>
-</ul>
-</div>
-
-<h4>🎯 أنواع التفتت الرئيسية</h4>
-
-<div class="highlight-box">
-<strong>1️⃣ Alpha-Cleavage (α-Cleavage)</strong>
-<p>الانكسار بجانب ذرة تحمل زوج إلكترونات حرة (O, N, S, X)</p>
-<ul>
-<li>الكحولات: تفقد H₂O أو تنكسر عند الـ C-C المجاور لـ OH</li>
-<li>الأمينات: تنكسر عند الـ C-C المجاور لـ N</li>
-<li>الكيتونات: تفقد مجموعات ألكيل من جانبي C=O</li>
-</ul>
-</div>
-
-<div class="highlight-box">
-<strong>2️⃣ McLafferty Rearrangement</strong>
-<p>إعادة ترتيب خاصة تحدث مع الكربونيلات التي لها سلسلة γ-H</p>
-<ul>
-<li>ينتقل H من الموضع γ</li>
-<li>تنكسر الرابطة β</li>
-<li>يُفقد ألكين محايد</li>
-</ul>
-<p style="font-family: monospace;">مثال: الكيتون يفقد ألكين ويعطي enol cation</p>
-</div>
-
-<h4>📊 جدول الشظايا الشائعة</h4>
-
-<table class="reference-table">
-<thead>
-<tr><th>m/z</th><th>الشظية</th><th>مصدرها</th></tr>
-</thead>
-<tbody>
-<tr><td>15</td><td>CH₃⁺</td><td>مجموعة ميثيل</td></tr>
-<tr><td>29</td><td>CHO⁺ أو C₂H₅⁺</td><td>ألدهيد أو إيثيل</td></tr>
-<tr><td>43</td><td>CH₃CO⁺ أو C₃H₇⁺</td><td>أسيتيل أو بروبيل</td></tr>
-<tr><td>57</td><td>C₄H₉⁺</td><td>t-Butyl (مستقر جداً!)</td></tr>
-<tr><td>77</td><td>C₆H₅⁺</td><td>حلقة بنزين (Phenyl)</td></tr>
-<tr><td>91</td><td>C₇H₇⁺</td><td>Tropylium / Benzyl</td></tr>
-<tr><td>105</td><td>C₆H₅CO⁺</td><td>Benzoyl</td></tr>
-</tbody>
-</table>
-
-<h4>🏆 استقرار الكاتيونات</h4>
-
-<div class="warning-box">
-<strong>ترتيب الاستقرار (من الأكثر إلى الأقل):</strong>
-<p style="text-align: center; font-size: 1.1em;">
-<strong>Tropylium (91)</strong> > <strong>Tertiary</strong> > <strong>Allyl/Benzyl</strong> > <strong>Secondary</strong> > <strong>Primary</strong> > <strong>Methyl</strong>
-</p>
-<p>الكاتيون الأكثر استقراراً يظهر كـ Base Peak!</p>
-</div>
-
-<div class="tip-box">
-<strong>💡 مثال: Hexan-2-one (C₆H₁₂O)</strong>
-<ul>
-<li>M⁺ = 100</li>
-<li>فقدان CH₃ → m/z = 85</li>
-<li>فقدان CH₃CO (43) → m/z = 57 (butyl)</li>
-<li>CH₃CO⁺ → m/z = 43 (base peak غالباً)</li>
-</ul>
-</div>`,
-        keyPoints: [
-            'Alpha-cleavage: انكسار بجانب O, N, S',
-            'الكاتيونات المستقرة تظهر بكثافة أعلى',
-            'm/z = 91 (Tropylium) يشير للمركبات العطرية',
-            'm/z = 43 (Acetyl) شائع في الكيتونات',
-            'الفرق بين القمم يكشف ما فُقد'
-        ],
-        molecules: [
-            { name: 'Hexan-2-one', description: 'يظهر α-cleavage واضح' },
-            { name: 'Benzyl Alcohol', description: 'يعطي m/z = 91 (Tropylium)' }
-        ]
-    },
-    {
-        id: 'ms-advanced-biomolecules',
-        title: 'MS للجزيئات الكبيرة: البروتينات والكربوهيدرات',
-        content: `<h4>🧬 لماذا EI لا يعمل مع الجزيئات الكبيرة؟</h4>
-
-<p>تقنية <strong>Electron Impact (EI)</strong> التي درسناها تعمل بشكل ممتاز مع الجزيئات الصغيرة (MW < 1000). لكن مع البروتينات والكربوهيدرات:</p>
-
-<div class="warning-box">
-<strong>⚠️ المشكلة:</strong>
-<ul>
-<li>الجزيئات الكبيرة <strong>لا تتبخر</strong> بسهولة (تتحلل قبل أن تتبخر)</li>
-<li>حتى لو تبخرت، الطاقة العالية تكسرها إلى قطع صغيرة جداً</li>
-<li>نفقد معلومات الوزن الجزيئي!</li>
-</ul>
-</div>
-
-<h4>🌊 الحل: تقنيات التأين اللطيفة (Soft Ionization)</h4>
-
-<div class="highlight-box">
-<strong>1️⃣ ESI - Electrospray Ionization</strong>
-<p><em>تُستخدم للبروتينات والببتيدات والأحماض النووية</em></p>
-<ul>
-<li>المحلول يُرش عبر إبرة مشحونة</li>
-<li>تتكون <strong>قطرات صغيرة مشحونة</strong></li>
-<li>المذيب يتبخر → تبقى الأيونات</li>
-<li><strong>ميزة:</strong> شحنات متعددة (+2, +3, +10...) تخفض m/z المقاس</li>
-</ul>
-</div>
-
-<div class="tip-box">
-<strong>💡 لماذا الشحنات المتعددة مفيدة؟</strong>
-<p>بروتين وزنه <strong>50,000 Da</strong> مع +50 شحنة:</p>
-<p style="text-align: center; font-family: monospace;">m/z = 50,000 ÷ 50 = <strong>1000</strong></p>
-<p>يمكن قياسه بأجهزة عادية!</p>
-</div>
-
-<div class="highlight-box">
-<strong>2️⃣ MALDI - Matrix-Assisted Laser Desorption/Ionization</strong>
-<p><em>تُستخدم للبوليمرات والكربوهيدرات والبروتينات</em></p>
-<ul>
-<li>العينة تُخلط مع <strong>مصفوفة (Matrix)</strong> ماصة للضوء</li>
-<li>ليزر يضرب المصفوفة → تتبخر وتحمل العينة معها</li>
-<li>تأين لطيف يحافظ على الجزيء سليماً</li>
-<li><strong>ميزة:</strong> عادة شحنة واحدة (+1) → m/z = MW مباشرة</li>
-</ul>
-</div>
-
-<h4>🏛️ معهد Ferrier للأبحاث - Ferrier Research Institute</h4>
-
-<div class="highlight-box">
-<strong>🔬 من هم؟</strong>
-<p>مركز أبحاث عالمي في <strong>جامعة فيكتوريا ويلينغتون</strong> (نيوزيلندا) متخصص في:</p>
-<ul>
-<li>🧪 كيمياء الكربوهيدرات</li>
-<li>🧬 تحليل البروتينات السكرية (Glycoproteins)</li>
-<li>💊 اكتشاف الأدوية</li>
-</ul>
-</div>
-
-<div class="highlight-box">
-<strong>🎯 كيف يستخدمون MS؟</strong>
-
-<table class="reference-table">
-<thead>
-<tr><th>التطبيق</th><th>التقنية</th><th>ماذا يقيسون؟</th></tr>
-</thead>
-<tbody>
-<tr>
-<td>تحليل السكريات</td>
-<td>GC-MS, LC-MS</td>
-<td>أنواع السكريات ورباطاتها</td>
-</tr>
-<tr>
-<td>البروتينات السكرية</td>
-<td>LC-HRMS</td>
-<td>مواقع الارتباط، تركيب السلاسل</td>
-</tr>
-<tr>
-<td>تسلسل السكريات</td>
-<td>Ion Mobility MS</td>
-<td>ترتيب السكريات في السلسلة</td>
-</tr>
-<tr>
-<td>الهيبارين والجليكانات</td>
-<td>Shotgun MS</td>
-<td>بنية السكريات المعقدة</td>
-</tr>
-</tbody>
-</table>
-</div>
-
-<h4>🌍 تطبيقات حقيقية</h4>
-
-<div class="tip-box">
-<strong>💊 في اكتشاف الأدوية:</strong>
-<ul>
-<li>تحديد بنية الجليكانات على سطح الخلايا</li>
-<li>فهم كيف ترتبط الفيروسات بالخلايا</li>
-<li>تطوير لقاحات تستهدف السكريات السطحية</li>
-</ul>
-</div>
-
-<div class="warning-box">
-<strong>🔬 مثال:</strong>
-<p>لتحليل <strong>Heparan Sulfate</strong> (سكريد معقد):</p>
-<ol>
-<li>تحضير العينة مع Matrix مناسبة</li>
-<li>MALDI-TOF للوزن الجزيئي</li>
-<li>MS/MS للتجزئة والتسلسل</li>
-<li>Ion Mobility لفصل الأيزومرات</li>
-</ol>
-</div>
-
-<h4>📊 مقارنة التقنيات</h4>
-
-<table class="reference-table">
-<thead>
-<tr><th>الخاصية</th><th>EI</th><th>ESI</th><th>MALDI</th></tr>
-</thead>
-<tbody>
-<tr><td>نوع العينة</td><td>صغيرة، متطايرة</td><td>محلول</td><td>صلبة/محلول</td></tr>
-<tr><td>الوزن الجزيئي</td><td>< 1000</td><td>> 100,000</td><td>> 1,000,000</td></tr>
-<tr><td>التفتت</td><td>كثير</td><td>قليل</td><td>قليل جداً</td></tr>
-<tr><td>الشحنات</td><td>+1</td><td>متعددة</td><td>+1 غالباً</td></tr>
-<tr><td>الاستخدام</td><td>مركبات عضوية صغيرة</td><td>بروتينات</td><td>بوليمرات، كربوهيدرات</td></tr>
-</tbody>
-</table>`,
-        keyPoints: [
-            'EI للجزيئات الصغيرة (MW < 1000)',
-            'ESI للبروتينات - يعطي شحنات متعددة',
-            'MALDI للكربوهيدرات والبوليمرات',
-            'معهد Ferrier رائد في تحليل الجليكانات',
-            'Soft ionization يحافظ على الجزيء سليماً'
-        ],
-        molecules: [
-            { name: 'Insulin', description: 'بروتين 5.8 kDa - يُحلل بـ ESI' },
-            { name: 'Heparin', description: 'سكريد معقد - يُحلل بـ MALDI' }
         ]
     },
 
