@@ -191,9 +191,9 @@ export default function MassSpectrumViewer({
                     return (
                         <g key={i}>
                             <motion.rect
-                                x={x - 3}
+                                x={x - 4}
                                 y={210 - height}
-                                width={6}
+                                width={8}
                                 height={height}
                                 fill={color}
                                 opacity={isHovered ? 1 : 0.8}

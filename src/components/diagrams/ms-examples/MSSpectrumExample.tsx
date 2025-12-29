@@ -27,6 +27,11 @@ export default function MSSpectrumExample({
 }: MSSpectrumExampleProps) {
     const [activeIndex, setActiveIndex] = React.useState<number | null>(null);
 
+    // Sort data by m/z for proper display
+    const sortedData = React.useMemo(() => {
+        return [...data].sort((a, b) => a.mz - b.mz);
+    }, [data]);
+
     // Custom tooltip
     const CustomTooltip = ({ active, payload }: any) => {
         if (active && payload && payload.length) {
@@ -65,7 +70,8 @@ export default function MSSpectrumExample({
             <div className="bg-white rounded-lg p-4 border-2 border-blue-200 mb-4">
                 <ResponsiveContainer width="100%" height={350}>
                     <BarChart
-                        data={data}
+                        data={sortedData}
+                        barSize={30}
                         margin={{ top: 20, right: 30, left: 20, bottom: 70 }}
                         onMouseMove={(state) => {
                             if (state.isTooltipActive) {
@@ -94,7 +100,7 @@ export default function MSSpectrumExample({
                             radius={[4, 4, 0, 0]}
                             animationDuration={800}
                         >
-                            {data.map((entry, index) => (
+                            {sortedData.map((entry, index) => (
                                 <Cell
                                     key={`cell-${index}`}
                                     fill={getBarColor(entry)}
@@ -114,23 +120,23 @@ export default function MSSpectrumExample({
             </div>
 
             {/* Active Peak Info Display */}
-            {activeIndex !== null && data[activeIndex] && (
+            {activeIndex !== null && sortedData[activeIndex] && (
                 <div className="bg-indigo-50 border-2 border-indigo-300 rounded-lg p-3 mb-4 transition-all">
                     <div className="flex items-center justify-between">
                         <div>
                             <p className="text-sm font-bold text-indigo-900">
-                                m/z = {data[activeIndex].mz} • {data[activeIndex].label}
+                                m/z = {sortedData[activeIndex].mz} • {sortedData[activeIndex].label}
                             </p>
-                            {data[activeIndex].fragment && (
-                                <p className="text-xs text-gray-700 mt-1">{data[activeIndex].fragment}</p>
+                            {sortedData[activeIndex].fragment && (
+                                <p className="text-xs text-gray-700 mt-1">{sortedData[activeIndex].fragment}</p>
                             )}
                         </div>
                         <div className="text-right">
-                            <p className="text-lg font-bold text-indigo-700">{data[activeIndex].abundance}%</p>
-                            {data[activeIndex].isBasePeak && (
+                            <p className="text-lg font-bold text-indigo-700">{sortedData[activeIndex].abundance}%</p>
+                            {sortedData[activeIndex].isBasePeak && (
                                 <span className="text-xs bg-red-100 text-red-700 px-2 py-1 rounded font-semibold">BASE PEAK</span>
                             )}
-                            {data[activeIndex].isMolecularIon && (
+                            {sortedData[activeIndex].isMolecularIon && (
                                 <span className="text-xs bg-purple-100 text-purple-700 px-2 py-1 rounded font-semibold">M⁺</span>
                             )}
                         </div>
@@ -167,7 +173,7 @@ export default function MSSpectrumExample({
                             </tr>
                         </thead>
                         <tbody>
-                            {data.map((peak, idx) => (
+                            {sortedData.map((peak, idx) => (
                                 <tr
                                     key={idx}
                                     className={`border-b border-gray-100 hover:bg-blue-50 cursor-pointer ${activeIndex === idx ? 'bg-blue-100' : ''
@@ -179,8 +185,8 @@ export default function MSSpectrumExample({
                                     <td className="p-2 text-gray-700">{peak.label}</td>
                                     <td className="p-2 text-right">
                                         <span className={`font-semibold ${peak.isBasePeak ? 'text-red-700' :
-                                                peak.isMolecularIon ? 'text-purple-700' :
-                                                    'text-blue-700'
+                                            peak.isMolecularIon ? 'text-purple-700' :
+                                                'text-blue-700'
                                             }`}>
                                             {peak.abundance}%
                                         </span>
