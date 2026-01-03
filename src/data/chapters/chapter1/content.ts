@@ -31,8 +31,8 @@ export const sections: ChapterSection[] = [
       each with its own unique properties. Your DNA, the blueprint of life, is an organic molecule containing 
       millions of atoms arranged in a precise sequence.`,
     video: {
-      type: 'mp4' as const,
-      url: '/videos/CHAPTER 1 LESSON 1 .mp4',
+      type: 'hls' as const,
+      url: 'https://vz-2adfd2e0-f8c.b-cdn.net/29a26116-53ac-4d1a-adc1-cab5c741aeb4/playlist.m3u8',
       duration: '5:30'
     },
     molecules: [

@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import Hls from 'hls.js';
 
 interface VideoEmbedProps {
-    type: 'bunny' | 'youtube' | 'mp4';
+    type: 'bunny' | 'youtube' | 'mp4' | 'hls';
     url: string;
     title?: string;
     thumbnail?: string;
@@ -17,9 +17,9 @@ export default function VideoEmbed({ type, url, title, thumbnail }: VideoEmbedPr
     const videoRef = useRef<HTMLVideoElement>(null);
     const hlsRef = useRef<Hls | null>(null);
 
-    // Handle HLS video for Bunny Stream
+    // Handle HLS video for Bunny Stream or direct HLS
     useEffect(() => {
-        if (type !== 'bunny' || !url || !videoRef.current) return;
+        if ((type !== 'bunny' && type !== 'hls') || !url || !videoRef.current) return;
 
         const video = videoRef.current;
 
@@ -96,8 +96,8 @@ export default function VideoEmbed({ type, url, title, thumbnail }: VideoEmbedPr
         );
     }
 
-    // Bunny HLS Video Player
-    if (type === 'bunny') {
+    // Bunny HLS Video Player (also handles direct HLS)
+    if (type === 'bunny' || type === 'hls') {
         return (
             <motion.div
                 initial={{ opacity: 0, y: 10 }}
