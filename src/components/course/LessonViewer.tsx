@@ -11,6 +11,7 @@ import ColorMoleculesGrid from '../content/ColorMoleculesGrid';
 import ConjugationDiagram from '../content/ConjugationDiagram';
 import ClinicalColorCases from '../content/ClinicalColorCases';
 import ClinicalDetectiveGame from '../content/ClinicalDetectiveGame';
+import DrugDiscoveryTools from '../content/DrugDiscoveryTools';
 
 // Dynamic import for MoleculeViewer
 const MoleculeViewer = dynamic(() => import('../MoleculeViewer'), {
@@ -32,7 +33,7 @@ const MoleculeViewer = dynamic(() => import('../MoleculeViewer'), {
 
 // ... imports ...
 
-type TabType = 'lesson' | 'quickCheck' | 'molecules' | 'simulation' | 'drugDiscovery' | 'conjugation' | 'colors' | 'clinical' | 'detective';
+type TabType = 'lesson' | 'quickCheck' | 'molecules' | 'simulation' | 'drugDiscovery' | 'conjugation' | 'colors' | 'clinical' | 'detective' | 'research';
 
 export default function LessonViewer({
     section,
@@ -80,9 +81,10 @@ export default function LessonViewer({
         ...(section.conjugationDiagram ? [{ id: 'conjugation' as const, icon: '🌈', label: 'Conjugation Rule' }] : []),
         ...(section.colorExamples ? [{ id: 'colors' as const, icon: '🧪', label: 'Featured Molecules' }] : []),
         ...(isColorLesson ? [{ id: 'clinical' as const, icon: '💊', label: 'Clinical Colors' }] : []),
+        ...(isColorLesson ? [{ id: 'research' as const, icon: '🧬', label: 'Research Tools' }] : []),
         ...(isColorLesson ? [{ id: 'detective' as const, icon: '🔬', label: 'Color Detective' }] : []),
         { id: 'quickCheck' as const, icon: '✅', label: 'Quick Check' },
-        { id: 'molecules' as const, icon: '🧬', label: 'Molecules' },
+        { id: 'molecules' as const, icon: '🧪', label: 'Molecules' },
         ...(section.simulation ? [{ id: 'simulation' as const, icon: '🎮', label: 'Simulation' }] : []),
         ...(showDrugDiscoveryTab ? [{ id: 'drugDiscovery' as const, icon: '💉', label: 'Drug Discovery' }] : [])
     ];
@@ -458,6 +460,18 @@ export default function LessonViewer({
                             exit={{ opacity: 0, y: -10 }}
                         >
                             <ClinicalDetectiveGame />
+                        </motion.div>
+                    )}
+
+                    {/* RESEARCH TOOLS (DRUG DISCOVERY) TAB */}
+                    {activeTab === 'research' && (
+                        <motion.div
+                            key="research"
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -10 }}
+                        >
+                            <DrugDiscoveryTools />
                         </motion.div>
                     )}
 
