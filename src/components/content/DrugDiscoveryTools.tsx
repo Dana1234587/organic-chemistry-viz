@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { useState } from 'react';
+import EnergyGapNavigator from './EnergyGapNavigator';
 
 interface DiscoveryTool {
     id: string;
@@ -365,6 +366,9 @@ export default function DrugDiscoveryTools() {
                     ))}
                 </div>
             </motion.div>
+
+            {/* Interactive Energy Gap Simulation */}
+            <EnergyGapNavigator />
 
             {/* The Quantum Foundation */}
             <motion.div

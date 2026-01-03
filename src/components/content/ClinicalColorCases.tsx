@@ -10,6 +10,7 @@ interface DrugData {
     color: string;
     formula: string;
     pubchemCid: number;
+    state: 'solid' | 'crystal' | 'liquid' | 'powder';
     chromophore: string;
     clinicalEffect: string;
     urineColor: string;
@@ -29,7 +30,8 @@ const CLINICAL_DRUGS: DrugData[] = [
         emoji: '🔴',
         color: '#dc2626',
         formula: 'C₄₃H₅₈N₄O₁₂',
-        pubchemCid: 135398735,
+        pubchemCid: 5458213, // Standard rifampicin CID with 3D available
+        state: 'crystal',
         chromophore: 'Naphthoquinone conjugated system',
         clinicalEffect: 'Stains ALL body fluids red-orange (urine, tears, sweat)',
         urineColor: 'Bright Red-Orange',
@@ -49,6 +51,7 @@ const CLINICAL_DRUGS: DrugData[] = [
         color: '#ea580c',
         formula: 'C₁₁H₁₁N₅',
         pubchemCid: 4756,
+        state: 'crystal',
         chromophore: 'Azo group (N=N) bridging aromatic rings',
         clinicalEffect: 'Turns urine deep "neon" orange',
         urineColor: 'Neon Orange',
@@ -67,6 +70,7 @@ const CLINICAL_DRUGS: DrugData[] = [
         color: '#eab308',
         formula: 'C₁₇H₂₀N₄O₆',
         pubchemCid: 493570,
+        state: 'crystal',
         chromophore: 'Isoalloxazine ring system',
         clinicalEffect: 'Fluorescent yellow urine - absorbs UV, emits visible light',
         urineColor: 'Fluorescent Neon Yellow',
@@ -85,6 +89,7 @@ const CLINICAL_DRUGS: DrugData[] = [
         color: '#22c55e',
         formula: 'C₂₀H₂₃N',
         pubchemCid: 2160,
+        state: 'powder',
         chromophore: 'Oxidized tricyclic metabolites',
         clinicalEffect: 'Green/blue urine from liver metabolites',
         urineColor: 'Green to Blue-Green',
@@ -266,15 +271,30 @@ export default function ClinicalColorCases() {
                                         </span>
                                     </div>
                                 </div>
-                                <div style={{
-                                    padding: '4px 10px',
-                                    background: drug.color,
-                                    borderRadius: '8px',
-                                    fontSize: '0.7rem',
-                                    color: 'white',
-                                    fontWeight: 600
-                                }}>
-                                    {drug.urineColor}
+                                <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
+                                    {/* State Badge */}
+                                    <div style={{
+                                        padding: '3px 8px',
+                                        background: 'rgba(255,255,255,0.08)',
+                                        borderRadius: '6px',
+                                        fontSize: '0.6rem',
+                                        color: '#94a3b8',
+                                        fontWeight: 500,
+                                        textTransform: 'uppercase'
+                                    }}>
+                                        {drug.state === 'crystal' ? '💎' : drug.state === 'powder' ? '🧂' : '💧'} {drug.state}
+                                    </div>
+                                    {/* Urine Color Badge */}
+                                    <div style={{
+                                        padding: '4px 10px',
+                                        background: drug.color,
+                                        borderRadius: '8px',
+                                        fontSize: '0.7rem',
+                                        color: 'white',
+                                        fontWeight: 600
+                                    }}>
+                                        {drug.urineColor}
+                                    </div>
                                 </div>
                             </div>
 
