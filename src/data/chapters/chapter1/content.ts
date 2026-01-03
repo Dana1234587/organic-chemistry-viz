@@ -232,7 +232,7 @@ export const sections: ChapterSection[] = [
         description: "Green prisms with a remarkable steel-blue metallic lustre.",
         color: "#2E8B57", // Sea Green
         type: "crystal",
-        pdbId: "nitrosojulolidine"
+        pdbId: "9-nitrosojulolidine"
       },
       {
         name: "Chlorophyll",
@@ -246,7 +246,7 @@ export const sections: ChapterSection[] = [
         description: "The orange pigment in carrots! Also makes flamingos pink (from their diet).",
         color: "#FF4500", // Orange Red
         type: "solid",
-        pdbId: "beta_carotene"
+        pdbId: "beta-carotene"
       }
     ],
     video: {
