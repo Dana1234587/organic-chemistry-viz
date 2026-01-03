@@ -4,7 +4,7 @@ export interface ChapterSection {
     content: string;
     // Video configuration for Bunny Stream or other sources
     video?: {
-        type: 'bunny' | 'youtube' | 'mp4';
+        type: 'bunny' | 'youtube' | 'mp4' | 'hls';
         url: string;
         duration?: string; // e.g., "5:30"
         thumbnail?: string;
@@ -32,10 +32,12 @@ export interface ChapterSection {
     }[];
     // Interactive simulation for this section
     simulation?: {
-        type: 'vision' | 'reaction' | 'drug-docking' | 'custom';
+        type: 'vision' | 'reaction' | 'drug-docking' | 'magic-bullet' | 'custom';
         title?: string;
         description?: string;
     };
+    // Sulfa Drug Discovery flag (Lesson 4 - Synthetic Dyes)
+    sulfaDrugDiscovery?: boolean;
     // Learning aids
     examTip?: string;
     plainEnglish?: {

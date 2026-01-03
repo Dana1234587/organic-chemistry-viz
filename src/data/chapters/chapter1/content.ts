@@ -343,8 +343,70 @@ export const sections: ChapterSection[] = [
         options: ["Sugar rings", "Benzene rings (aromatic)", "Alkane chains", "Sulfur atoms"],
         correctIndex: 1,
         explanation: "Aromatic compounds (benzene rings) are key building blocks in dyes because of their stability and ability to absorb visible light."
+      },
+      {
+        question: "What was revolutionary about Paul Ehrlich's 'Magic Bullet' concept?",
+        options: ["Making drugs cheaper", "Selective targeting of pathogens without harming host cells", "Using natural herbs", "X-ray therapy"],
+        correctIndex: 1,
+        explanation: "Ehrlich realized that molecules could selectively target bacteria while leaving human cells unharmed - the foundation of modern chemotherapy!"
+      },
+      {
+        question: "Prontosil (the first sulfa drug) is what type of compound?",
+        options: ["A protein", "A red azo dye", "A steroid", "A carbohydrate"],
+        correctIndex: 1,
+        explanation: "Prontosil was a bright red azo dye that was metabolized in the body to release the active antibiotic Sulfanilamide."
       }
-    ]
+    ],
+    simulation: {
+      type: 'magic-bullet' as const,
+      title: 'Magic Bullet Explorer',
+      description: 'Discover how selective targeting led to the first antibiotics'
+    },
+    sulfaDrugDiscovery: true,
+    drugDiscovery: {
+      title: 'The Chemical Cousins Hypothesis',
+      subtitle: 'From Dye Factories to Antibiotic Revolution',
+      story: [
+        {
+          phase: 'dye-origins',
+          title: '🏭 The Dye Factory Origins',
+          year: '1850s-1920s',
+          content: `It is no coincidence that the giants of the pharmaceutical industry (like Bayer, Pfizer, and Novartis) 
+            started as dye manufacturers. Medicinal chemists quickly realized that the same aromatic building blocks 
+            used for vibrant dyes—especially Aniline and Phenol—could build biologically active molecules. 
+            The chemical libraries created for dyes became the first screening libraries for drugs.`,
+          molecule: 'Aniline'
+        },
+        {
+          phase: 'magic-bullet',
+          title: '🎯 The Magic Bullet Theory',
+          year: '1900s',
+          content: `Nobel laureate Paul Ehrlich noticed that certain synthetic dyes would stain specific bacteria 
+            but leave human cells untouched. This sparked a revolutionary idea: If a dye molecule can selectively 
+            target a bacterium just to color it, could we attach a toxic "warhead" to that same molecule to kill 
+            the bacterium without harming the host?`,
+          molecule: 'Methylene Blue'
+        },
+        {
+          phase: 'sulfa-breakthrough',
+          title: '💊 The Sulfa Breakthrough',
+          year: '1935',
+          content: `This theory was proven correct with the discovery of Prontosil, a bright red azo dye. 
+            It was ineffective in a test tube, but in the human body, it was metabolized into Sulfanilamide—
+            the first commercially successful antibacterial drug. This marked the true beginning of targeted 
+            drug discovery.`,
+          molecule: 'Sulfanilamide'
+        }
+      ],
+      keyInsight: `The aromatic scaffolds originally developed for the fashion industry were the secret keys 
+        to the antibiotic revolution. This story perfectly illustrates how pure chemistry research in one field 
+        can revolutionize another—dye chemistry gave birth to modern medicine.`,
+      academicReference: {
+        title: 'The Antibiotic Era: Reform, Resistance, and the Pursuit of a Rational Therapeutics',
+        author: 'Scott H. Podolsky',
+        quote: '"The sulfa drugs demonstrated that synthetic chemicals could fight infectious disease—a paradigm shift in medicine."'
+      }
+    }
   },
   {
     id: "smell-and-pheromones",

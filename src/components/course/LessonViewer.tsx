@@ -103,6 +103,42 @@ const AspirinDiscoveryPanel = dynamic(() => import('../simulations/AspirinDiscov
     )
 });
 
+// Dynamic import for MagicBulletExplorer (Lesson 4 - Synthetic Dyes)
+const MagicBulletExplorer = dynamic(() => import('../simulations/MagicBulletExplorer'), {
+    ssr: false,
+    loading: () => (
+        <div style={{
+            height: '450px',
+            background: 'var(--gradient-card)',
+            borderRadius: '16px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: 'var(--neutral-400)'
+        }}>
+            Loading simulation...
+        </div>
+    )
+});
+
+// Dynamic import for SulfaDrugDiscoveryPanel (Lesson 4 - Synthetic Dyes)
+const SulfaDrugDiscoveryPanel = dynamic(() => import('../content/SulfaDrugDiscoveryPanel'), {
+    ssr: false,
+    loading: () => (
+        <div style={{
+            height: '400px',
+            background: 'var(--gradient-card)',
+            borderRadius: '16px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: 'var(--neutral-400)'
+        }}>
+            Loading Drug Discovery content...
+        </div>
+    )
+});
+
 // ... imports ...
 
 type TabType = 'lesson' | 'quickCheck' | 'molecules' | 'simulation' | 'drugDiscovery' | 'conjugation' | 'colors' | 'clinical' | 'detective' | 'research';
@@ -888,24 +924,30 @@ export default function LessonViewer({
                                 <DrugDockingSimulator />
                             )}
 
-                            {/* Placeholder for other simulation types */}
-                            {section.simulation.type !== 'vision' && section.simulation.type !== 'drug-docking' && (
-                                <div style={{
-                                    textAlign: 'center',
-                                    padding: '3rem 2rem',
-                                    background: 'var(--gradient-card)',
-                                    borderRadius: '16px',
-                                    border: '1px solid var(--neutral-800)'
-                                }}>
-                                    <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🎮</div>
-                                    <p style={{
-                                        color: 'var(--neutral-400)',
-                                        fontSize: '1rem'
-                                    }}>
-                                        Simulation coming soon!
-                                    </p>
-                                </div>
+                            {section.simulation.type === 'magic-bullet' && (
+                                <MagicBulletExplorer />
                             )}
+
+                            {/* Placeholder for other simulation types */}
+                            {section.simulation.type !== 'vision' &&
+                                section.simulation.type !== 'drug-docking' &&
+                                section.simulation.type !== 'magic-bullet' && (
+                                    <div style={{
+                                        textAlign: 'center',
+                                        padding: '3rem 2rem',
+                                        background: 'var(--gradient-card)',
+                                        borderRadius: '16px',
+                                        border: '1px solid var(--neutral-800)'
+                                    }}>
+                                        <div style={{ fontSize: '3rem', marginBottom: '1rem' }}>🎮</div>
+                                        <p style={{
+                                            color: 'var(--neutral-400)',
+                                            fontSize: '1rem'
+                                        }}>
+                                            Simulation coming soon!
+                                        </p>
+                                    </div>
+                                )}
                         </motion.div>
                     )}
 
@@ -922,10 +964,17 @@ export default function LessonViewer({
                                 <DrugDiscoveryPanel sectionId={section.id} />
                             )}
 
-                            {/* Other Lessons with drugDiscovery property (e.g., Aspirin story) */}
-                            {section.drugDiscovery && section.id !== 'organic-chemistry-and-you' && (
-                                <AspirinDiscoveryPanel drugDiscovery={section.drugDiscovery} />
+                            {/* Lesson 4: Sulfa Drug Discovery (Synthetic Dyes) */}
+                            {section.id === 'synthetic-dyes' && section.sulfaDrugDiscovery && (
+                                <SulfaDrugDiscoveryPanel />
                             )}
+
+                            {/* Other Lessons with drugDiscovery property (e.g., Aspirin story) */}
+                            {section.drugDiscovery &&
+                                section.id !== 'organic-chemistry-and-you' &&
+                                section.id !== 'synthetic-dyes' && (
+                                    <AspirinDiscoveryPanel drugDiscovery={section.drugDiscovery} />
+                                )}
                         </motion.div>
                     )}
                 </AnimatePresence>

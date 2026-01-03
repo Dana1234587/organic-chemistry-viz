@@ -58,6 +58,7 @@ import ConjugationDiagram from '@/components/content/ConjugationDiagram';
 import ClinicalColorCases from '@/components/content/ClinicalColorCases';
 import DrugDiscoveryTools from '@/components/content/DrugDiscoveryTools';
 import ClinicalDetectiveGame from '@/components/content/ClinicalDetectiveGame';
+import SulfaDrugDiscoveryPanel from '@/components/content/SulfaDrugDiscoveryPanel';
 import { ExamTip, PlainEnglish, CommonQuestion, ComparisonCard } from '@/components/LearningAids';
 
 // Dynamic import for MoleculeViewer (client-side only)
@@ -150,7 +151,23 @@ const AspirinDiscoveryPanel = dynamic(() => import('@/components/simulations/Asp
     )
 });
 
-// Dynamic import for Hybridization3D (client-side only)
+// Dynamic import for MagicBulletExplorer (client-side only - Lesson 4)
+const MagicBulletExplorer = dynamic(() => import('@/components/simulations/MagicBulletExplorer'), {
+    ssr: false,
+    loading: () => (
+        <div style={{
+            height: '450px',
+            background: 'var(--gradient-card)',
+            borderRadius: '20px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: 'var(--neutral-400)'
+        }}>
+            Loading Magic Bullet Simulation...
+        </div>
+    )
+});
 const Hybridization3D = dynamic(() => import('@/components/Hybridization3D'), {
     ssr: false,
     loading: () => (
@@ -595,6 +612,46 @@ export default function ChapterPage() {
                                         🔬 Test Your Knowledge: Clinical Detective
                                     </h3>
                                     <ClinicalDetectiveGame />
+                                </div>
+                            </>
+                        )}
+
+                        {/* Lesson 4: Synthetic Dyes - Drug Discovery & Magic Bullet */}
+                        {section.id === 'synthetic-dyes' && (
+                            <>
+                                {/* Sulfa Drug Discovery Panel */}
+                                <div style={{ margin: '2rem 0' }}>
+                                    <SulfaDrugDiscoveryPanel />
+                                </div>
+
+                                {/* Magic Bullet Explorer Simulation */}
+                                <div style={{
+                                    margin: '2rem 0',
+                                    padding: '1.5rem',
+                                    background: 'var(--gradient-card)',
+                                    borderRadius: '16px',
+                                    border: '1px solid var(--neutral-800)'
+                                }}>
+                                    <h3 style={{
+                                        fontSize: '1.4rem',
+                                        fontWeight: 700,
+                                        color: 'var(--neutral-100)',
+                                        marginBottom: '1rem',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: '0.5rem'
+                                    }}>
+                                        🔬 Interactive Simulation: The Magic Bullet Explorer
+                                    </h3>
+                                    <p style={{
+                                        color: 'var(--neutral-400)',
+                                        marginBottom: '1.5rem',
+                                        lineHeight: 1.6
+                                    }}>
+                                        Experience Paul Ehrlich&apos;s revolutionary concept of selective drug targeting.
+                                        Test different compounds and discover why Prontosil became the first antibiotic!
+                                    </p>
+                                    <MagicBulletExplorer />
                                 </div>
                             </>
                         )}
