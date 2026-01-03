@@ -202,11 +202,8 @@ export const sections: ChapterSection[] = [
       are easily excited by visible light.
       
       THE CONJUGATION RULE:
-      Generally, the more conjugated double bonds a molecule has, the longer the wavelength 
-      of light it absorbs, and the more "red-shifted" its color becomes:
-      • Few conjugated bonds → absorbs UV (colorless)
-      • Medium conjugation → absorbs blue/violet (appears yellow/orange)
-      • Extensive conjugation → absorbs across visible spectrum (appears red, purple, or blue)`,
+      See the interactive diagram below to understand how conjugation length affects the color we see!`,
+    conjugationDiagram: true,
     colorExamples: [
       {
         name: "Azulene",

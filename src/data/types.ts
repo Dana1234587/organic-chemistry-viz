@@ -71,7 +71,9 @@ export interface ChapterSection {
             color: string;
             type: 'liquid' | 'solid' | 'gas' | 'crystal';
         }[];
-    }
+    };
+    conjugationDiagram?: boolean;
+}
 
 export interface ChapterQuiz {
     id: number;
