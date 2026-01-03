@@ -23,7 +23,7 @@ export default function ProgressSidebar({
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             style={{
-                width: '280px',
+                width: '320px',
                 flexShrink: 0,
                 position: 'sticky',
                 top: '2rem',
@@ -167,7 +167,7 @@ export default function ProgressSidebar({
                 borderRadius: '20px',
                 padding: '1.5rem',
                 border: '1px solid var(--neutral-800)',
-                maxHeight: '400px',
+                maxHeight: 'calc(100vh - 400px)',
                 overflowY: 'auto'
             }}>
                 <h4 style={{
@@ -186,11 +186,12 @@ export default function ProgressSidebar({
                                 key={section.id}
                                 style={{
                                     display: 'flex',
-                                    alignItems: 'center',
+                                    alignItems: 'flex-start',
                                     gap: '0.75rem',
-                                    padding: '0.5rem',
+                                    padding: '0.75rem',
                                     borderRadius: '8px',
-                                    background: isCompleted ? 'rgba(16, 185, 129, 0.1)' : 'transparent'
+                                    background: isCompleted ? 'rgba(16, 185, 129, 0.1)' : 'transparent',
+                                    transition: 'background 0.2s ease'
                                 }}
                             >
                                 <span style={{
@@ -206,17 +207,15 @@ export default function ProgressSidebar({
                                     fontSize: '0.7rem',
                                     fontWeight: 600,
                                     color: isCompleted ? 'white' : 'var(--neutral-500)',
-                                    flexShrink: 0
+                                    flexShrink: 0,
+                                    marginTop: '2px'
                                 }}>
                                     {isCompleted ? '✓' : index + 1}
                                 </span>
                                 <span style={{
                                     fontSize: '0.85rem',
                                     color: isCompleted ? 'var(--accent-emerald)' : 'var(--neutral-400)',
-                                    lineHeight: 1.3,
-                                    overflow: 'hidden',
-                                    textOverflow: 'ellipsis',
-                                    whiteSpace: 'nowrap'
+                                    lineHeight: 1.4
                                 }}>
                                     {section.title}
                                 </span>
