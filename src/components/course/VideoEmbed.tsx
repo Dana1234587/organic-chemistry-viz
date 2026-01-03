@@ -127,34 +127,6 @@ export default function VideoEmbed({ type, url, title, thumbnail }: VideoEmbedPr
                     background: 'var(--neutral-900)'
                 }}
             >
-                {/* Loading overlay */}
-                {isLoading && (
-                    <div style={{
-                        position: 'absolute',
-                        inset: 0,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        background: 'var(--neutral-900)',
-                        gap: '1rem',
-                        zIndex: 10
-                    }}>
-                        <motion.div
-                            animate={{ rotate: 360 }}
-                            transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
-                            style={{
-                                width: '40px',
-                                height: '40px',
-                                border: '3px solid var(--neutral-700)',
-                                borderTopColor: 'var(--primary-500)',
-                                borderRadius: '50%'
-                            }}
-                        />
-                        <span style={{ color: 'var(--neutral-400)' }}>Loading video...</span>
-                    </div>
-                )}
-
                 {/* Error state */}
                 {hasError && (
                     <div style={{
@@ -198,12 +170,11 @@ export default function VideoEmbed({ type, url, title, thumbnail }: VideoEmbedPr
                     </div>
                 )}
 
-                {/* HLS Video Player */}
+                {/* HLS Video Player - Always visible, native loader will handle buffering */}
                 <video
                     ref={videoRef}
                     controls
                     playsInline
-                    crossOrigin="anonymous"
                     poster={thumbnail}
                     style={{
                         width: '100%',
