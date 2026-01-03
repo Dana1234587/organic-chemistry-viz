@@ -902,15 +902,9 @@ export default function ChapterPage() {
                             />
                         )}
 
-                        {/* Conjugation Diagram */}
-                        {section.conjugationDiagram && (
-                            <ConjugationDiagram />
-                        )}
-
-                        {/* Color Examples Grid */}
-                        {section.colorExamples && (
-                            <ColorMoleculesGrid examples={section.colorExamples} />
-                        )}
+                        {/* NOTE: ConjugationDiagram and ColorMoleculesGrid are now rendered 
+                            in the specific section block for 'colors-of-organic-chemistry' above (lines 542-600)
+                            to avoid duplication and allow proper ordering with other clinical components */}
                     </motion.div>
                 );
             })}

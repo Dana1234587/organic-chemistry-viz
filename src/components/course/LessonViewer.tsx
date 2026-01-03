@@ -31,6 +31,78 @@ const MoleculeViewer = dynamic(() => import('../MoleculeViewer'), {
     )
 });
 
+// Dynamic import for VisionSimulator
+const VisionSimulator = dynamic(() => import('../simulations/VisionSimulator'), {
+    ssr: false,
+    loading: () => (
+        <div style={{
+            height: '300px',
+            background: 'var(--gradient-card)',
+            borderRadius: '16px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: 'var(--neutral-400)'
+        }}>
+            Loading simulation...
+        </div>
+    )
+});
+
+// Dynamic import for DrugDockingSimulator
+const DrugDockingSimulator = dynamic(() => import('../simulations/DrugDockingSimulator'), {
+    ssr: false,
+    loading: () => (
+        <div style={{
+            height: '300px',
+            background: 'var(--gradient-card)',
+            borderRadius: '16px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: 'var(--neutral-400)'
+        }}>
+            Loading simulation...
+        </div>
+    )
+});
+
+// Dynamic import for DrugDiscoveryPanel
+const DrugDiscoveryPanel = dynamic(() => import('../simulations/DrugDiscoveryPanel'), {
+    ssr: false,
+    loading: () => (
+        <div style={{
+            height: '200px',
+            background: 'var(--gradient-card)',
+            borderRadius: '16px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: 'var(--neutral-400)'
+        }}>
+            Loading content...
+        </div>
+    )
+});
+
+// Dynamic import for AspirinDiscoveryPanel
+const AspirinDiscoveryPanel = dynamic(() => import('../simulations/AspirinDiscoveryPanel'), {
+    ssr: false,
+    loading: () => (
+        <div style={{
+            height: '200px',
+            background: 'var(--gradient-card)',
+            borderRadius: '16px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: 'var(--neutral-400)'
+        }}>
+            Loading content...
+        </div>
+    )
+});
+
 // ... imports ...
 
 type TabType = 'lesson' | 'quickCheck' | 'molecules' | 'simulation' | 'drugDiscovery' | 'conjugation' | 'colors' | 'clinical' | 'detective' | 'research';

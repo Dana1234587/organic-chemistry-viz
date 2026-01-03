@@ -199,10 +199,7 @@ export const sections: ChapterSection[] = [
       Color arises when molecules absorb certain wavelengths of visible light. This happens when 
       electrons can be excited to higher energy levels. Molecules with extended systems of alternating 
       single and double bonds (called CONJUGATED systems) are often colored because these electrons 
-      are easily excited by visible light.
-      
-      THE CONJUGATION RULE:
-      See the interactive diagram below to understand how conjugation length affects the color we see!`,
+      are easily excited by visible light.`,
     conjugationDiagram: true,
     colorExamples: [
       {
