@@ -100,6 +100,11 @@ export const sections: ChapterSection[] = [
       Why is carbon so special? It's in the "Goldilocks" position of the periodic table—not too big, not too small, 
       not too electronegative. This allows it to form stable bonds with many elements and create the molecular 
       diversity that life requires.`,
+    video: {
+      type: 'hls' as const,
+      url: 'https://vz-2adfd2e0-f8c.b-cdn.net/1c53dca0-7041-4cf0-b86f-fe95b983ac1c/playlist.m3u8',
+      duration: '10:00'
+    },
     molecules: [
       { name: "Methane", description: "The simplest organic molecule (CH₄)" },
       { name: "Ethanol", description: "Simple alcohol found in beverages" }
@@ -222,6 +227,11 @@ export const sections: ChapterSection[] = [
       • Few conjugated bonds → absorbs UV (colorless)
       • Medium conjugation → absorbs blue/violet (appears yellow/orange)
       • Extensive conjugation → absorbs across visible spectrum (appears red, purple, or blue)`,
+    video: {
+      type: 'hls' as const,
+      url: 'https://vz-2adfd2e0-f8c.b-cdn.net/3cd3146b-3c0f-4527-b63c-6b2d8f779343/playlist.m3u8',
+      duration: '12:00'
+    },
     molecules: [
       { name: "Azulene", description: "A beautiful deep blue liquid - unusual for a small organic molecule!" },
       { name: "Benzene", description: "Colorless - not enough conjugation to absorb visible light" }
@@ -284,6 +294,11 @@ export const sections: ChapterSection[] = [
       • Aniline: Benzene with an -NH₂ group (basis of many dyes)
       
       These aromatic building blocks remain essential in pharmaceuticals, polymers, and materials today.`,
+    video: {
+      type: 'hls' as const,
+      url: 'https://vz-2adfd2e0-f8c.b-cdn.net/e7874c2d-9dc0-4631-9199-bb507cfc38b3/playlist.m3u8',
+      duration: '15:00'
+    },
     molecules: [
       { name: "Benzene", description: "The parent aromatic compound - a hexagonal ring" }
     ],
@@ -371,6 +386,11 @@ export const sections: ChapterSection[] = [
       thioacetone, the smell evacuated the entire city! People vomited in the streets from the stench. 
       In 1967, scientists repeated the experiment near Oxford, and workers at an Esso research station 
       400 meters away complained within seconds. This demonstrates just how sensitive our smell is!`,
+    video: {
+      type: 'hls' as const,
+      url: 'https://vz-2adfd2e0-f8c.b-cdn.net/effe4764-155a-457a-8fd3-f2b40c313f19/playlist.m3u8',
+      duration: '14:00'
+    },
     molecules: [
       { name: "Limonene", description: "Mirror-image forms smell like oranges vs lemons!" },
       { name: "Muscone", description: "Musk deer pheromone - 15-membered ring" },
@@ -447,6 +467,11 @@ export const sections: ChapterSection[] = [
       
       Understanding stereochemistry is essential for understanding how drugs work and how enzymes 
       recognize their substrates with exquisite specificity.`,
+    video: {
+      type: 'hls' as const,
+      url: 'https://vz-2adfd2e0-f8c.b-cdn.net/3486a75c-78ee-422c-a14b-685873952501/playlist.m3u8',
+      duration: '11:00'
+    },
     keyPoints: [
       "Chirality = molecular handedness (non-superimposable mirror images)",
       "A carbon with 4 different groups is a chiral center",
@@ -506,6 +531,11 @@ export const sections: ChapterSection[] = [
       The octet rule states that atoms are most stable when their outer shell has 8 electrons (or 2 for 
       hydrogen). Carbon needs 4 more electrons to complete its octet, so it shares electrons 
       by forming 4 covalent bonds.`,
+    video: {
+      type: 'hls' as const,
+      url: 'https://vz-2adfd2e0-f8c.b-cdn.net/94e0612a-1a23-474e-8491-ca21b66ec4fa/playlist.m3u8',
+      duration: '08:00'
+    },
     keyPoints: [
       "Electrons orbit the nucleus in shells (energy levels)",
       "Carbon has 6 electrons: 2 in the first shell, 4 in the second",
@@ -565,6 +595,11 @@ export const sections: ChapterSection[] = [
       LEWIS STRUCTURES (electron dot structures) show bonding:
       • Each line represents 2 shared electrons (a bonding pair)
       • Dots around atoms represent non-bonding electrons (lone pairs)`,
+    video: {
+      type: 'hls' as const,
+      url: 'https://vz-2adfd2e0-f8c.b-cdn.net/5469430a-05ae-42dc-b550-dcfd9f46f151/playlist.m3u8',
+      duration: '09:00'
+    },
     molecules: [
       { name: "Methane", description: "Perfect example of 4 covalent C-H bonds" },
       { name: "Ethanol", description: "Contains C-C, C-H, C-O, and O-H bonds" }
