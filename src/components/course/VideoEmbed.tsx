@@ -184,7 +184,6 @@ export default function VideoEmbed({ type, url, title, thumbnail }: VideoEmbedPr
                     controls
                     playsInline
                     autoPlay
-                    muted
                     poster={thumbnail}
                     style={{
                         width: '100%',
