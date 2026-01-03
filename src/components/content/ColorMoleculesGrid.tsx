@@ -45,49 +45,56 @@ function Inline3DViewer({ pdbId, moleculeColor }: { pdbId: string; moleculeColor
 
     const applyStyle = (viewer: any, style: ViewStyle) => {
         if (!viewer) return;
-        viewer.setStyle({}, {});
-        viewer.removeAllLabels();
 
-        switch (style) {
-            case 'stick':
-                viewer.setStyle({}, {
-                    stick: { radius: 0.18, colorscheme: 'Jmol' },
-                    sphere: { scale: 0.35, colorscheme: 'Jmol' }
-                });
-                break;
-            case 'sphere':
-                viewer.setStyle({}, {
-                    sphere: { scale: 0.9, colorscheme: 'Jmol' }
-                });
-                break;
-            case 'line':
-                viewer.setStyle({}, {
-                    line: { colorscheme: 'Jmol', linewidth: 3 }
-                });
-                break;
-            case 'colored':
-                viewer.setStyle({}, {
-                    stick: { radius: 0.22, color: moleculeColor },
-                    sphere: { scale: 0.4, color: moleculeColor }
-                });
-                break;
-        }
+        try {
+            viewer.setStyle({}, {});
+            viewer.removeAllLabels();
 
-        // Add labels for non-H atoms
-        const atoms = viewer.getModel()?.atoms || [];
-        atoms.forEach((atom: any) => {
-            if (atom.elem !== 'H') {
-                viewer.addLabel(atom.elem, {
-                    position: { x: atom.x, y: atom.y, z: atom.z },
-                    backgroundColor: 'rgba(0,0,0,0.5)',
-                    fontColor: ELEMENT_COLORS[atom.elem]?.color || '#FFFFFF',
-                    fontSize: 11,
-                    inFront: true
+            switch (style) {
+                case 'stick':
+                    viewer.setStyle({}, {
+                        stick: { radius: 0.18, colorscheme: 'Jmol' },
+                        sphere: { scale: 0.35, colorscheme: 'Jmol' }
+                    });
+                    break;
+                case 'sphere':
+                    viewer.setStyle({}, {
+                        sphere: { scale: 0.9, colorscheme: 'Jmol' }
+                    });
+                    break;
+                case 'line':
+                    viewer.setStyle({}, {
+                        line: { colorscheme: 'Jmol', linewidth: 3 }
+                    });
+                    break;
+                case 'colored':
+                    viewer.setStyle({}, {
+                        stick: { radius: 0.22, color: moleculeColor },
+                        sphere: { scale: 0.4, color: moleculeColor }
+                    });
+                    break;
+            }
+
+            // Add labels for non-H atoms - with safety checks
+            const model = viewer.getModel();
+            if (model && model.atoms && Array.isArray(model.atoms)) {
+                model.atoms.forEach((atom: any) => {
+                    if (atom && atom.elem && atom.elem !== 'H') {
+                        viewer.addLabel(atom.elem, {
+                            position: { x: atom.x, y: atom.y, z: atom.z },
+                            backgroundColor: 'rgba(0,0,0,0.5)',
+                            fontColor: ELEMENT_COLORS[atom.elem]?.color || '#FFFFFF',
+                            fontSize: 11,
+                            inFront: true
+                        });
+                    }
                 });
             }
-        });
 
-        viewer.render();
+            viewer.render();
+        } catch (err) {
+            console.warn('Error applying style:', err);
+        }
     };
 
     useEffect(() => {
@@ -119,6 +126,7 @@ function Inline3DViewer({ pdbId, moleculeColor }: { pdbId: string; moleculeColor
 
                 let modelData = moleculeData.pdb;
                 let modelFormat = moleculeData.format || 'pdb';
+                let hasValidModel = false;
 
                 // Try PubChem for 3D structure
                 if (moleculeData.pubchemCid) {
@@ -130,6 +138,7 @@ function Inline3DViewer({ pdbId, moleculeColor }: { pdbId: string; moleculeColor
                             if (sdfData.includes('V2000') || sdfData.includes('V3000')) {
                                 modelData = sdfData;
                                 modelFormat = 'sdf';
+                                hasValidModel = true;
                             }
                         }
                     } catch (err) {
@@ -137,7 +146,25 @@ function Inline3DViewer({ pdbId, moleculeColor }: { pdbId: string; moleculeColor
                     }
                 }
 
+                // Check if we have valid structural data (not just placeholder)
+                const isPlaceholder = !modelData || modelData.length < 100 || modelData.startsWith('COMPND');
+
+                if (!hasValidModel && isPlaceholder) {
+                    setError('3D structure coming soon!');
+                    setIsLoading(false);
+                    return;
+                }
+
                 viewer.addModel(modelData, modelFormat);
+
+                // Verify model was added successfully
+                const model = viewer.getModel();
+                if (!model || !model.atoms || model.atoms.length === 0) {
+                    setError('3D structure coming soon!');
+                    setIsLoading(false);
+                    return;
+                }
+
                 applyStyle(viewer, viewStyle);
                 viewer.zoomTo();
                 viewer.render();
