@@ -84,7 +84,7 @@ export default function LessonViewer({
         ...(isColorLesson ? [{ id: 'research' as const, icon: '🧬', label: 'Research Tools' }] : []),
         ...(isColorLesson ? [{ id: 'detective' as const, icon: '🔬', label: 'Color Detective' }] : []),
         { id: 'quickCheck' as const, icon: '✅', label: 'Quick Check' },
-        { id: 'molecules' as const, icon: '🧪', label: 'Molecules' },
+        ...(!isColorLesson ? [{ id: 'molecules' as const, icon: '🧪', label: 'Molecules' }] : []),
         ...(section.simulation ? [{ id: 'simulation' as const, icon: '🎮', label: 'Simulation' }] : []),
         ...(showDrugDiscoveryTab ? [{ id: 'drugDiscovery' as const, icon: '💉', label: 'Drug Discovery' }] : [])
     ];

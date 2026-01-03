@@ -55,6 +55,9 @@ import QuickCheck from '@/components/QuickCheck';
 import OnePageSummary from '@/components/OnePageSummary';
 import ColorMoleculesGrid from '@/components/content/ColorMoleculesGrid';
 import ConjugationDiagram from '@/components/content/ConjugationDiagram';
+import ClinicalColorCases from '@/components/content/ClinicalColorCases';
+import DrugDiscoveryTools from '@/components/content/DrugDiscoveryTools';
+import ClinicalDetectiveGame from '@/components/content/ClinicalDetectiveGame';
 import { ExamTip, PlainEnglish, CommonQuestion, ComparisonCard } from '@/components/LearningAids';
 
 // Dynamic import for MoleculeViewer (client-side only)
@@ -534,6 +537,66 @@ export default function ChapterPage() {
                                     </div>
                                 ))}
                             </div>
+                        )}
+
+                        {/* Lesson 3: Colors of Organic Chemistry - Clinical Applications */}
+                        {section.id === 'colors-of-organic-chemistry' && (
+                            <>
+                                {/* Conjugation Diagram */}
+                                <div style={{ margin: '2rem 0' }}>
+                                    <ConjugationDiagram />
+                                </div>
+
+                                {/* Featured Color Molecules */}
+                                {(section as any).colorExamples && (
+                                    <div style={{ margin: '2rem 0' }}>
+                                        <h3 style={{
+                                            fontSize: '1.4rem',
+                                            fontWeight: 700,
+                                            color: 'var(--neutral-100)',
+                                            marginBottom: '1rem',
+                                            display: 'flex',
+                                            alignItems: 'center',
+                                            gap: '0.5rem'
+                                        }}>
+                                            🧪 Featured Color Molecules
+                                        </h3>
+                                        <ColorMoleculesGrid examples={(section as any).colorExamples} />
+                                    </div>
+                                )}
+
+                                {/* Clinical Colors Section */}
+                                <div style={{ margin: '2rem 0' }}>
+                                    <ClinicalColorCases />
+                                </div>
+
+                                {/* Drug Discovery Research Tools */}
+                                <div style={{ margin: '2rem 0' }}>
+                                    <DrugDiscoveryTools />
+                                </div>
+
+                                {/* Interactive Detective Game */}
+                                <div style={{
+                                    margin: '2rem 0',
+                                    padding: '1.5rem',
+                                    background: 'var(--gradient-card)',
+                                    borderRadius: '16px',
+                                    border: '1px solid var(--neutral-800)'
+                                }}>
+                                    <h3 style={{
+                                        fontSize: '1.4rem',
+                                        fontWeight: 700,
+                                        color: 'var(--neutral-100)',
+                                        marginBottom: '1rem',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        gap: '0.5rem'
+                                    }}>
+                                        🔬 Test Your Knowledge: Clinical Detective
+                                    </h3>
+                                    <ClinicalDetectiveGame />
+                                </div>
+                            </>
                         )}
 
                         {/* Chapter 3: Spectroscopy Diagrams - ACCURATE DATA FROM TEXTBOOK */}
